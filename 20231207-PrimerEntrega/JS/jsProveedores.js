@@ -28,7 +28,9 @@ if(localStorage.length>0){
     listaProveedores.push(JSON.parse(localStorage.getItem("proveedores")));
 }
     
+export function modificarProveedor(index){
     
+}    
 
 export function guardarProveedor(cod, razon, rubro, sitio, email, tel, direccion, cuit, iva, contacto){
     console.log("datos que llegan a guardar: " + cod +" "+ razon);
@@ -56,7 +58,7 @@ export function guardarProveedor(cod, razon, rubro, sitio, email, tel, direccion
 export const listadoProveedores = () =>{
     if(listadoProveedores == 0){
         console.log("No hay nada")
-        return 0;
+        return [];
     }else{
         return listaProveedores;
     }
