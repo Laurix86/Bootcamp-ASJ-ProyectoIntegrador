@@ -1,4 +1,4 @@
-let listaProveedores = [{
+let listaProveedores = [/* {
         codigo: "ABC1", 
         razonSocial: "Proveduria", 
         rubro: "De todo",
@@ -21,19 +21,25 @@ let listaProveedores = [{
         cuit: "30-65854263-1",
         iva: false,
         contacto: "datos de contaco"
-    }
+    } */
 ];
 
-if(localStorage.length>0){
+/* if(localStorage.length>0){
     listaProveedores.push(JSON.parse(localStorage.getItem("proveedores")));
-}
+} */
     
-export function modificarProveedor(index){
+export function eliminarProveedor(index){
+    //console.log("borrar")
+     listaProveedores.splice(index, 1);
     
+    localStorage.setItem("proveedores", JSON.stringify(listaProveedores))
+    console.log("lista "+ JSON.stringify(listaProveedores));
+    location.href = "./proveedores.html";
+
 }    
 
 export function guardarProveedor(cod, razon, rubro, sitio, email, tel, direccion, cuit, iva, contacto){
-    console.log("datos que llegan a guardar: " + cod +" "+ razon);
+
     let nuevoProveedor = {
         codigo: cod, 
         razonSocial: razon, 
@@ -47,7 +53,11 @@ export function guardarProveedor(cod, razon, rubro, sitio, email, tel, direccion
         contacto: contacto
         
     }
+    listaProveedores = JSON.parse(localStorage.getItem("proveedores")) || [];
+   
     listaProveedores.push(nuevoProveedor);
+    
+    localStorage.setItem(`proveedores`,  JSON.stringify(listaProveedores));
     console.log("lista guardada "+ JSON.stringify(listaProveedores));
 
     //localStorage.clear();
@@ -56,12 +66,17 @@ export function guardarProveedor(cod, razon, rubro, sitio, email, tel, direccion
 }
 
 export const listadoProveedores = () =>{
-    if(listadoProveedores == 0){
+    listaProveedores = JSON.parse(localStorage.getItem("proveedores")) || [];
+    return listaProveedores;
+    /* if(localStorage.length>0){
+        listaProveedores.push(JSON.parse(localStorage.getItem("proveedores")));
+        console.log(listaProveedores)
+        return listaProveedores;
+    }else if(listadoProveedores.length === 0){
         console.log("No hay nada")
         return [];
-    }else{
-        return listaProveedores;
-    }
+    
+    } */
 }
 
 function devolverProveedor(cod){

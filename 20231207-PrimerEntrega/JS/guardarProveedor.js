@@ -21,10 +21,10 @@ btnGuardar.addEventListener("click", ()=>{
       }else{
         iva = false;
     }
-    console.log("click")
+   
     //falta control de campos completos
     objProv = guardarProveedor(cod.value, razon.value, rubro.value, sitio.value, mail.value, tel.value, address.value, cuit.value, iva, contacto.value);
-    localStorage.setItem("proveedores", JSON.stringify(objProv) );
+    //localStorage.setItem("proveedores", JSON.stringify(objProv) );
     location.href = "./proveedores.html";
 });
 
