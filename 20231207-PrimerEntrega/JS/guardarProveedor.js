@@ -1,6 +1,6 @@
 import {guardarProveedor} from "./jsProveedores.js";
 
-const btnGuardar = document.getElementById("btnSubmit");
+const btnGuardar = document.getElementById("btnSubmitProv");
 const cod = document.getElementById("codigo");
 const razon = document.getElementById("razon");
 const rubro  = document.getElementById("rubro");
