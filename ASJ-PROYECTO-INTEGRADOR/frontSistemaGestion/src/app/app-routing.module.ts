@@ -1,7 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+import { DisplayProveedoresComponent } from './components/proveedores/display-proveedores/display-proveedores.component';
+import { DisplayProductsComponent } from './components/products/display-products/display-products.component';
+import { DisplayOrdersComponent } from './components/orders/display-orders/display-orders.component';
+
+const routes: Routes = [
+  {path: 'inicio', component: DisplayOrdersComponent},
+  {path: 'proveedores', component: DisplayProveedoresComponent},
+  {path: 'productos', component: DisplayProductsComponent},
+  {path: 'ordenes', component: DisplayOrdersComponent},
+  /// otras rutas
+  {path: '**', pathMatch:'full', redirectTo: 'MainComponent'},
+];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
@@ -9,15 +21,6 @@ const routes: Routes = [];
 })
 export class AppRoutingModule { }
 
-/* 
-const routes: Routes = [
-    {path: 'inicio', component: MainComponent},
-    {path: 'todoList', component: ProyectoUnoComponent},
-    {path: 'simpsons', component: SimpsonsComponent},
-    {path: 'proyectoTres', component: ProyectoTresComponent},
-    /// otras rutas
-    {path: '**', pathMatch:'full', redirectTo: 'MainComponent'},
-];
+ 
 
 export const routing = RouterModule.forRoot(routes);
-*/

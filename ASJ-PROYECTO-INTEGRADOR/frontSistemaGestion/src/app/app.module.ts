@@ -9,6 +9,10 @@ import { DisplayProveedoresComponent } from './components/proveedores/display-pr
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { SidebarMenuComponent } from './components/sidebar-menu/sidebar-menu.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { CreateProductsComponent } from './components/products/create-products/create-products.component';
+import { DisplayProductsComponent } from './components/products/display-products/display-products.component';
+import { CreateOrdersComponent } from './components/orders/create-orders/create-orders.component';
+import { DisplayOrdersComponent } from './components/orders/display-orders/display-orders.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +21,11 @@ import { FooterComponent } from './components/footer/footer.component';
     DisplayProveedoresComponent,
     NavMenuComponent,
     SidebarMenuComponent,
-    FooterComponent
+    FooterComponent,
+    CreateProductsComponent,
+    DisplayProductsComponent,
+    CreateOrdersComponent,
+    DisplayOrdersComponent
   ],
   imports: [
     BrowserModule,
