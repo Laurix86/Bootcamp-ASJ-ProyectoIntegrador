@@ -1,1 +1,5 @@
-<p>create-proveedores works!</p>
+<form #miForm="ngForm" (ngSubmit)="submitForm()">
+    <input type="text" name="nombre" ngModel required>
+    <input type="email" name="email" ngModel required>
+    <button type="submit" [disabled]="!miForm.valid">Enviar</button>
+  </form>
