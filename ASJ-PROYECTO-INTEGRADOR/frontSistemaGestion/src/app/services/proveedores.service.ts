@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import {ProviderModel} from '../models/providersModel'
+/* import Cities from "../../../models/cities.json"
+import States from "../../../models/states.json"
+import Countries from "../../../models/countries.json" */
 //import { Usuario } from '../models/Usuarios';
 
 
@@ -10,6 +14,39 @@ import { Observable } from 'rxjs';
 export class ProveedoresService {
 
   constructor() { }
+  providerModel: ProviderModel[] = [];
+
+  //Complete List
+  public getAllProviders(){
+    this.providerModel = JSON.parse(localStorage.getItem("provider")!) || [];
+    return this.providerModel; 
+    
+  }
+
+  // Only Active Providers List
+  public getActiveProviders(){
+    const auxActiveProviders = this.getAllProviders();
+    this.providerModel = auxActiveProviders.filter(elem => elem.activo);
+    return this.providerModel;
+  }
+
+  // Save new Provider
+  public  saveProvider (infoProvider: ProviderModel){
+    const auxProveedores = this.getAllProviders();
+    auxProveedores.push(infoProvider);
+    localStorage.setItem("provider", JSON.stringify(auxProveedores));
+    
+  }
+
+  //Inactive Provider
+  public deleteProvider(index:number){
+    const auxDeleteProv  = this.getAllProviders();
+    auxDeleteProv.map(elem => {
+      if(elem.code == index){
+        elem.activo = false;
+      }
+    });
+  }
 }
 
 /**import { HttpClient } from '@angular/common/http';
