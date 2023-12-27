@@ -92,11 +92,13 @@ export class ProveedoresService {
   //Inactive Provider
   public deleteProvider(index:number){
     const auxDeleteProv  = this.getAllProviders();
-    auxDeleteProv.map(elem => {
+    this.providerModelArr = auxDeleteProv.map(elem => {
       if(elem.id == index){
         elem.activo = false;
       }
+      return elem;
     });
+    localStorage.setItem("provider", JSON.stringify(this.providerModelArr));
   }
 
 

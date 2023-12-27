@@ -56,4 +56,15 @@ export class ProductsService {
     }
 
   }
+
+  public deleteProduct(index:number){
+    const auxDeleteProd = this.getAllProducts();
+    this.productModelArr = auxDeleteProd.map(elem => {
+      if(elem.id == index){
+        elem.activo = false;
+      }
+      return elem;
+    })
+    localStorage.setItem("product", JSON.stringify(this.productModelArr));
+  }
 }
