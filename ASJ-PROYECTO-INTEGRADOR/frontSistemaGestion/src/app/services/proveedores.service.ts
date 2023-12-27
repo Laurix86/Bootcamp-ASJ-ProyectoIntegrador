@@ -75,14 +75,14 @@ export class ProveedoresService {
       auxProveedores.push(infoProvider);
       localStorage.setItem("provider", JSON.stringify(auxProveedores));
     } else{
-      auxProveedores.map(elem => {
+      this.providerModelArr = auxProveedores.map(elem => {
         if(elem.id == indexId){
           elem = infoProvider;
-          console.log("elem modif: ", elem);
         }
+        return elem;
       })
-      console.log("filtrado: ", auxProveedores);
-      //localStorage.setItem("provider", JSON.stringify(aux));
+      
+      localStorage.setItem("provider", JSON.stringify(this.providerModelArr));
 
     }
     

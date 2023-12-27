@@ -51,7 +51,7 @@ export class CreateProveedoresComponent implements OnInit{
 
     }); */
     this.indexProv = this.activeRoute.snapshot.paramMap.get('idProveedor')||-1;
-    console.log(this.indexProv)
+ /*    console.log(this.indexProv) */
     
     if(this.indexProv == -1){
       this.title = "Guardar Proveedor Nuevo";
@@ -68,7 +68,7 @@ export class CreateProveedoresComponent implements OnInit{
     if(!form.valid){
       ///modal
       return
-    }else if(this.indexProv == null){
+    }else if(this.indexProv == -1){
       
       this.provider.condIVA = this.checkIva(this.provider.condIVA)
       console.log("cond: ",this.provider.condIVA )
