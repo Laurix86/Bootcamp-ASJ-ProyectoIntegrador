@@ -14,6 +14,7 @@ import { CreateProductsComponent } from './components/products/create-products/c
 import { DisplayProductsComponent } from './components/products/display-products/display-products.component';
 import { CreateOrdersComponent } from './components/orders/create-orders/create-orders.component';
 import { DisplayOrdersComponent } from './components/orders/display-orders/display-orders.component';
+import { filterPipePipe } from './components/pipes/filterPipe.pipe';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { DisplayOrdersComponent } from './components/orders/display-orders/displ
     CreateProductsComponent,
     DisplayProductsComponent,
     CreateOrdersComponent,
-    DisplayOrdersComponent
+    DisplayOrdersComponent,
+    filterPipePipe
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,6 @@
 export interface ProviderModel {
-    code?: number;
+    id?: number;
+    code: string;
     razonSocial:string;
     rubro:string;
     sitioWeb:string;

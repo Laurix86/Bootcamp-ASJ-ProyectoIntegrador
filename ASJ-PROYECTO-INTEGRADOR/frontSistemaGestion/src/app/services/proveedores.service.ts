@@ -14,27 +14,78 @@ import Countries from "../../../models/countries.json" */
 export class ProveedoresService {
 
   constructor() { }
-  providerModel: ProviderModel[] = [];
+  providerModelArr: ProviderModel[] = [];
+  oneProvider: ProviderModel= {
+    code: '',
+    razonSocial: '',
+    rubro: '',
+    sitioWeb: '',
+    email: '',
+    telefono: '',
+    direccion: '',
+    ciudad: '',
+    provincia: '',
+    pais: '',
+    cuit: '',
+    condIVA: "Responsable Inscripto" || "Autónomo" || "Monotributista" || "Exento" || "Consumidor Final",
+    nombre: '',
+    apellido: '',
+    teleContacto: '',
+    mailContacto: '',
+    rolContacto: '',
+    activo: false
+  };
 
   //Complete List
   public getAllProviders(){
-    this.providerModel = JSON.parse(localStorage.getItem("provider")!) || [];
-    return this.providerModel; 
-    
+      const auxListado = localStorage.getItem("provider");
+      if(auxListado){
+        this.providerModelArr = JSON.parse(auxListado);
+      }else{
+        this.providerModelArr = [];
+      }
+      //this.providerModelArr = JSON.parse(localStorage.getItem("provider")!) || [];
+      return this.providerModelArr; 
+   
   }
 
   // Only Active Providers List
   public getActiveProviders(){
     const auxActiveProviders = this.getAllProviders();
-    this.providerModel = auxActiveProviders.filter(elem => elem.activo);
-    return this.providerModel;
+    if(auxActiveProviders.length <=0){
+      return [];
+    }else{
+      console.log("auxArr",this.getAllProviders())
+      this.providerModelArr = auxActiveProviders.filter(elem => elem.activo);
+      return this.providerModelArr;
+    }
   }
 
+/*   public getOneProvider(index: number){
+    const aux = this.getAllProviders();
+     aux.filter(elem => elem.id == index)
+   
+  } */
+
   // Save new Provider
-  public  saveProvider (infoProvider: ProviderModel){
+  public  saveProvider (infoProvider: ProviderModel, indexId: number){
     const auxProveedores = this.getAllProviders();
-    auxProveedores.push(infoProvider);
-    localStorage.setItem("provider", JSON.stringify(auxProveedores));
+    if(indexId ==-1){
+      infoProvider.id = auxProveedores.length;
+      auxProveedores.push(infoProvider);
+      localStorage.setItem("provider", JSON.stringify(auxProveedores));
+    } else{
+      auxProveedores.map(elem => {
+        if(elem.id == indexId){
+          elem = infoProvider;
+          console.log("elem modif: ", elem);
+        }
+      })
+      console.log("filtrado: ", auxProveedores);
+      //localStorage.setItem("provider", JSON.stringify(aux));
+
+    }
+    
     
   }
 
@@ -42,11 +93,13 @@ export class ProveedoresService {
   public deleteProvider(index:number){
     const auxDeleteProv  = this.getAllProviders();
     auxDeleteProv.map(elem => {
-      if(elem.code == index){
+      if(elem.id == index){
         elem.activo = false;
       }
     });
   }
+
+
 }
 
 /**import { HttpClient } from '@angular/common/http';

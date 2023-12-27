@@ -1,4 +1,4 @@
-<div class="row align-middle ">
+<div class="row ">
   <!--     <div class="col-md-7">
         <h3>Listado de usuarios</h3>
         <table class="table table-hover">
@@ -26,182 +26,192 @@
             </tbody>
         </table>
     </div> -->
-    <div class="col-md-12">
+    <div class="col-12 ">
         <h3>{{title}}</h3>
         <form #miForm="ngForm" (ngSubmit)="submitProveedor(miForm)">
-            <!-- <input type="hidden" name="id" [(ngModel)]="usersService.datosUsuario.id"> -->
-            <div class="col-md-7">
-            <div class="mb-4">
-                <label class="form-label">Código Proveedor</label>
-                <input type="text" class="form-control" placeholder="Código Proveedor" name="codigo" [(ngModel)]="provider.code" required minlength="4" #name="ngModel">
-                <div *ngIf="name.errors?.['minlength']" class="col-auto">
+            <!-- <input type="hidden" name="id" [(ngModel)]="provider.id"> -->
+            <div class="row">
+            <div class="col-md-7 col-lg-6 ">
+                <h4>Información Proveedor</h4>
+            <div class="mb-3">
+                <label class="form-label">Código</label>
+                <input type="text" class="form-control" [readOnly]="(indexProv >=0)" placeholder="Código Proveedor" name="codigo" [(ngModel)]="provider.code" required minlength="3" #code="ngModel">
+                <div *ngIf="code.errors?.['minlength']" class="col-auto">
                     <span class="form-text text-danger ">
-                        Debe tener almenos 4 caracteres
+                        Debe tener al menos 3 caracteres
                     </span>
                 </div>
-                <div *ngIf="name.errors?.['required']" class="col-auto">
+                <div *ngIf="code.errors?.['required'] " class="col-auto">
                     <span class="form-text text-danger">
                         El dato es obligatorio
                     </span>
                 </div>
             </div>
-            <div class="mb-4">
+            <div class="mb-3">
               <label class="form-label">Razón Social</label>
-              <input type="text" class="form-control" placeholder="Razón Social" name="razonSocial" [(ngModel)]="provider.razonSocial" required minlength="4" #name="ngModel">
-              <div *ngIf="name.errors?.['minlength']" class="col-auto">
+              <input type="text" class="form-control" placeholder="Razón Social" name="razonSocial" [(ngModel)]="provider.razonSocial" required minlength="3" #razonSocial="ngModel">
+              <div *ngIf="razonSocial.errors?.['minlength']" class="col-auto">
                   <span class="form-text text-danger ">
-                      Debe tener almenos 4 caracteres
+                      Debe tener al menos 3 caracteres
                   </span>
               </div>
-              <div *ngIf="name.errors?.['required']" class="col-auto">
+              <div *ngIf="razonSocial.errors?.['required']" class="col-auto">
                   <span class="form-text text-danger">
                       El dato es obligatorio
                   </span>
               </div>
             </div>
-            <div class="mb-4">
+            <div class="mb-3">
               <label class="form-label">Rubro</label>
-              <input type="text" class="form-control" placeholder="Rubro" name="rubro" [(ngModel)]="provider.rubro" required minlength="4" #name="ngModel">
-              <div *ngIf="name.errors?.['minlength']" class="col-auto">
+              <input type="text" class="form-control" placeholder="Rubro" name="rubro" [(ngModel)]="provider.rubro" required minlength="4" #rubro="ngModel">
+              <div *ngIf="rubro.errors?.['minlength']" class="col-auto">
                   <span class="form-text text-danger ">
                       Debe tener almenos 4 caracteres
                   </span>
               </div>
-              <div *ngIf="name.errors?.['required']" class="col-auto">
+              <div *ngIf="rubro.errors?.['required']" class="col-auto">
                   <span class="form-text text-danger">
                       El dato es obligatorio
                   </span>
               </div>
             </div>
-            <div class="mb-4">
+            <div class="mb-3">
               <label class="form-label">Sitio Web</label>
-              <input type="text" class="form-control" placeholder="Sitio Web" name="sitioWeb" [(ngModel)]="provider.sitioWeb" required minlength="4" #name="ngModel">
-              <div *ngIf="name.errors?.['minlength']" class="col-auto">
+              <input type="text" class="form-control" placeholder="Sitio Web" name="sitioWeb" [(ngModel)]="provider.sitioWeb" required minlength="4" #sitioWeb="ngModel">
+              <div *ngIf="sitioWeb.errors?.['minlength']" class="col-auto">
                   <span class="form-text text-danger ">
                       Debe tener almenos 4 caracteres
                   </span>
               </div>
-              <div *ngIf="name.errors?.['required']" class="col-auto">
+              <div *ngIf="sitioWeb.errors?.['required']" class="col-auto">
                   <span class="form-text text-danger">
                       El dato es obligatorio
                   </span>
               </div>
             </div>
-            <div class="mb-4">
+            <div class="mb-3">
               <label class="form-label">E-Mail</label>
-              <input type="email" class="form-control" placeholder="email@email.com" name="email" [(ngModel)]="provider.email" required minlength="4" #name="ngModel">
-              <div *ngIf="name.errors?.['minlength']" class="col-auto">
+              <input type="email" class="form-control" placeholder="email@email.com" name="email" [(ngModel)]="provider.email" required minlength="4" #email="ngModel">
+              <div *ngIf="email.errors?.['minlength']" class="col-auto">
                   <span class="form-text text-danger ">
                       Debe tener almenos 4 caracteres
                   </span>
               </div>
-              <div *ngIf="name.errors?.['required']" class="col-auto">
+              <div *ngIf="email.errors?.['required']" class="col-auto">
                   <span class="form-text text-danger">
                       El dato es obligatorio
                   </span>
               </div>
             </div>
-            <div class="mb-4">
+            <div class="mb-3">
               <label class="form-label">Teléfono</label>
-              <input type="text" class="form-control" placeholder="Número Telefónico" name="telefono" [(ngModel)]="provider.telefono" required minlength="4" #name="ngModel">
-              <div *ngIf="name.errors?.['minlength']" class="col-auto">
+              <input type="text" class="form-control" placeholder="Número Telefónico" name="telefono" [(ngModel)]="provider.telefono" required minlength="4" #telefono="ngModel">
+              <div *ngIf="telefono.errors?.['minlength']" class="col-auto">
                   <span class="form-text text-danger ">
                       Debe tener almenos 4 caracteres
                   </span>
               </div>
-              <div *ngIf="name.errors?.['required']" class="col-auto">
+              <div *ngIf="telefono.errors?.['required']" class="col-auto">
                   <span class="form-text text-danger">
                       El dato es obligatorio
                   </span>
               </div>
             </div>
-            <div class="mb-4">
+            <div class="mb-3">
               <label class="form-label">Dirección</label>
-              <input type="text" class="form-control" placeholder="Calle y altura" name="direccion" [(ngModel)]="provider.direccion" required minlength="4" #name="ngModel">
-              <div *ngIf="name.errors?.['minlength']" class="col-auto">
+              <input type="text" class="form-control" placeholder="Calle y altura" name="direccion" [(ngModel)]="provider.direccion" required minlength="4" #direccion="ngModel">
+              <div *ngIf="direccion.errors?.['minlength']" class="col-auto">
                   <span class="form-text text-danger ">
                       Debe tener almenos 4 caracteres
                   </span>
               </div>
-              <div *ngIf="name.errors?.['required']" class="col-auto">
+              <div *ngIf="direccion.errors?.['required']" class="col-auto">
                   <span class="form-text text-danger">
                       El dato es obligatorio
                   </span>
               </div>
             </div>
-            <div class="mb-4">
+            <div class="mb-3">
               <label class="form-label">País</label>
-              <input type="text" class="form-control" placeholder="País" name="pais" [(ngModel)]="provider.pais" required minlength="4" #name="ngModel">
-              <div *ngIf="name.errors?.['minlength']" class="col-auto">
+              <input type="text" class="form-control" placeholder="País" name="pais" [(ngModel)]="provider.pais" required minlength="4" #pais="ngModel">
+              <div *ngIf="pais.errors?.['minlength']" class="col-auto">
                   <span class="form-text text-danger ">
                       Debe tener almenos 4 caracteres
                   </span>
               </div>
-              <div *ngIf="name.errors?.['required']" class="col-auto">
+              <div *ngIf="pais.errors?.['required']" class="col-auto">
                   <span class="form-text text-danger">
                       El dato es obligatorio
                   </span>
               </div>
             </div>
-            <div class="mb-4">
+            <div class="mb-3">
               <label class="form-label">Provincia / Estado</label>
-              <input type="text" class="form-control" placeholder="Provincia" name="provincia" [(ngModel)]="provider.provincia" required minlength="4" #name="ngModel">
-              <div *ngIf="name.errors?.['minlength']" class="col-auto">
+              <input type="text" class="form-control" placeholder="Provincia" name="provincia" [(ngModel)]="provider.provincia" required minlength="4" #provincia="ngModel">
+              <div *ngIf="provincia.errors?.['minlength']" class="col-auto">
                   <span class="form-text text-danger ">
                       Debe tener almenos 4 caracteres
                   </span>
               </div>
-              <div *ngIf="name.errors?.['required']" class="col-auto">
+              <div *ngIf="provincia.errors?.['required']" class="col-auto">
                   <span class="form-text text-danger">
                       El dato es obligatorio
                   </span>
               </div>
             </div>
-            <div class="mb-4">
+            <div class="mb-3">
               <label class="form-label">Ciudad</label>
-              <input type="text" class="form-control" placeholder="Ciudad" name="ciudad" [(ngModel)]="provider.ciudad" required minlength="4" #name="ngModel">
-              <div *ngIf="name.errors?.['minlength']" class="col-auto">
+              <input type="text" class="form-control" placeholder="Ciudad" name="ciudad" [(ngModel)]="provider.ciudad" required minlength="4" #ciudad="ngModel">
+              <div *ngIf="ciudad.errors?.['minlength']" class="col-auto">
                   <span class="form-text text-danger ">
                       Debe tener almenos 4 caracteres
                   </span>
               </div>
-              <div *ngIf="name.errors?.['required']" class="col-auto">
+              <div *ngIf="ciudad.errors?.['required']" class="col-auto">
                   <span class="form-text text-danger">
                       El dato es obligatorio
                   </span>
               </div>
             </div>
-            <div class="mb-4">
+            <h4>Situación Fiscal</h4>
+            <div class="mb-3">
               <label class="form-label">C.U.I.T.</label>
-              <input type="text" class="form-control" placeholder="Número de C.U.I.T." name="cuit" [(ngModel)]="provider.cuit" required minlength="4" #name="ngModel">
-              <div *ngIf="name.errors?.['minlength']" class="col-auto">
+              <input type="text" class="form-control" placeholder="Número de C.U.I.T." name="cuit" [(ngModel)]="provider.cuit" required minlength="4" #cuit="ngModel">
+              <div *ngIf="cuit.errors?.['minlength']" class="col-auto">
                   <span class="form-text text-danger ">
                       Debe tener almenos 4 caracteres
                   </span>
               </div>
-              <div *ngIf="name.errors?.['required']" class="col-auto">
+              <div *ngIf="cuit.errors?.['required']" class="col-auto">
                   <span class="form-text text-danger">
                       El dato es obligatorio
                   </span>
               </div>
             </div>
-            <div class="mb-4">
-              <label class="form-label">Condición ante el IVA</label>
-              <input type="text" class="form-control" placeholder="Condición ante IVA" name="condIVA" [(ngModel)]="provider.condIVA" required minlength="4" #name="ngModel">
-              <div *ngIf="name.errors?.['minlength']" class="col-auto">
+            <div class="mb-3">
+              <label class="form-label" for="condIva">Condición ante el IVA</label>
+              <select class="form-select " name="condIVA" id="selectIva" [(ngModel)]="provider.condIVA" (ngModelChange)="checkIva($event)" required >
+                <option value="respInsc">Responsable Inscripto</option>
+                <option value="auton">Autónomo</option>
+                <option value="monot">Monotributista</option>
+                <option value="exc">Excento</option>
+                <option value="consFin">Consumidor Final</option>
+              </select>
+              <!-- <input type="text" class="form-control" placeholder="Condición ante IVA" name="condIVA" [(ngModel)]="provider.condIVA" required minlength="4" #condIVA="ngModel">
+              <div *ngIf="condIVA.errors?.['minlength']" class="col-auto">
                   <span class="form-text text-danger ">
                       Debe tener almenos 4 caracteres
                   </span>
               </div>
-              <div *ngIf="name.errors?.['required']" class="col-auto">
+              <div *ngIf="condIVA.errors?.['required']" class="col-auto">
                   <span class="form-text text-danger">
                       El dato es obligatorio
                   </span>
-              </div>
+              </div> -->
             </div>
           </div>
 
-          <div class="col-md-5">
+          <div class="col-md-5 col-lg-6 ">
             <h4>Datos de Contacto</h4>
             <div class="mb-3">
                 <label class="form-label">Nombre</label>
@@ -226,6 +236,7 @@
             <button type="submit" class="btn btn-outline-success me-2" [disabled]="!miForm.valid">Guardar</button>
             <button class="btn btn-outline-warning " (click)="resetForm(miForm)">Limpiar</button>
           </div>
+        </div>
         </form>
         <div *ngIf="msg" class="alert alert-success alert-dismissible fade show mt-4" role="alert">
             {{msg}}
