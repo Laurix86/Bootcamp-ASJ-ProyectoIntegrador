@@ -6,15 +6,19 @@ import { DisplayProductsComponent } from './components/products/display-products
 import { DisplayOrdersComponent } from './components/orders/display-orders/display-orders.component';
 import { CreateProveedoresComponent } from './components/proveedores/create-proveedores/create-proveedores.component';
 import { CreateOrdersComponent } from './components/orders/create-orders/create-orders.component';
+import { CreateProductsComponent } from './components/products/create-products/create-products.component';
 
 const routes: Routes = [
   {path: 'inicio', component: DisplayProveedoresComponent},
   {path: 'proveedores', component: DisplayProveedoresComponent},
   {path: 'proveedores/nuevo', component: CreateProveedoresComponent},
+  {path: 'proveedores/:idProveedor', component: CreateProveedoresComponent},
   {path: 'productos', component: DisplayProductsComponent},
+  {path: 'productos/nuevo', component: CreateProductsComponent},
+  {path: 'productos/:idProducto', component: CreateProductsComponent},
   {path: 'ordenes', component: DisplayOrdersComponent},
   {path: 'ordenes/nueva-orden', component: CreateOrdersComponent},
-  {path: 'proveedores/:idProveedor', component: CreateProveedoresComponent},
+  
 
   /// otras rutas
   {path: '**', pathMatch:'full', redirectTo: 'MainComponent'},

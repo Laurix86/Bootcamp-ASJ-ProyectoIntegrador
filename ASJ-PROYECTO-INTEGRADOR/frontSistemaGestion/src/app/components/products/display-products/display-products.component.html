@@ -1,1 +1,36 @@
-<p>display-products works!</p>
+<div class="row">
+    <div class="col-md-10">
+        <div>
+            <input type="text" placeholder="Buscar" [(ngModel)]="search" class="input justify-content-end m-2">
+        </div>
+        <table class="table table-hover m-5 text-center border-info">
+            <thead class="border-bottom">
+                <th>Producto</th>
+                <th>Categoría</th>
+                <th>Proveedor</th>
+                <th>Precio</th>
+                <th>Acciones</th>
+            </thead>
+            <tbody>
+                <tr *ngIf="empty">
+                    <td colspan="5" >{{empty}}</td> 
+                </tr>
+                <tr *ngFor="let p of productList | filterPipe: search" >
+                    
+                    <td>{{p.nombre}}</td>
+                    <td>{{p.categoria}}</td>
+                    <td>{{p.proveedor}}</td>
+                    <td>{{p.precio | currency:'ARS'}}</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-secondary  m-1" routerLink="/productos/{{p.id}}">Editar</button>
+                        <button class="btn btn-sm btn-outline-danger m-1" (click)="desactivarProd(p.id)">Eliminar</button>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+</div>

@@ -16,6 +16,7 @@ export class DisplayProveedoresComponent implements OnInit{
   ngOnInit(): void {
     this.getProvidersToShow();
     if(this.providerList.length ==0){
+      /* console.log("lentgh", this.providerList.length) */
       this.empty = "No hay proveedores para mostrar"
     }
       
