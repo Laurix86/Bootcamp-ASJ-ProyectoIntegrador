@@ -16,6 +16,7 @@ import { CreateOrdersComponent } from './components/orders/create-orders/create-
 import { DisplayOrdersComponent } from './components/orders/display-orders/display-orders.component';
 import { filterPipePipe } from './components/pipes/filterPipe.pipe';
 import { ShowOrderComponent } from './components/orders/show-order/show-order.component';
+import { MainComponent } from './components/main/main.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ShowOrderComponent } from './components/orders/show-order/show-order.co
     CreateOrdersComponent,
     DisplayOrdersComponent,
     filterPipePipe,
-    ShowOrderComponent
+    ShowOrderComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,

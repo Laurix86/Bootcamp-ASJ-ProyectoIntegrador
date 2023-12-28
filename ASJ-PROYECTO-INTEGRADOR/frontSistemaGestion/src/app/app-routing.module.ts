@@ -7,9 +7,12 @@ import { DisplayOrdersComponent } from './components/orders/display-orders/displ
 import { CreateProveedoresComponent } from './components/proveedores/create-proveedores/create-proveedores.component';
 import { CreateOrdersComponent } from './components/orders/create-orders/create-orders.component';
 import { CreateProductsComponent } from './components/products/create-products/create-products.component';
+import { MainComponent } from './components/main/main.component';
+import { ShowOrderComponent } from './components/orders/show-order/show-order.component';
 
 const routes: Routes = [
-  {path: 'inicio', component: DisplayProveedoresComponent},
+  {path: '', component: MainComponent},
+  {path: 'inicio', component: MainComponent},
   {path: 'proveedores', component: DisplayProveedoresComponent},
   {path: 'proveedores/nuevo', component: CreateProveedoresComponent},
   {path: 'proveedores/:idProveedor', component: CreateProveedoresComponent},
@@ -18,7 +21,7 @@ const routes: Routes = [
   {path: 'productos/:idProducto', component: CreateProductsComponent},
   {path: 'ordenes', component: DisplayOrdersComponent},
   {path: 'ordenes/nueva-orden', component: CreateOrdersComponent},
-  {path: 'ordenes/:idOrden', component: CreateOrdersComponent},
+  {path: 'ordenes/:idOrden', component: ShowOrderComponent},
 
   
 

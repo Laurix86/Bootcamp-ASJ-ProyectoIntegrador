@@ -25,12 +25,12 @@
                     </select>
                     
                     <input type="number" name="cantidadProd" [(ngModel)]="cantidadProd" placeholder="1" value="1">
-                    <button class="btn btn-dark " (click)="addProducts()"> Agregar</button>
+                    <a class="btn btn-dark " (click)="addProducts()"> Agregar</a>
                   </div> 
                   
 
                 </div>
-                  <div class="col-md-4 col-lg-4">
+        <div class="col-md-4 col-lg-4">
               <div class="mb-3">
                   <label class="form-label">Orden Nro:</label>
                   <input type="number" class="form-control"  placeholder="Número de Orden" name="orderNumber" [(ngModel)]="order.orderNumber" required #orderNumber="ngModel">
@@ -50,7 +50,10 @@
                       <input type="text" class="form-control" placeholder="Detalles para el proveedor" name="infoExtra" [(ngModel)]="order.infoExtra" #infoExtra="ngModel">
                     
                   </div>
-               
+                  <div class="mb-3">
+                    <label for="delivery">Fecha estimada de entrega:</label>
+                    <input type="date" name="delivery" id="" min="2023-12-29" [(ngModel)]="order.deliveryDate" >
+                  </div>
                  
               </div>
           
@@ -59,7 +62,9 @@
             <h5>Detalle: </h5>
             <p>Fecha: {{order.orderDate}}</p>
             <ul>
-                <li></li>
+                <li *ngFor="let d of arrProdDetail">
+                    {{d.cant }} {{d.nombre}} {{d.valorProds | currency: '$'}}
+                </li>
             </ul>
             
             <button type="submit" class="btn btn-outline-success me-2" [disabled]="!miForm.valid">Guardar</button>

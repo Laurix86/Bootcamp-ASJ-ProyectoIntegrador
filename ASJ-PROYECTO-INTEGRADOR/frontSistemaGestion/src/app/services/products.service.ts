@@ -81,9 +81,9 @@ export class ProductsService {
   }
 
   getProductsById(i:number){
-    const arrProd = this.getActiveProducts().filter(elem =>
-      elem.id == i);
-      return arrProd;
+
+   return (this.getActiveProducts().filter(elem => elem.id == i ))
+      
   }
  
 }
