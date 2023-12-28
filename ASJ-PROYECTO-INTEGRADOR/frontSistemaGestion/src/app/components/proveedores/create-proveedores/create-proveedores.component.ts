@@ -77,7 +77,7 @@ export class CreateProveedoresComponent implements OnInit{
     }else if(this.indexProv >= 0){
       this.proveedoresService.saveProvider(this.provider, this.indexProv);
       this.msg = "Proveedor guardado correctamente";
-      this.router.navigateByUrl('proveedores');
+      this.router.navigateByUrl('/proveedores');
     }
   }
 

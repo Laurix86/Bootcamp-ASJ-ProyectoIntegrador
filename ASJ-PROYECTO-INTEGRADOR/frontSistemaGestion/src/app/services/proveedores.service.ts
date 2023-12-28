@@ -36,6 +36,8 @@ export class ProveedoresService {
     activo: false
   };
 
+  private cate: string[]=["GOLOSINAS", "TECNOLOGÍA", "LIMPIEZA", "SALUD", "CONSTRUCCION", "VEHICULOS"];
+
   //Complete List
   public getAllProviders(){
       const auxListado = localStorage.getItem("provider");
@@ -85,9 +87,27 @@ export class ProveedoresService {
       localStorage.setItem("provider", JSON.stringify(this.providerModelArr));
 
     }
-    
-    
   }
+
+    public getRubros(){
+      /* const arrRubros:string[] = [];
+
+      if(this.getActiveProviders().length>0){
+         this.getActiveProviders().map(elem => 
+           arrRubros.push(elem.rubro));
+      } */
+      return this.cate;
+    }
+
+    public getProvidersByRubro(rubro: string){
+      let nombreProv: any[] = [];
+      if(this.getActiveProviders().length>0){
+        nombreProv = this.getActiveProviders().filter(elem => 
+          elem.rubro == rubro);
+     }
+     return nombreProv;
+    }
+ 
 
   //Inactive Provider
   public deleteProvider(index:number){
