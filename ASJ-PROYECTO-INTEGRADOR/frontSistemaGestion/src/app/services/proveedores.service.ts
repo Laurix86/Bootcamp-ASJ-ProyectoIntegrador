@@ -22,7 +22,8 @@ export class ProveedoresService {
     sitioWeb: '',
     email: '',
     telefono: '',
-    direccion: '',
+    calle: '',
+    altura:0,
     ciudad: '',
     provincia: '',
     pais: '',
@@ -102,8 +103,10 @@ export class ProveedoresService {
     public getProvidersByRubro(rubro: string){
       let nombreProv: any[] = [];
       if(this.getActiveProviders().length>0){
-        nombreProv = this.getActiveProviders().filter(elem => 
-          elem.rubro == rubro);
+        this.getActiveProviders().map(elem => 
+         { if(elem.rubro == rubro){
+          nombreProv.push(elem.razonSocial)
+          }});
      }
      return nombreProv;
     }
@@ -121,6 +124,15 @@ export class ProveedoresService {
     localStorage.setItem("provider", JSON.stringify(this.providerModelArr));
   }
 
+
+  getProvidersList(){
+    const auxArr: string[]=[]; 
+    
+    this.getActiveProviders().map(elem => {
+      auxArr.push(elem.razonSocial);
+    });
+    return auxArr;
+  }
 
 }
 

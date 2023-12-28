@@ -10,8 +10,8 @@ import { ProveedoresService } from 'src/app/services/proveedores.service';
   templateUrl: './create-products.component.html',
   styleUrls: ['./create-products.component.css']
 })
-export class CreateProductsComponent {
-  constructor(public productosService: ProductsService, public providerSercie:ProveedoresService,
+export class CreateProductsComponent implements OnInit {
+  constructor(public productosService: ProductsService, public providerService:ProveedoresService,
     private activeRoute:ActivatedRoute, private router:Router){}
 
   public product: ProductsModel ={
@@ -25,7 +25,7 @@ export class CreateProductsComponent {
     activo: true
   }
 
-  public categoriesProv: string[]= this.providerSercie.getRubros();
+  public categoriesProv: string[]= this.providerService.getRubros();
   public listaProvByCategory: string[]=[];
 
   msg: string= "";
@@ -37,9 +37,9 @@ export class CreateProductsComponent {
   ngOnInit():void{
     this.indexProd = this.activeRoute.snapshot.paramMap.get('idProducto') || -1;
     if(this.indexProd == -1){
-      this.title = "Guardar Producto Nuevo";
+      this.title = "Producto Nuevo";
     }else{
-      this.title = "Modificar Producto";
+      this.title = "Producto Existente";
       this.fillForm(this.indexProd);
     }
   }
@@ -72,7 +72,7 @@ export class CreateProductsComponent {
     console.log(value)
     const i = parseInt(value)
     this.product.categoria= value;
-    this.listaProvByCategory = this.providerSercie.getProvidersByRubro(value)
+    this.listaProvByCategory = this.providerService.getProvidersByRubro(value)
   }
   getProv(value:string){
     

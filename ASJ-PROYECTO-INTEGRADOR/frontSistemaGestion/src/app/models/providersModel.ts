@@ -6,7 +6,8 @@ export interface ProviderModel {
     sitioWeb:string;
     email: string;
     telefono: string;
-    direccion:string;
+    calle:string;
+    altura:number,
     ciudad: string;
     provincia: string;
     pais: string;

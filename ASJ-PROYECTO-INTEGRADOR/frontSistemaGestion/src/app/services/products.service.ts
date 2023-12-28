@@ -67,4 +67,23 @@ export class ProductsService {
     })
     localStorage.setItem("product", JSON.stringify(this.productModelArr));
   }
+
+  public getActiveProductsByCategory(cat: string){
+    let arrAux:any[] = []; 
+    
+    this.getActiveProducts().map(elem => {
+      if(elem.proveedor == cat){
+        arrAux.push(elem);
+      }
+      });
+
+    return arrAux;
+  }
+
+  getProductsById(i:number){
+    const arrProd = this.getActiveProducts().filter(elem =>
+      elem.id == i);
+      return arrProd;
+  }
+ 
 }

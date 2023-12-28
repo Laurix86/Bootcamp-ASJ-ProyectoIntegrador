@@ -18,6 +18,8 @@ const routes: Routes = [
   {path: 'productos/:idProducto', component: CreateProductsComponent},
   {path: 'ordenes', component: DisplayOrdersComponent},
   {path: 'ordenes/nueva-orden', component: CreateOrdersComponent},
+  {path: 'ordenes/:idOrden', component: CreateOrdersComponent},
+
   
 
   /// otras rutas

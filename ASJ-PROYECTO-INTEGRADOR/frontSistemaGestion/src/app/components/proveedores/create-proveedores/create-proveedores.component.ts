@@ -20,7 +20,8 @@ export class CreateProveedoresComponent implements OnInit{
     sitioWeb: '',
     email: '',
     telefono: '',
-    direccion: '',
+    calle: '',
+    altura:0,
     ciudad: '',
     provincia: '',
     pais: '',
@@ -33,6 +34,8 @@ export class CreateProveedoresComponent implements OnInit{
     rolContacto: '',
     activo: true
   };
+
+  public rubroLista: string[]=this.proveedoresService.getRubros();
 
   /* optSelectIva =["Responsable Inscripto", "Autónomo", "Monotributista", "Exento", "Consumidor Final"]; */
   msg: string= "";
@@ -54,11 +57,11 @@ export class CreateProveedoresComponent implements OnInit{
  /*    console.log(this.indexProv) */
     
     if(this.indexProv == -1){
-      this.title = "Guardar Proveedor Nuevo";
+      this.title = "Proveedor Nuevo";
       
     }
     else{
-      this.title = "Modificar Proveedor";
+      this.title = "Proveedor Existente";
       this.fillForm(this.indexProv);
     }
 
@@ -77,7 +80,7 @@ export class CreateProveedoresComponent implements OnInit{
     }else if(this.indexProv >= 0){
       this.proveedoresService.saveProvider(this.provider, this.indexProv);
       this.msg = "Proveedor guardado correctamente";
-      this.router.navigateByUrl('/proveedores');
+      this.router.navigate(['/proveedores']);
     }
   }
 
@@ -109,6 +112,14 @@ export class CreateProveedoresComponent implements OnInit{
         default:
           return "No declarado";
       }
+    }
+
+    getRubros(){
+      this.rubroLista = this.proveedoresService.getRubros();
+    }
+
+    setRubro(value: string){
+      this.provider.rubro = value;
     }
   }
 
