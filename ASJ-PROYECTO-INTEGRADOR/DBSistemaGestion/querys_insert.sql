@@ -114,7 +114,7 @@ producto_precio, stock,is_eliminado,id_proveedor,id_categoria,created_at,updated
 (2, 'PH12R', 'IPHONE 13 PRO', 'Celular SmartPhone', 1700000, 7, 0, 2, 1, '2023-12-29 11:34:23.55', NULL),
 (3, 'K123', 'Jugos Clight Naranja', 'Jugo en polvo', 50, 115, 0, 5, 7, '2021-12-01 11:34:23.55','2021-09-01 11:34:23.55'),
 (4, '003LU', 'Jugos La Familia', 'Jugo', 99, 78, 0, 6, 7, '2024-01-01 11:34:23.55', NULL),
-(4, '123ABC', 'Resmas Ledesma', 'A4 80grs', 1005, 3, 0, 1, 17, '2023-03-01 11:34:23.55', NULL);
+(5, '123ABC', 'Resmas Ledesma', 'A4 80grs', 1005, 3, 0, 1, 17, '2023-03-01 11:34:23.55', NULL);
 
 INSERT INTO imagenes(imagen_id,imagen_url,id_producto) VALUES
 (1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHp8frOlqthSps8xLDYidyflUChyFV55-2WmSI0fV5r0f95i-R9Jyh_Nx_MmCaJ_DenJg&usqp=CAU', 2),
