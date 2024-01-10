@@ -97,7 +97,7 @@ INSERT INTO categorias(categoria_id,categoria_denominacion) VALUES
 (26, 'Electrónicos');
 
 INSERT INTO proveedores(proveedor_id, proveedor_codigo,proveedor_razon_social,proveedor_sitio_web,
-proveedor_email,proveedor_telefono,proveedor_calle, proveedor_nro_calle,proveedor_info_direccion,
+proveedor_email,proveedor_telefono,proveedor_cuit, proveedor_calle, proveedor_nro_calle,proveedor_info_direccion,
 proveedor_logo,proveedor_ciudad,proveedor_nombre_contacto,proveedor_apellido_contacto,proveedor_telefono_contacto,
 proveedor_email_contacto,proveedor_rol_contacto,is_eliminado,id_jurisdiccion,id_condicion_iva,
 id_rubro,created_at,updated_at) VALUES

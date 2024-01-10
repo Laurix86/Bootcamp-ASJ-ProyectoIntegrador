@@ -68,7 +68,7 @@ CREATE TABLE "productos"
      "producto_sku"          VARCHAR(15) NOT NULL,
      "producto_denominacion" VARCHAR(100) NOT NULL,
      "producto_descripcion"  VARCHAR(255) NULL,
-     "producto_precio"       DECIMAL(8, 2) NOT NULL,
+     "producto_precio"       DECIMAL(11, 2) NOT NULL,
      "stock"                 INT NOT NULL,
      "is_eliminado"          BIT NOT NULL,
      "id_proveedor"          BIGINT NOT NULL,
