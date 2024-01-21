@@ -27,8 +27,12 @@ LEFT JOIN imagenes i on p.producto_id = i.producto_id;
 -- característica de Córdoba o que la provincia sea igual a alguna de las 3 con más proveedores.
 
 SELECT pv.proveedor_razon_social as Proveedor, pv.proveedor_telefono
-FROM proveedores pv
-WHERE pv.proveedor_telefono like '+54351%';
+FROM proveedores pv, jurisdicciones j
+WHERE pv.proveedor_telefono like '+54351%'OR j.jurisdiccion_id in (SELECT TOP 3 pv.id_jurisdiccion
+                                                                    FROM jurisdicciones j 
+                                                                    JOIN proveedores pv on j.jurisdiccion_id = pv.id_jurisdiccion
+                                                                    group by j.jurisdiccion_id
+                                                                    order by COUNT(pv.id_jurisdiccion));
 
 -- Traer un listado de todos los proveedores que no hayan sido eliminados , y ordenados 
 -- por razon social, codigo proveedor y fecha en que se dió de alta ASC. 
@@ -42,3 +46,13 @@ order by  pv.created_at;
 
 --Obtener razon social, codigo proveedor, imagen, web, email, teléfono y 
 -- los datos del contacto del proveedor con más ordenes de compra cargadas.
+
+SELECT pv.pv.proveedor_razon_social as Proveedor, pv.proveedor_sitio_web as Web, pv.proveedor_email as email, pv.proveedor_telefono as Telefono, pv.proveedor_apellido_contacto, pv.proveedor_nombre_contacto, pv.proveedor_telefono_contacto
+FROM proveedores pv
+WHERE pv.proveedor_id = (SELECT oc.id_proveedor
+                        FROM ordenes_compras oc
+                        )
+
+-- Mostrar la fecha emisión, nº de orden, razon social y codigo de proveedor, 
+-- y la cantidad de productos de cada orden.
+
