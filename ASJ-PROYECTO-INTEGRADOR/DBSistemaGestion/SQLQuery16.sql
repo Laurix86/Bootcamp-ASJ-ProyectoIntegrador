@@ -1,0 +1,2 @@
+ALTER TABLE tu_tabla
+ALTER COLUMN tu_columna NUMERIC(10,2);
