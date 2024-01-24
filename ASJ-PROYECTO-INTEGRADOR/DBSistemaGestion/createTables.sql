@@ -2,37 +2,47 @@ CREATE DATABASE sistemaGestion;
 USE sistemaGestion;
 
 
--------- CREACIÓN TABLAS
+-------- CREACIï¿½N TABLAS
 
-CREATE TABLE "paises"
+CREATE TABLE "countries"
   (
-     "pais_id"     INT NOT NULL PRIMARY KEY,
-     "pais_nombre" VARCHAR(255) NOT NULL
+     "country_id"   INT NOT NULL PRIMARY KEY,
+     "country_name" VARCHAR(255) NOT NULL,
+     "created_at"   DATETIME NOT NULL,
+     "updated_at"   DATETIME NULL
   );
 
 CREATE TABLE "jurisdicciones"
   (
-     "jurisdiccion_id"     INT NOT NULL PRIMARY KEY,
-     "jurisdiccion_nombre" VARCHAR(255) NOT NULL,
-     "id_pais"             INT NOT NULL
+     "jurisdictions_id"     INT NOT NULL PRIMARY KEY,
+     "jurisdictions_name" VARCHAR(255) NOT NULL,
+     "id_pais"             INT NOT NULL,
+      "created_at"   DATETIME NOT NULL,
+     "updated_at"   DATETIME NULL
   );
 
 CREATE TABLE "rubros"
   (
-     "rubro_id"           INT NOT NULL PRIMARY KEY,
-     "rubro_denominacion" VARCHAR(255) NOT NULL
+     "sectorsfield_id"           INT NOT NULL PRIMARY KEY,
+     "sectorsfield_name" VARCHAR(255) NOT NULL,
+      "created_at"   DATETIME NOT NULL,
+     "updated_at"   DATETIME NULL
   );
 
-CREATE TABLE "condiciones_iva"
+CREATE TABLE "taxcategories"
   (
-     "condicion_iva_id"           INT NOT NULL PRIMARY KEY,
-     "condicion_iva_denominacion" VARCHAR(255) NOT NULL
+     "taxcategories_id"           INT NOT NULL PRIMARY KEY,
+     "taxcategories_denominations" VARCHAR(255) NOT NULL,
+      "created_at"   DATETIME NOT NULL,
+     "updated_at"   DATETIME NULL
   );
 
-CREATE TABLE "categorias"
+CREATE TABLE "categories"
   (
-     "categoria_id"           INT NOT NULL PRIMARY KEY,
-     "categoria_denominacion" VARCHAR(255) NOT NULL
+     "categories_id"           INT NOT NULL PRIMARY KEY,
+     "categories_denominations" VARCHAR(255) NOT NULL,
+      "created_at"   DATETIME NOT NULL,
+     "updated_at"   DATETIME NULL
   );
 
 CREATE TABLE "proveedores"
@@ -108,7 +118,7 @@ CREATE TABLE "ordenes_detalles"
      "id_orden"                  BIGINT NOT NULL
   );
 
-  --------- CREACIÓN DE FOREIGN KEYS
+  --------- CREACIï¿½N DE FOREIGN KEYS
 
 ALTER TABLE "proveedores"
   ADD CONSTRAINT "proveedores_id_jurisdiccion_foreign" 
