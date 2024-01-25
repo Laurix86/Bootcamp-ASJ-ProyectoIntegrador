@@ -10,11 +10,11 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="countries")
-public class Countries {
+public class CountriesModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int country_id;
+	private Integer country_id;
 	
 	//@NotBlank(message = "El nombre del país no puede estar vacío")
 	private String country_name;
@@ -23,7 +23,7 @@ public class Countries {
 	private Instant updated_at;
 
 
-	public Countries(int country_id, String country_name) {
+	public CountriesModel(int country_id, String country_name) {
 		this.country_id = country_id;
 		this.country_name = country_name;
 		this.created_at = Instant.now();

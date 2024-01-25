@@ -9,55 +9,42 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="categories")
-public class Categories {
+@Table(name="taxcategories")
+public class TaxCategoriesModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int categories_id;
+	private Integer taxcategories_id;
 	
-	private String categories_denominations;
+	private String taxcategories_denominations;
 	
 	private Instant created_at;
 	private Instant updated_at;
 	
 	
-	public Categories(int categories_id, String categories_denominations) {
-		this.categories_id = categories_id;
-		this.categories_denominations = categories_denominations;
+	public TaxCategoriesModel(int taxcategories_id, String taxcategories_denominations) {
+		this.taxcategories_id = taxcategories_id;
+		this.taxcategories_denominations = taxcategories_denominations;
 		this.created_at = Instant.now();
 	}
-
-
-	public String getCategories_denominations() {
-		return categories_denominations;
+	public String getTaxcategories_denominations() {
+		return taxcategories_denominations;
 	}
-
-
-	public void setCategories_denominations(String categories_denominations) {
-		this.categories_denominations = categories_denominations;
+	public void setTaxcategories_denominations(String taxcategories_denominations) {
+		this.taxcategories_denominations = taxcategories_denominations;
 	}
-
-
 	public Instant getUpdated_at() {
 		return updated_at;
 	}
-
-
 	public void setUpdated_at(Instant updated_at) {
 		this.updated_at = updated_at;
 	}
-
-
-	public int getCategories_id() {
-		return categories_id;
+	public int getTaxcategories_id() {
+		return taxcategories_id;
 	}
-
-
 	public Instant getCreated_at() {
 		return created_at;
 	}
-	
 	
 	
 	

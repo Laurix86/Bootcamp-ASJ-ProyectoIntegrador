@@ -10,20 +10,22 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="sectorsfield")
-public class SectorsField {
+public class SectorsFieldModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int sectorsfield_id;
+	private Integer sectorsfield_id;
 	
 	private String sectorsfield_name;
+	private Boolean is_deleted;
 	
 	private Instant created_at;
 	private Instant updated_at;
 	
-	public SectorsField(int sectorsfield_id, String sectorsfield_name) {
+	public SectorsFieldModel(int sectorsfield_id, String sectorsfield_name) {
 		this.sectorsfield_id = sectorsfield_id;
 		this.sectorsfield_name = sectorsfield_name;
+		this.is_deleted = false;
 		this.created_at = Instant.now();
 	}
 	public String getSectorsfield_name() {
@@ -43,6 +45,12 @@ public class SectorsField {
 	}
 	public Instant getCreated_at() {
 		return created_at;
+	}
+	public Boolean getIs_deleted() {
+		return is_deleted;
+	}
+	public void setIs_deleted(Boolean is_deleted) {
+		this.is_deleted = is_deleted;
 	}
 	
 	

@@ -6,29 +6,31 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name="jurisdictions")
-public class Jurisdictions {
+public class JurisdictionsModel {
 
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int jurisdictions_id;
+	private Integer jurisdictions_id;
 	
 	private String jurisdictions_name;
 	
-	private Countries country;
+	@ManyToOne
+	private CountriesModel country_id;
 	
 	private Instant created_at;
 	private Instant updated_at;
 	
 	
-	public Jurisdictions(int jurisdictions_id, String jurisdictions_name, Countries country) {
+	public JurisdictionsModel(int jurisdictions_id, String jurisdictions_name, CountriesModel country) {
 		this.jurisdictions_id = jurisdictions_id;
 		this.jurisdictions_name = jurisdictions_name;
-		this.country = country;
+		this.country_id = country;
 		this.created_at = Instant.now();
 	}
 
@@ -43,13 +45,13 @@ public class Jurisdictions {
 	}
 
 
-	public Countries getCountry() {
-		return country;
+	public CountriesModel getCountry() {
+		return country_id;
 	}
 
 
-	public void setCountry(Countries country) {
-		this.country = country;
+	public void setCountry(CountriesModel country) {
+		this.country_id = country;
 	}
 
 
