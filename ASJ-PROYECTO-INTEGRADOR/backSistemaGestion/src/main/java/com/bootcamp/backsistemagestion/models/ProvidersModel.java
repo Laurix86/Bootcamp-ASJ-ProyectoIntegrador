@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -37,13 +38,16 @@ public class ProvidersModel {
 	private Boolean is_deleted;
 	
 	@ManyToOne
+	@JoinColumn(name="jurisdictions_id")
 	private JurisdictionsModel jurisdictions_id; 
 	
 	@ManyToOne
+	@JoinColumn(name="taxcategories_id")
 	private TaxCategoriesModel taxcategories_id;
 	
 	@ManyToOne
-	private SectorsFieldModel sectorfields_id;
+	@JoinColumn(name="sectorsfields_id")
+	private SectorsFieldModel sectorsfields_id;
 		
 	private Instant created_at;
 	private Instant updated_at;
@@ -76,7 +80,7 @@ public class ProvidersModel {
 		this.is_deleted = false;
 		this.jurisdictions_id = jurisdictions_id;
 		this.taxcategories_id = taxcategories_id;
-		this.sectorfields_id = sectorfields_id;
+		this.sectorsfields_id = sectorfields_id;
 		this.created_at = Instant.now();
 	}
 
@@ -208,12 +212,12 @@ public class ProvidersModel {
 		this.providers_contact_role = providers_contact_role;
 	}
 
-	public Boolean getIs_eliminado() {
+	public Boolean getIs_deleted() {
 		return is_deleted;
 	}
 
-	public void setIs_eliminado(Boolean is_eliminado) {
-		this.is_deleted = is_eliminado;
+	public void setIs_deleted(Boolean is_deleted) {
+		this.is_deleted = is_deleted;
 	}
 
 	public JurisdictionsModel getJurisdictions_id() {
@@ -232,12 +236,12 @@ public class ProvidersModel {
 		this.taxcategories_id = taxcategories_id;
 	}
 
-	public SectorsFieldModel getSectorfields_id() {
-		return sectorfields_id;
+	public SectorsFieldModel getSectorsfields_id() {
+		return sectorsfields_id;
 	}
 
-	public void setSectorfields_id(SectorsFieldModel sectorfields_id) {
-		this.sectorfields_id = sectorfields_id;
+	public void setSectorsfields_id(SectorsFieldModel sectorsfields_id) {
+		this.sectorsfields_id = sectorsfields_id;
 	}
 
 	public Instant getUpdated_at() {

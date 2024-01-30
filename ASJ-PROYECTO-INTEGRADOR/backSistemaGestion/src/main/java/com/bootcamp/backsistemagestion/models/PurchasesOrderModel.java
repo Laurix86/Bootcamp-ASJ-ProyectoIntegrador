@@ -1,7 +1,8 @@
 package com.bootcamp.backsistemagestion.models;
 
 import java.time.Instant;
-import java.time.format.DateTimeFormatter;
+
+import java.util.Date;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,6 +10,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name="purchases_orders")
@@ -19,8 +22,12 @@ public class PurchasesOrderModel {
 	private Integer purchases_orders_id;
 	
 	private String purchases_orders_code;
-	private DateTimeFormatter purchases_orders_date;
-	private DateTimeFormatter purchases_orders_delivery_date;
+	
+	@Temporal(TemporalType.DATE)
+	private Date purchases_orders_date;
+	
+	@Temporal(TemporalType.DATE)
+	private Date purchases_orders_delivery_date;
 	private String purchases_orders_information;
 	private Double purchases_orders_final_price;
 	private Boolean is_pending;
@@ -34,7 +41,7 @@ public class PurchasesOrderModel {
 	
 	
 	public PurchasesOrderModel(Integer purchases_orders_id, String purchases_orders_code,
-			DateTimeFormatter purchases_orders_date, DateTimeFormatter purchases_orders_delivery_date,
+			Date purchases_orders_date, Date purchases_orders_delivery_date,
 			Double purchases_orders_final_price, ProvidersModel providers_id) {
 		this.purchases_orders_id = purchases_orders_id;
 		this.purchases_orders_code = purchases_orders_code;
@@ -58,12 +65,12 @@ public class PurchasesOrderModel {
 	}
 
 
-	public DateTimeFormatter getPurchases_orders_delivery_date() {
+	public Date getPurchases_orders_delivery_date() {
 		return purchases_orders_delivery_date;
 	}
 
 
-	public void setPurchases_orders_delivery_date(DateTimeFormatter purchases_orders_delivery_date) {
+	public void setPurchases_orders_delivery_date(Date purchases_orders_delivery_date) {
 		this.purchases_orders_delivery_date = purchases_orders_delivery_date;
 	}
 
@@ -133,7 +140,7 @@ public class PurchasesOrderModel {
 	}
 
 
-	public DateTimeFormatter getPurchases_orders_date() {
+	public Date getPurchases_orders_date() {
 		return purchases_orders_date;
 	}
 

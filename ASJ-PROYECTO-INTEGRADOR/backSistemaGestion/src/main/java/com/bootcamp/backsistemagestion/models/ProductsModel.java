@@ -128,14 +128,14 @@ public class ProductsModel {
 
 
 
-	public Boolean getIs_eliminado() {
+	public Boolean getIs_deleted() {
 		return is_deleted;
 	}
 
 
 
-	public void setIs_eliminado(Boolean is_eliminado) {
-		this.is_deleted = is_eliminado;
+	public void setIs_deleted(Boolean is_deleted) {
+		this.is_deleted = is_deleted;
 	}
 
 

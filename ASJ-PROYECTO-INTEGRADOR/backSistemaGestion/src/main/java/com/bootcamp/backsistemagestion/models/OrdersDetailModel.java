@@ -28,6 +28,10 @@ public class OrdersDetailModel {
 	
 	private Instant created_at;
 	private Instant updated_at;
+	
+	
+	public OrdersDetailModel() {
+	}
 	public OrdersDetailModel(Integer orders_detail_id, Double orders_detail_product_price,
 			Integer orders_detail_quantity, ProductsModel products_id, PurchasesOrderModel purchases_order_id) {
 		this.orders_detail_id = orders_detail_id;

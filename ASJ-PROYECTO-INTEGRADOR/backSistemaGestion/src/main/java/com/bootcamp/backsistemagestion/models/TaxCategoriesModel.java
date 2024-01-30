@@ -1,11 +1,13 @@
 package com.bootcamp.backsistemagestion.models;
 
 import java.time.Instant;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -17,6 +19,10 @@ public class TaxCategoriesModel {
 	private Integer taxcategories_id;
 	
 	private String taxcategories_denominations;
+	private Boolean is_deleted;
+	
+	@OneToMany(mappedBy = "taxcategories_id")
+	private List<ProvidersModel> providers;
 	
 	private Instant created_at;
 	private Instant updated_at;
@@ -25,6 +31,7 @@ public class TaxCategoriesModel {
 	public TaxCategoriesModel(int taxcategories_id, String taxcategories_denominations) {
 		this.taxcategories_id = taxcategories_id;
 		this.taxcategories_denominations = taxcategories_denominations;
+		this.is_deleted = false;
 		this.created_at = Instant.now();
 	}
 	public String getTaxcategories_denominations() {
@@ -45,6 +52,13 @@ public class TaxCategoriesModel {
 	public Instant getCreated_at() {
 		return created_at;
 	}
+	public Boolean getIs_deleted() {
+		return is_deleted;
+	}
+	public void setIs_deleted(Boolean is_deleted) {
+		this.is_deleted = is_deleted;
+	}
+	
 	
 	
 	

@@ -1,11 +1,13 @@
 package com.bootcamp.backsistemagestion.models;
 
 import java.time.Instant;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,6 +20,9 @@ public class SectorsFieldModel {
 	
 	private String sectorsfield_name;
 	private Boolean is_deleted;
+	
+	@OneToMany(mappedBy = "sectorsField_id")
+	private List<ProvidersModel> providers;
 	
 	private Instant created_at;
 	private Instant updated_at;

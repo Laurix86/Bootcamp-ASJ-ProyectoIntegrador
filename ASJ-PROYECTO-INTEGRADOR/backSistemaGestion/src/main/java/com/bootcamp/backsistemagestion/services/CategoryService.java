@@ -10,6 +10,7 @@ import com.bootcamp.backsistemagestion.models.CategoriesModel;
 import com.bootcamp.backsistemagestion.repositories.CategoriesRepository;
 
 
+
 @Service
 public class CategoryService {
 
@@ -25,16 +26,38 @@ public class CategoryService {
 	public Optional<CategoriesModel> getCategoriesById(int id){
 		return categoryRepository.findById(id);
 	}
+	
+	//Insert Categorías
+	public String setCategories(CategoriesModel category) {
+		categoryRepository.save(category);
+		return "OK";
+	}
+	
+	//Borrado lógio
+	public String deleteCategory(int id) {
+		CategoriesModel c = categoryRepository.findById(id).get();
+		if(c != null) {
+			c.setIs_deleted(true);
+			categoryRepository.save(c);
+			return "OK";
+		}
+		return "Error";
+	}
+	
+	// Borrado físico
+	public String eraseCategory(int id) {
+		categoryRepository.deleteById(id);
+		return "OK";
+	}
 }
 
-
 /*
- *
 	
-	//insertar tarea
-	public String crearTarea(TareaModel tarea) {
-		tareaRepository.save(tarea);
-		return "Tarea insertada correctamente";
+	//eliminar tarea
+	public String elimiarTarea(int id) {
+		tareaRepository.deleteById(id);
+		return "Tarea eliminada correctamente";
 	}
-	*/
+ * 
+ * */
  
