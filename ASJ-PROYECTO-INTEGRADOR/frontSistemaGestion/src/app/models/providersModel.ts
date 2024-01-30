@@ -1,17 +1,32 @@
-export interface ProviderModel {
+export interface ProvidersModel {
     id?: number;
     code: string;
-    razonSocial:string;
-    rubro:string;
-    sitioWeb:string;
+    denomination:string;
+    website: string;
     email: string;
-    telefono: string;
+    phone: string;
+    cuit: string;
+    street: string;
+    addressNumber: number;
+    addressInfo: string;
+    logo: string;
+    city: string;
+    contact_firstName: string;
+    contact_lastName: string;
+    contact_phone: string;
+    contact_email: string;
+    contact_role: string;
+    is_deleted: boolean;
+    jurisdiction_id: 
+    rubro:string;
+ 
+   
     calle:string;
     altura:number,
     ciudad: string;
     provincia: string;
     pais: string;
-    cuit:string;
+   
     condIVA: string;
     nombre:string;
     apellido:string;
@@ -19,4 +34,8 @@ export interface ProviderModel {
     mailContacto: string;
     rolContacto: string;
     activo: boolean
+  }
+
+  export interface JurisdictionsModel{
+    
   }

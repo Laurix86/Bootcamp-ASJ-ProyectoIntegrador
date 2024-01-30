@@ -6,8 +6,8 @@ USE sistemaGestion;
 
 CREATE TABLE "countries"
   (
-     "country_id"   INT NOT NULL PRIMARY KEY,
-     "country_name" VARCHAR(255) NOT NULL,
+     "countries_id"   INT NOT NULL PRIMARY KEY,
+     "countries_name" VARCHAR(255) NOT NULL,
      "created_at"   DATETIME NOT NULL,
      "updated_at"   DATETIME NULL
   );
@@ -16,7 +16,7 @@ CREATE TABLE "jurisdictions"
   (
      "jurisdictions_id"     INT NOT NULL PRIMARY KEY,
      "jurisdictions_name" VARCHAR(255) NOT NULL,
-     "id_pais"             INT NOT NULL,
+     "country_id"             INT NOT NULL,
       "created_at"   DATETIME NOT NULL,
      "updated_at"   DATETIME NULL
   );

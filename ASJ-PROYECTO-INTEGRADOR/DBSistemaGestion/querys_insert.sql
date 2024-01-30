@@ -1,5 +1,5 @@
 -- Insertar Países
-INSERT INTO paises (pais_id, pais_nombre) VALUES
+INSERT INTO countries (countries_id, countries_name) VALUES
 (1, 'Argentina'),
 (2, 'Uruguay');
 

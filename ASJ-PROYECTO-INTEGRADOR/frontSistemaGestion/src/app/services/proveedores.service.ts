@@ -13,8 +13,12 @@ import Countries from "../../../models/countries.json" */
 })
 export class ProveedoresService {
 
-  constructor() { }
-  providerModelArr: ProviderModel[] = [];
+  private apiURL = 'http://localhost:8080/providers';
+
+  constructor(private http: HttpClient) { }
+
+
+  /* providerModelArr: ProviderModel[] = [];
   oneProvider: ProviderModel= {
     code: '',
     razonSocial: '',
@@ -36,12 +40,14 @@ export class ProveedoresService {
     rolContacto: '',
     activo: false
   };
-
-  private cate: string[]=["GOLOSINAS", "TECNOLOGÍA", "LIMPIEZA", "SALUD", "CONSTRUCCION", "VEHICULOS"];
+ */
+ // private cate: string[]=["GOLOSINAS", "TECNOLOGÍA", "LIMPIEZA", "SALUD", "CONSTRUCCION", "VEHICULOS"];
 
   //Complete List
-  public getAllProviders(){
-      const auxListado = localStorage.getItem("provider");
+  public getAllProviders(): Observable<any[]>{
+
+    return this.http.get<any[]>(this.apiURL);
+      /* const auxListado = localStorage.getItem("provider");
       if(auxListado){
         this.providerModelArr = JSON.parse(auxListado);
       }else{
@@ -49,7 +55,7 @@ export class ProveedoresService {
       }
       //this.providerModelArr = JSON.parse(localStorage.getItem("provider")!) || [];
       return this.providerModelArr; 
-   
+    */
   }
 
   // Only Active Providers List

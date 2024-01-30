@@ -23,7 +23,11 @@ export class DisplayProveedoresComponent implements OnInit{
   }
 
   getProvidersToShow(){
-    this.providerList = this.proveedoresService.getActiveProviders();
+    this.proveedoresService.getActiveProviders().subscribe(
+      (provider) => {
+        this.providerList = provider;
+      }
+    );
     console.log("prov: ", this.providerList)
     
   }
