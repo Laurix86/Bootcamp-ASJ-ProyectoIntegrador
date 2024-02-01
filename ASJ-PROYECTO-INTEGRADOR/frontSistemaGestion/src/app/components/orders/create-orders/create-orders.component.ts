@@ -54,7 +54,7 @@ ngOnInit(): void {
     this.order.orderDate = hoy.toLocaleDateString();
     
     //console.log(this.order.orderDate)
-    this.providersList = this.providerService.getProvidersList();
+   // this.providersList = this.providerService.getProvidersList();
     /* this.createDetail();
     console.log(this.arrProdDetail) */
 

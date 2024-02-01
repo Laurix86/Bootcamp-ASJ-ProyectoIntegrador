@@ -25,7 +25,7 @@ export class CreateProductsComponent implements OnInit {
     activo: true
   }
 
-  public categoriesProv: string[]= this.providerService.getRubros();
+  public categoriesProv: any= this.providerService.getRubros();
   public listaProvByCategory: string[]=[];
 
   msg: string= "";
@@ -72,7 +72,7 @@ export class CreateProductsComponent implements OnInit {
     console.log(value)
     const i = parseInt(value)
     this.product.categoria= value;
-    this.listaProvByCategory = this.providerService.getProvidersByRubro(value)
+   // this.listaProvByCategory = this.providerService.getProvidersByRubro(value)
   }
   getProv(value:string){
     

@@ -2,14 +2,14 @@ export interface ProvidersModel {
     id?: number;
     code: string;
     denomination:string;
-    website: string;
+    website?: string | null;
     email: string;
     phone: string;
     cuit: string;
     street: string;
     addressNumber: number;
-    addressInfo: string;
-    logo: string;
+    addressInfo?: string | null;
+    logo?: string | null;
     city: string;
     contact_firstName: string;
     contact_lastName: string;
@@ -17,25 +17,30 @@ export interface ProvidersModel {
     contact_email: string;
     contact_role: string;
     is_deleted: boolean;
-    jurisdiction_id: 
-    rubro:string;
- 
-   
-    calle:string;
-    altura:number,
-    ciudad: string;
-    provincia: string;
-    pais: string;
-   
-    condIVA: string;
-    nombre:string;
-    apellido:string;
-    teleContacto: string;
-    mailContacto: string;
-    rolContacto: string;
-    activo: boolean
+    jurisdictions:{
+      id: number;
+      name: string;
+      country:{
+        id: number;
+        name: string;
+      }
+    };
+    taxCategories: {
+      id: number;
+      taxName: string;
+    };
+    sectorsField:{
+      id: number;
+      sectorName: string;
+    }
   }
 
   export interface JurisdictionsModel{
-    
+    jurisdictions_id?: number;
+    jurisdictions_name: string;
+  }
+
+  export interface CountriesModel{
+    countries_id: number;
+    countries_name: string;
   }

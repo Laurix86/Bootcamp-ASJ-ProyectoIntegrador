@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { ProveedoresService } from '../../../services/proveedores.service';
-import { ProviderModel } from '../../../models/providersModel';
+import { CountriesModel, JurisdictionsModel, ProvidersModel } from '../../../models/providersModel';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SectorsFiedlModel } from 'src/app/models/sectorsFieldModel';
+import { TaxCategoriesModel } from 'src/app/models/taxCategoriesModel';
 
 @Component({
   selector: 'app-create-proveedores',
@@ -12,41 +14,71 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class CreateProveedoresComponent implements OnInit{
 
-  public provider: ProviderModel ={
-    id: -1,
-    code: "",
-    razonSocial: '',
-    rubro: '',
-    sitioWeb: '',
+  constructor(public proveedoresService:ProveedoresService,
+    private activeRoute:ActivatedRoute, private router:Router){}
+    
+  public provider: ProvidersModel ={
+    id:0,
+    code: '',
+    denomination: '',
     email: '',
-    telefono: '',
-    calle: '',
-    altura:0,
-    ciudad: '',
-    provincia: '',
-    pais: '',
+    phone: '',
     cuit: '',
-    condIVA: '',
-    nombre: '',
-    apellido: '',
-    teleContacto: '',
-    mailContacto: '',
-    rolContacto: '',
-    activo: true
+    street: '',
+    addressNumber: 0,
+    city: '',
+    contact_firstName: '',
+    contact_lastName: '',
+    contact_phone: '',
+    contact_email: '',
+    contact_role: '',
+    is_deleted: false,
+    jurisdictions: {
+      id: 0,
+      name: '',
+      country: {
+        id: 0,
+        name: ''
+      }
+    },
+    taxCategories: {
+      id: 0,
+      taxName: ''
+    },
+    sectorsField: {
+      id: 0,
+      sectorName: ''
+    }
   };
 
-  public rubroLista: string[]=this.proveedoresService.getRubros();
+  taxesList: TaxCategoriesModel[] = [];
+  rubroLista: SectorsFiedlModel[]=[];
+  countriesList: CountriesModel[]=[];
+  jurisdictionsList: JurisdictionsModel[]=[];
+  //: any =this.proveedoresService.getRubros();
 
   /* optSelectIva =["Responsable Inscripto", "Autónomo", "Monotributista", "Exento", "Consumidor Final"]; */
   msg: string= "";
   title: string = "";
   indexProv: any;
 
-  constructor(public proveedoresService:ProveedoresService,
-              private activeRoute:ActivatedRoute, private router:Router){}
+  
   
   ngOnInit(): void {
-    
+  /* this.proveedoresService.getRubros().subscribe((elem)=>{
+      console.log("ELem ",elem)
+      this.rubroLista= elem;
+      console.log("lista ",this.rubroLista)
+    });*/
+   this.getRubros();
+   this.getTaxCategories();
+   this.getCountries();
+   /* this.proveedoresService.getRubros().subscribe(
+      (sectorsField) => {
+        this.rubroLista = sectorsField;
+        console.log("Datos de rubros recibidos:", this.rubroLista);
+      }
+    );*/
     /* ---revisar 
       this.activeRoute.queryParams.subscribe(param =>{
       console.log("param",this.activeRoute.snapshot.paramMap.get('idProveedor'))
@@ -73,10 +105,10 @@ export class CreateProveedoresComponent implements OnInit{
       return
     }else if(this.indexProv == -1){
       
-      this.provider.condIVA = this.checkIva(this.provider.condIVA)
-      console.log("cond: ",this.provider.condIVA )
+     /* this.provider.taxCategories_id = this.checkIva(this.provider.taxCategories_id)
+      console.log("cond: ",this.provider.taxCategories_id )
       this.proveedoresService.saveProvider(this.provider, -1);
-      this.msg = "Proveedor guardado correctamente";
+      this.msg = "Proveedor guardado correctamente";*/
     }else if(this.indexProv >= 0){
       this.proveedoresService.saveProvider(this.provider, this.indexProv);
       this.msg = "Proveedor guardado correctamente";
@@ -91,36 +123,66 @@ export class CreateProveedoresComponent implements OnInit{
 
   fillForm(index: number){
     
-    this.provider = this.proveedoresService.getAllProviders()[index];
+    //this.provider = this.proveedoresService.getAllProviders()[index];
     
     //console.log("llenar",this.provider)  
     }
   
-    checkIva(op: string):string{
-     
-      switch (op) {
-        case "respInsc":
-          return "Responsable Inscripto";
-        case "auton":
-          return "Autónomo";
-        case "monot":
-          return "Monotributista";
-        case "exc":
-          return "Exento";
-        case "consFin":
-          return "Consumidor Final";
-        default:
-          return "No declarado";
-      }
+    checkIva(selectedOption: {id: number, name: string}){
+      this.provider.taxCategories.id = selectedOption.id;
+      this.provider.taxCategories.taxName = selectedOption.name;
+      console.log( this.provider.taxCategories.id , this.provider.taxCategories.taxName);
     }
 
     getRubros(){
-      this.rubroLista = this.proveedoresService.getRubros();
+      this.proveedoresService.getRubros().subscribe(
+        (sectorsField) => {
+         
+          if(sectorsField.length == 0){
+            console.log("No hay rubros");
+          }
+          this.rubroLista = sectorsField;
+          
+        }
+      );
+      
+      
     }
 
-    setRubro(value: string){
-      this.provider.rubro = value;
+    setRubro(selectedOption: {id: number, name: string}){
+      
+      this.provider.sectorsField.id = selectedOption.id;
+      this.provider.sectorsField.sectorName = selectedOption.name;
+      console.log( this.provider.sectorsField.id , this.provider.sectorsField.sectorName);
     }
+ 
+
+  getTaxCategories(){
+    this.proveedoresService.getTaxCategories().subscribe(
+      (taxes) => {
+        console.log("tax ", taxes)
+        this.taxesList = taxes;
+      }
+    )
   }
 
- 
+  getCountries(){
+    this.proveedoresService.getCountries().subscribe(
+      (countries)=>{
+        this.countriesList = countries;
+      }
+    )
+  }
+
+  showJurisdictions(selectedOption: {id: number, name: string}){
+    this.provider.jurisdictions.country.id = selectedOption.id;
+    this.provider.jurisdictions.country.name = selectedOption.name;
+    this.proveedoresService.getJurisdictionsByCountry(selectedOption.id).subscribe(
+      (jurisdictions)=>{
+        this.jurisdictionsList = jurisdictions;
+      }
+    )
+
+    console.log( this.provider.sectorsField.id , this.provider.sectorsField.sectorName);
+  }
+} 

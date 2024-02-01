@@ -22,25 +22,24 @@
             </div>
             <div class="col-5 mb-3">
               <label class="form-label">Razón Social</label>
-              <input type="text" class="form-control" placeholder="Razón Social" name="razonSocial" [(ngModel)]="provider.razonSocial" required minlength="3" #razonSocial="ngModel">
-              <div *ngIf="razonSocial.errors?.['minlength']" class="col-auto">
+              <input type="text" class="form-control" placeholder="Razón Social" name="denomination" [(ngModel)]="provider.denomination" required minlength="3" #denomination="ngModel">
+              <div *ngIf="denomination.errors?.['minlength']" class="col-auto">
                   <span class="form-text text-danger ">
                       Debe tener al menos 3 caracteres
                   </span>
               </div>
-              <div *ngIf="razonSocial.errors?.['required']" class="col-auto">
+              <div *ngIf="denomination.errors?.['required']" class="col-auto">
                   <span class="form-text text-danger">
                       El dato es obligatorio
                   </span>
               </div>
             </div>
             <div class="col-4 mb-3">
-              <label class="form-label"for="rubro">Rubro</label>
-
+              <label class="form-label"for="sectorsField_id">Rubro</label>
               
-                    <select class="form-select " name="rubro" id="rubro"  [(ngModel)]="provider.rubro"  (ngModelChange)="setRubro($event)" required >
+                    <select class="form-select " name="sectorsField_id" id="sectorsField_id"  [(ngModel)]="provider.sectorsField.sectorName"  (ngModelChange)="setRubro($event)" required >
                        
-                        <option *ngFor="let item of rubroLista, index as i" value="{{item}}"  >{{item}}</option>
+                        <option *ngFor="let item of rubroLista; index as i" [ngValue]="{id: item.sectorsfield_id, name: item.sectorsfield_name}"  >{{item.sectorsfield_name}}</option>
                       
                     </select>
              
@@ -50,13 +49,13 @@
             <div class="row border-1 ">
             <div class="col-5 mb-3">
               <label class="form-label">Sitio Web</label>
-              <input type="text" class="form-control" placeholder="Sitio Web" name="sitioWeb" [(ngModel)]="provider.sitioWeb" required minlength="4" #sitioWeb="ngModel">
-              <div *ngIf="sitioWeb.errors?.['minlength']" class="col-auto">
+              <input type="text" class="form-control" placeholder="Sitio Web" name="website" [(ngModel)]="provider.website" required minlength="4" #website="ngModel">
+              <div *ngIf="website.errors?.['minlength']" class="col-auto">
                   <span class="form-text text-danger ">
                       Debe tener almenos 4 caracteres
                   </span>
               </div>
-              <div *ngIf="sitioWeb.errors?.['required']" class="col-auto">
+              <div *ngIf="website.errors?.['required']" class="col-auto">
                   <span class="form-text text-danger">
                       El dato es obligatorio
                   </span>
@@ -78,13 +77,13 @@
             </div>
             <div class="col-3 mb-3">
               <label class="form-label">Teléfono</label>
-              <input type="text" class="form-control" placeholder="Número Telefónico" name="telefono" [(ngModel)]="provider.telefono" required minlength="4" #telefono="ngModel">
-              <div *ngIf="telefono.errors?.['minlength']" class="col-auto">
+              <input type="text" class="form-control" placeholder="Número Telefónico" name="phone" [(ngModel)]="provider.phone" required minlength="4" #phone="ngModel">
+              <div *ngIf="phone.errors?.['minlength']" class="col-auto">
                   <span class="form-text text-danger ">
                       Debe tener almenos 4 caracteres
                   </span>
               </div>
-              <div *ngIf="telefono.errors?.['required']" class="col-auto">
+              <div *ngIf="phone.errors?.['required']" class="col-auto">
                   <span class="form-text text-danger">
                       El dato es obligatorio
                   </span>
@@ -96,13 +95,13 @@
             
             <div class="col-3 mb-3">
               <label class="form-label">País</label>
-              <input type="text" class="form-control" placeholder="País" name="pais" [(ngModel)]="provider.pais" required minlength="4" #pais="ngModel">
-              <div *ngIf="pais.errors?.['minlength']" class="col-auto">
+              <input type="text" class="form-control" placeholder="País" name="country_id" [(ngModel)]="provider.jurisdictions.country.name" required minlength="4" #country_id="ngModel">
+              <div *ngIf="country_id.errors?.['minlength']" class="col-auto">
                   <span class="form-text text-danger ">
                       Debe tener almenos 4 caracteres
                   </span>
               </div>
-              <div *ngIf="pais.errors?.['required']" class="col-auto">
+              <div *ngIf="country_id.errors?.['required']" class="col-auto">
                   <span class="form-text text-danger">
                       El dato es obligatorio
                   </span>
@@ -110,13 +109,13 @@
             </div>
             <div class="col-2 mb-3">
               <label class="form-label">Provincia / Estado</label>
-              <input type="text" class="form-control" placeholder="Provincia" name="provincia" [(ngModel)]="provider.provincia" required minlength="4" #provincia="ngModel">
-              <div *ngIf="provincia.errors?.['minlength']" class="col-auto">
+              <input type="text" class="form-control" placeholder="Provincia" name="jurisdiction_id" [(ngModel)]="provider.jurisdictions.name" required minlength="4" #jurisdiction_id="ngModel">
+              <div *ngIf="jurisdiction_id.errors?.['minlength']" class="col-auto">
                   <span class="form-text text-danger ">
                       Debe tener almenos 4 caracteres
                   </span>
               </div>
-              <div *ngIf="provincia.errors?.['required']" class="col-auto">
+              <div *ngIf="jurisdiction_id.errors?.['required']" class="col-auto">
                   <span class="form-text text-danger">
                       El dato es obligatorio
                   </span>
@@ -124,13 +123,13 @@
             </div>
             <div class="col-3 mb-3">
               <label class="form-label">Ciudad</label>
-              <input type="text" class="form-control" placeholder="Ciudad" name="ciudad" [(ngModel)]="provider.ciudad" required minlength="4" #ciudad="ngModel">
-              <div *ngIf="ciudad.errors?.['minlength']" class="col-auto">
+              <input type="text" class="form-control" placeholder="Ciudad" name="city" [(ngModel)]="provider.city" required minlength="4" #city="ngModel">
+              <div *ngIf="city.errors?.['minlength']" class="col-auto">
                   <span class="form-text text-danger ">
                       Debe tener almenos 4 caracteres
                   </span>
               </div>
-              <div *ngIf="ciudad.errors?.['required']" class="col-auto">
+              <div *ngIf="city.errors?.['required']" class="col-auto">
                   <span class="form-text text-danger">
                       El dato es obligatorio
                   </span>
@@ -138,13 +137,13 @@
             </div>
             <div class="col-3 mb-3">
                 <label class="form-label">Dirección</label>
-                <input type="text" class="form-control" placeholder="Calle" name="calle" [(ngModel)]="provider.calle" required minlength="4" #calle="ngModel">
-                <div *ngIf="calle.errors?.['minlength']" class="col-auto">
+                <input type="text" class="form-control" placeholder="Calle" name="street" [(ngModel)]="provider.street" required minlength="4" #street="ngModel">
+                <div *ngIf="street.errors?.['minlength']" class="col-auto">
                     <span class="form-text text-danger ">
                         Debe tener almenos 4 caracteres
                     </span>
                 </div>
-                <div *ngIf="calle.errors?.['required']" class="col-auto">
+                <div *ngIf="street.errors?.['required']" class="col-auto">
                     <span class="form-text text-danger">
                         El dato es obligatorio
                     </span>
@@ -152,13 +151,13 @@
               </div>
               <div class="col-1 mb-3">
                 <label class="form-label">Número</label>
-                <input type="text" class="form-control" placeholder="altura" name="altura" [(ngModel)]="provider.altura" required minlength="4" #altura="ngModel">
-                <div *ngIf="altura.errors?.['minlength']" class="col-auto">
+                <input type="text" class="form-control" placeholder="altura" name="addressNumber" [(ngModel)]="provider.addressNumber" required minlength="4" #addressNumber="ngModel">
+                <div *ngIf="addressNumber.errors?.['minlength']" class="col-auto">
                     <span class="form-text text-danger ">
                         Debe tener almenos 4 caracteres
                     </span>
                 </div>
-                <div *ngIf="altura.errors?.['required']" class="col-auto">
+                <div *ngIf="addressNumber.errors?.['required']" class="col-auto">
                     <span class="form-text text-danger">
                         El dato es obligatorio
                     </span>
@@ -181,14 +180,20 @@
                   </span>
               </div>
             <!-- </div>
+
+                 <select class="form-select " name="sectorsField_id" id="sectorsField_id"  [(ngModel)]="provider.sectorsField.sectorName"  (ngModelChange)="setRubro($event)" required >
+                       
+                        <option *ngFor="let item of rubroLista; index as i" [ngValue]="{id: item.id}"  >{{item.name}}</option>
+
+
             <div class="mb-3"> -->
-              <label class="form-label" for="condIva">Condición ante el IVA</label>
-              <select class="form-select " name="condIVA" id="selectIva" [(ngModel)]="provider.condIVA" (ngModelChange)="checkIva($event)" required >
-                <option value="respInsc">Responsable Inscripto</option>
-                <option value="auton">Autónomo</option>
+              <label class="form-label" for="taxCategories_id">Condición ante el IVA</label>
+              <select class="form-select " name="taxCategories" id="selectIva" [(ngModel)]="provider.taxCategories.id" (ngModelChange)="checkIva($event)" required >
+               <option *ngFor="let tax of taxesList; index as i" [ngValue]="{id: tax.taxcategories_id, name: tax.taxcategories_denominations}">{{tax.taxcategories_denominations}}</option>
+              <!--    <option value="auton">Autónomo</option>
                 <option value="monot">Monotributista</option>
                 <option value="exc">Excento</option>
-                <option value="consFin">Consumidor Final</option>
+                <option value="consFin">Consumidor Final</option>-->
               </select>
               
             </div>
@@ -204,25 +209,25 @@
                 <div class="row">
                 <div class="col-5 mb-3">
                     <label class="form-label">Nombre</label>
-                    <input type="text" class="form-control" placeholder="Nombre" name="nombre" [(ngModel)]="provider.nombre">
+                    <input type="text" class="form-control" placeholder="Nombre" name="contact_firstName" [(ngModel)]="provider.contact_firstName">
                 </div>
                 <div class="col-4 mb-3">
                 <label class="form-label">Apellido</label>
-                <input type="text" class="form-control" placeholder="Apellido" name="apellido" [(ngModel)]="provider.apellido">
+                <input type="text" class="form-control" placeholder="Apellido" name="contact_lastName" [(ngModel)]="provider.contact_lastName">
                 </div>
                 <div class="col-3 mb-3">
                     <label class="form-label">Rol</label>
-                    <input type="text" class="form-control" placeholder="Rol en la empresa" name="rolContacto" [(ngModel)]="provider.rolContacto">
+                    <input type="text" class="form-control" placeholder="Rol en la empresa" name="contact_role" [(ngModel)]="provider.contact_role">
                     </div>
             </div>
             <div class="row">
                 <div class="col-6 mb-3">
                 <label class="form-label">Teléfono de contacto</label>
-                <input type="text" class="form-control" placeholder="Teléfono de contacto" name="teleContacto" [(ngModel)]="provider.teleContacto">
+                <input type="text" class="form-control" placeholder="Teléfono de contacto" name="contact_phone" [(ngModel)]="provider.contact_phone">
                 </div>
                 <div class="col-6 mb-3">
                 <label class="form-label">E-Mail personal</label>
-                <input type="text" class="form-control" placeholder="emailpersonal@email.com" name="mailContacto" [(ngModel)]="provider.mailContacto">
+                <input type="text" class="form-control" placeholder="emailpersonal@email.com" name="contact_email" [(ngModel)]="provider.contact_email">
                 </div>
                 
            

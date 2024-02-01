@@ -1,12 +1,19 @@
 import { Injectable } from '@angular/core';
 import { ProductsModel } from '../models/productsModel';
+import { HttpClient } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
 
-  constructor() { }
+  
+  private apiProducts= 'http://localhost:8080/products';
+  private apiSectorsField = 'http://localhost:8080/sectorsFields';
+
+  constructor(private http: HttpClient) { }
+
   productModelArr: ProductsModel[] =[];
   oneProduct: ProductsModel={
     id: -1,

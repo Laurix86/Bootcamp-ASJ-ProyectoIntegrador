@@ -1,19 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import {ProviderModel} from '../models/providersModel'
-/* import Cities from "../../../models/cities.json"
-import States from "../../../models/states.json"
-import Countries from "../../../models/countries.json" */
-//import { Usuario } from '../models/Usuarios';
-
+import { Observable, map } from 'rxjs';
+import {ProvidersModel} from '../models/providersModel'
+import { SectorsFiedlModel } from '../models/sectorsFieldModel';
+import { TaxCategoriesModel } from '../models/taxCategoriesModel';
+import { JurisdictionsModel } from '../models/providersModel';
+import { CountriesModel } from '../models/providersModel';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProveedoresService {
 
-  private apiURL = 'http://localhost:8080/providers';
+  //public rubroLista: SectorsFiedlModel[]=[];
+
+  private apiProviders = 'http://localhost:8080/providers';
+  private apiSectorsField = 'http://localhost:8080/sectors';
+  private apiTaxCategories = 'http://localhost:8080/taxcategories';
+  private apiCountries = 'http://localhost:8080/countries';
+  private apiJurisdictions = 'http://localhost:8080/jurisdictions';
 
   constructor(private http: HttpClient) { }
 
@@ -41,12 +46,12 @@ export class ProveedoresService {
     activo: false
   };
  */
- // private cate: string[]=["GOLOSINAS", "TECNOLOGÍA", "LIMPIEZA", "SALUD", "CONSTRUCCION", "VEHICULOS"];
+
 
   //Complete List
-  public getAllProviders(): Observable<any[]>{
+  public getAllProviders(): Observable<ProvidersModel[]>{
 
-    return this.http.get<any[]>(this.apiURL);
+    return this.http.get<ProvidersModel[]>(this.apiProviders);
       /* const auxListado = localStorage.getItem("provider");
       if(auxListado){
         this.providerModelArr = JSON.parse(auxListado);
@@ -59,15 +64,31 @@ export class ProveedoresService {
   }
 
   // Only Active Providers List
-  public getActiveProviders(){
-    const auxActiveProviders = this.getAllProviders();
-    if(auxActiveProviders.length <=0){
-      return [];
+  public getActiveProviders(): Observable<ProvidersModel[]>{
+
+    return this.http.get<ProvidersModel[]>(this.apiProviders+`activeProviders`);
+
+   /* return this.http.get<any>(this.apiProviders).pipe(
+      map((auxActiveProviders) => {
+        if (auxActiveProviders == null) {
+          return null;
+        } else {
+          console.log("auxArr", this.getAllProviders());
+          const providersList = auxActiveProviders.filter((elem: any) => elem.activo);
+          return providersList;
+        }
+      })
+    );*/
+    /* const auxActiveProviders = this.http.get<any>(this.apiProviders);
+
+    if(auxActiveProviders == null){
+      return null;
     }else{
+
       console.log("auxArr",this.getAllProviders())
-      this.providerModelArr = auxActiveProviders.filter(elem => elem.activo);
-      return this.providerModelArr;
-    }
+      const providersList = auxActiveProviders.filter(elem => elem.activo);
+      return providersList;
+    } */
   }
 
 /*   public getOneProvider(index: number){
@@ -77,68 +98,87 @@ export class ProveedoresService {
   } */
 
   // Save new Provider
-  public  saveProvider (infoProvider: ProviderModel, indexId: number){
-    const auxProveedores = this.getAllProviders();
+  public  saveProvider (infoProvider: ProvidersModel, indexId: number){
+    //const auxProveedores = this.getAllProviders();
     if(indexId ==-1){
-      infoProvider.id = auxProveedores.length;
+      this.http.post<any[]>(this.apiProviders, infoProvider, { observe: 'response', responseType: 'text' as 'json'  });
+     /* infoProvider.id = auxProveedores.length;
       auxProveedores.push(infoProvider);
-      localStorage.setItem("provider", JSON.stringify(auxProveedores));
+      localStorage.setItem("provider", JSON.stringify(auxProveedores));*/
     } else{
-      this.providerModelArr = auxProveedores.map(elem => {
+
+      this.http.put<any[]>(this.apiProviders + `/${infoProvider.id}`, infoProvider, { observe: 'response', responseType: 'text' as 'json'  });
+      /*this.providerModelArr = auxProveedores.map(elem => {
         if(elem.id == indexId){
           elem = infoProvider;
         }
         return elem;
       })
       
-      localStorage.setItem("provider", JSON.stringify(this.providerModelArr));
+      localStorage.setItem("provider", JSON.stringify(this.providerModelArr));*/
 
     }
   }
 
-    public getRubros(){
-      /* const arrRubros:string[] = [];
+  public getTaxCategories(): Observable<TaxCategoriesModel[]>{
+    return this.http.get<TaxCategoriesModel[]>(this.apiTaxCategories);
+  }
 
-      if(this.getActiveProviders().length>0){
-         this.getActiveProviders().map(elem => 
-           arrRubros.push(elem.rubro));
-      } */
-      return this.cate;
-    }
+  public getRubros(): Observable<SectorsFiedlModel[]>{
 
-    public getProvidersByRubro(rubro: string){
-      let nombreProv: any[] = [];
-      if(this.getActiveProviders().length>0){
-        this.getActiveProviders().map(elem => 
-         { if(elem.rubro == rubro){
-          nombreProv.push(elem.razonSocial)
-          }});
-     }
-     return nombreProv;
-    }
+    return this.http.get<SectorsFiedlModel[]>(this.apiSectorsField);
+  }
+
+  public getCountries():Observable<CountriesModel[]>{
+    return this.http.get<CountriesModel[]>(this.apiCountries);
+  }
+
+  public getJurisdictionsByCountry(countryId: number):Observable<JurisdictionsModel[]>{
+    return this.http.get<JurisdictionsModel[]>(this.apiJurisdictions+`/country/$countryId`);
+  }
+
+ 
+  public getProvidersByRubro(rubro: string){
+    /* let nombreProv: any[] = [];
+    let activeProv = this.getActiveProviders();
+    
+      this.getActiveProviders().pipe(
+        map(elem => 
+          { if(elem.sectorsField_id == rubro){
+            nombreProv.push(elem.razonSocial)
+            }});
+      
+      return nombreProv;
+
+      );*/
+      
+      return null;
+  }
  
 
   //Inactive Provider
   public deleteProvider(index:number){
-    const auxDeleteProv  = this.getAllProviders();
+
+    return this.http.put<any[]>(this.apiProviders + `/deleted/${index}`, {}, { observe: 'response', responseType: 'text' as 'json'  });
+   /* const auxDeleteProv  = this.getAllProviders();
     this.providerModelArr = auxDeleteProv.map(elem => {
       if(elem.id == index){
         elem.activo = false;
       }
       return elem;
     });
-    localStorage.setItem("provider", JSON.stringify(this.providerModelArr));
+    localStorage.setItem("provider", JSON.stringify(this.providerModelArr));*/
   }
 
 
-  getProvidersList(){
+  /*getProvidersList(){
     const auxArr: string[]=[]; 
     
     this.getActiveProviders().map(elem => {
       auxArr.push(elem.razonSocial);
     });
     return auxArr;
-  }
+  }*/
 
 }
 

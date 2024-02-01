@@ -28,11 +28,11 @@
                 <tr *ngFor="let p of providerList | filterPipe: search" >
                     
                     <td>{{p.code}}</td>
-                    <td>{{p.razonSocial}}</td>
-                    <td><span>{{p.sitioWeb}}</span> <br>
+                    <td>{{p.denomination}}</td>
+                    <td><span>{{p.website}}</span> <br>
                         {{p.email}} <br>
-                        {{p.telefono}}</td>
-                    <td>{{p.nombre}} <br>{{p.apellido}}</td>
+                        {{p.phone}}</td>
+                    <td>{{p.contact_firstName}} <br>{{p.contact_lastName}}</td>
                     <td>
                         <button class="btn btn-sm btn-outline-secondary  m-1" routerLink="/proveedores/{{p.id}}">Editar</button>
                         <button class="btn btn-sm btn-outline-danger m-1" (click)="desactivarProv(p.id)">Eliminar</button>

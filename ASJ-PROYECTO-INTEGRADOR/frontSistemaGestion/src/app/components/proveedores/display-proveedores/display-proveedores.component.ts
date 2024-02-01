@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProveedoresService } from 'src/app/services/proveedores.service';
+import { ProvidersModel } from 'src/app/models/providersModel';
 
 @Component({
   selector: 'app-display-proveedores',
@@ -8,7 +9,7 @@ import { ProveedoresService } from 'src/app/services/proveedores.service';
 })
 export class DisplayProveedoresComponent implements OnInit{
 
-  providerList: any=[];
+  providerList: ProvidersModel[] = [];
   search: string = "";
   empty = "";
   constructor(private proveedoresService:ProveedoresService){}
@@ -25,6 +26,9 @@ export class DisplayProveedoresComponent implements OnInit{
   getProvidersToShow(){
     this.proveedoresService.getActiveProviders().subscribe(
       (provider) => {
+        if(provider.length == 0){
+          this.empty = "No hay proveedores para mostrar";
+        }
         this.providerList = provider;
       }
     );
