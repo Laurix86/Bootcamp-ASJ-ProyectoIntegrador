@@ -39,7 +39,7 @@
               
                     <select class="form-select " name="sectorsField_id" id="sectorsField_id"  [(ngModel)]="provider.sectorsField.sectorName"  (ngModelChange)="setRubro($event)" required >
                        
-                        <option *ngFor="let item of rubroLista; index as i" [ngValue]="{id: item.sectorsfield_id, name: item.sectorsfield_name}"  >{{item.sectorsfield_name}}</option>
+                        <option *ngFor="let item of rubroLista; index as i" [value]="{id: item.sectorsfield_id, name: item.sectorsfield_name}"  >{{item.sectorsfield_name}}</option>
                       
                     </select>
              
@@ -94,9 +94,11 @@
             <div class="row border-1 ">
             
             <div class="col-3 mb-3">
-              <label class="form-label">País</label>
-              <input type="text" class="form-control" placeholder="País" name="country_id" [(ngModel)]="provider.jurisdictions.country.name" required minlength="4" #country_id="ngModel">
-              <div *ngIf="country_id.errors?.['minlength']" class="col-auto">
+              <label class="form-label">País</label> 
+              <select class="form-select " name="country_id" id="country_id"  #country_id="ngModel"  [(ngModel)]="provider.jurisdictions.country.name" (ngModelChange)="showJurisdictions($event)" required >
+                <option *ngFor="let country of countriesList; index as i" [ngValue]="{id: country.countries_id, name: country.countries_name}">{{country.countries_name}}</option>
+                </select>
+              <!-- <div *ngIf="country_id.errors?.['minlength']" class="col-auto">
                   <span class="form-text text-danger ">
                       Debe tener almenos 4 caracteres
                   </span>
@@ -105,11 +107,16 @@
                   <span class="form-text text-danger">
                       El dato es obligatorio
                   </span>
-              </div>
+              </div> -->
             </div>
             <div class="col-2 mb-3">
               <label class="form-label">Provincia / Estado</label>
-              <input type="text" class="form-control" placeholder="Provincia" name="jurisdiction_id" [(ngModel)]="provider.jurisdictions.name" required minlength="4" #jurisdiction_id="ngModel">
+
+              <select class="form-select " name="jurisdiction_id" id="jurisdiction_id"  #jurisdiction_id="ngModel"  [(ngModel)]="provider.jurisdictions.name" (ngModelChange)="setJurisdictions($event)" required >
+                <option *ngFor="let jurisdiction of jurisdictionsList; index as i" [ngValue]="{id: jurisdiction.jurisdictions_id, name: jurisdiction.jurisdictions_name}">{{jurisdiction.jurisdictions_name}}</option>
+            </select>
+
+              <!-- <input type="text" class="form-control" placeholder="Provincia" name="jurisdiction_id" [(ngModel)]="provider.jurisdictions.name" required minlength="4" #jurisdiction_id="ngModel">
               <div *ngIf="jurisdiction_id.errors?.['minlength']" class="col-auto">
                   <span class="form-text text-danger ">
                       Debe tener almenos 4 caracteres
@@ -119,7 +126,7 @@
                   <span class="form-text text-danger">
                       El dato es obligatorio
                   </span>
-              </div>
+              </div> -->
             </div>
             <div class="col-3 mb-3">
               <label class="form-label">Ciudad</label>
@@ -164,6 +171,8 @@
                 </div>
               </div>
             </div>
+
+
             <div class="row border-1 ">
             <h5>Situación Fiscal</h5>
             <div class="col-3 mb-3">
@@ -239,6 +248,9 @@
 
             </div>
         </div>
+
+
+        
             <div class="row border-1 ">
                 <div class="  flex-column-reverse ">
             <button type="submit" class="btn btn-success me-2" [disabled]="!miForm.valid">Guardar</button>

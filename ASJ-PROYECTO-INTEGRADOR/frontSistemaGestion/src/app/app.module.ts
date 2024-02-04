@@ -18,6 +18,10 @@ import { DisplayOrdersComponent } from './components/orders/display-orders/displ
 import { filterPipePipe } from './components/pipes/filterPipe.pipe';
 import { ShowOrderComponent } from './components/orders/show-order/show-order.component';
 import { MainComponent } from './components/main/main.component';
+import { CreateProviderComponent } from './components/providers/create-provider/create-provider.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CuitFormatPipe } from './components/pipes/cuit-format.pipe';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -33,14 +37,18 @@ import { MainComponent } from './components/main/main.component';
     DisplayOrdersComponent,
     filterPipePipe,
     ShowOrderComponent,
-    MainComponent
+    MainComponent,
+    CreateProviderComponent,
+    CuitFormatPipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    NgbTooltip
   ],
   providers: [],
   bootstrap: [AppComponent]

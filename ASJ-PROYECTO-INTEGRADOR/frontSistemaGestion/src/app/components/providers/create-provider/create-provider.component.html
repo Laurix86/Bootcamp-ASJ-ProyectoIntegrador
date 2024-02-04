@@ -1,0 +1,305 @@
+<div class="container m-5">
+
+    <h3>{{title}}</h3>
+
+
+    <form [formGroup]="providersForm" (ngSubmit)="submitProvider()">
+        <!-- ... código - razón social - rubro... -->
+        <div class="row">
+            <div class="col-md-4 mb-3">
+
+                <label class="form-label">Código <span class="text-danger"
+                        *ngIf="providersForm.get('code')?.hasError('required')"> *</span></label>
+                <input type="text" class="form-control" placeholder="Código Proveedor" formControlName="code">
+                <div *ngIf="providersForm.get('code')?.hasError('minlength')" class="form-text text-danger">
+                    Debe tener al menos 3 caracteres
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Razón Social <span class="text-danger"
+                        *ngIf="providersForm.get('denomination')?.hasError('required')"> *</span></label>
+                <input type="text" class="form-control" placeholder="Código" formControlName="denomination">
+                <div *ngIf="providersForm.get('denomination')?.hasError('minlength')" class="form-text text-danger">
+
+                    Debe tener al menos 2 caracteres
+
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+
+                <label class="form-label" for="sectorsField">Rubro<span class="text-danger"
+                        *ngIf="providersForm.get('sectorsField')?.hasError('required')"> *</span></label>
+
+                <select class="form-select" formControlName="sectorsField" required>
+                    <option *ngFor="let item of rubroLista" [value]="item.sectorsfield_id">{{item.sectorsfield_name}}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Logo - Web - email - phone --------------------------- -->
+        <div class="row">
+            <div class="col-md-3 mb-3">
+                <label class="form-label" for="logo">Logo </label>
+                <input type="text" class="form-control" placeholder="URL Logo" formControlName="logo">
+                <div *ngIf="providersForm.get('logo')?.hasError('minlength')"
+                    class="position-absolute top-0 end-0 translate-middle p-1">
+                    <span class="form-text text-danger">
+                        Debe tener al menos 3 caracteres
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label class="form-label">Sitio Web </label>
+                <input type="text" class="form-control" placeholder="URL Web" formControlName="webSite">
+                <div *ngIf="providersForm.get('webSite')?.hasError('minlength')"
+                    class="position-absolute top-0 end-0 translate-middle p-1">
+                    <span class="form-text text-danger">
+                        Debe tener al menos 3 caracteres
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label class="form-label">E-mail <span class="text-danger"
+                        *ngIf="providersForm.get('email')?.hasError('required')"> *</span></label>
+                <input type="text" class="form-control" placeholder="usuario@dominio.com" formControlName="email">
+                <div *ngIf="providersForm.get('email')?.hasError('minlength')"
+                    class="position-absolute top-0 end-0 translate-middle p-1">
+                    <span class="form-text text-danger">
+                        Debe tener al menos 3 caracteres
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label class="form-label">Teléfono <span class="text-danger"
+                        *ngIf="providersForm.get('phone')?.hasError('required')"> *</span></label>
+                <input type="text" class="form-control" placeholder="Número telefónico" formControlName="phone">
+                <div *ngIf="providersForm.get('phone')?.hasError('minlength')"
+                    class="position-absolute top-0 end-0 translate-middle p-1">
+                    <span class="form-text text-danger">
+                        Debe tener al menos 6 caracteres
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!--  Dirección completa-------------------------------- -->
+
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <label class="form-label" for="country">País<span class="text-danger"
+                            *ngIf="providersForm.get('country')?.hasError('required')"> *</span></label>
+
+                    <select class="form-select" formControlName="country" (ngModelChange)="showJurisdictions($event)"
+                        required>
+                        <option *ngFor="let item of countriesList" [value]="item.countries_id">{{item.countries_name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="jurisdiction">Provincia<span class="text-danger"
+                            *ngIf="providersForm.get('jurisdiction')?.hasError('required')"> *</span></label>
+
+                    <select class="form-select" formControlName="jurisdiction" required>
+                        <option *ngFor="let item of jurisdictionsList" [value]="item.jurisdictions_id">
+                            {{item.jurisdictions_name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="col-md-8">
+                <!-- Renglón superior para calle y número -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Calle <span class="text-danger"
+                                *ngIf="providersForm.get('street')?.hasError('required')"> *</span></label>
+                        <input type="text" class="form-control" placeholder="Calle" formControlName="street">
+                        <div *ngIf="providersForm.get('street')?.hasError('minlength')" class="form-text text-danger">
+
+                            Debe tener al menos 3 caracteres
+
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Número <span class="text-danger"
+                                *ngIf="providersForm.get('nroStreet')?.hasError('required')"> *</span></label>
+                        <input type="number" class="form-control" placeholder="Número" formControlName="nroStreet">
+                        <div *ngIf="providersForm.get('nroStreet')?.hasError('minlength')"
+                            class="form-text text-danger">
+
+                            Debe tener al menos 1 caracteres
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Renglón inferior para código postal e información adicional -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Código Postal <span class="text-danger"
+                                *ngIf="providersForm.get('codPostal')?.hasError('required')"> *</span></label>
+                        <input type="text" class="form-control" placeholder="AA8000" formControlName="codPostal">
+                        <div *ngIf="providersForm.get('codPostal')?.hasError('minlength')"
+                            class="form-text text-danger">
+
+                            Debe tener al menos 3 caracteres
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Información Adicional</label>
+                        <input type="text" class="form-control" placeholder="Datos adicionales sobre el domicilio"
+                            formControlName="extraInfo">
+                        <div *ngIf="providersForm.get('extraInfo')?.hasError('minlength')"
+                            class="form-text text-danger">
+
+                            Debe tener al menos 1 caracteres
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <!--  Datos fiscales y del contacto --------  -->
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <label class="form-label">CUIT <span class="text-danger"
+                        *ngIf="providersForm.get('cuit')?.hasError('required')"> *</span></label>
+               <!--  <input type="text" class="form-control" placeholder="11-11111111-1" formControlName="cuit"> -->
+                <input type="text" class="form-control" placeholder="11-11111111-1" formControlName="cuit"  (input)="onCuitInput($event)">
+                <div *ngIf="providersForm.get('cuit')?.hasError('pattern')" class="position-absolute top-0 end-0 translate-middle p-1">
+                    <span class="form-text text-danger">
+                      El CUIT debe contener solo números y tener entre 10 y 11 dígitos.
+                    </span>
+                  </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="iva">Situación Fiscal<span class="text-danger"
+                            *ngIf="providersForm.get('iva')?.hasError('required')"> *</span></label>
+
+                    <select class="form-select" formControlName="iva" required>
+                        <option *ngFor="let item of taxesList" [value]="item.taxcategories_id">
+                            {{item.taxcategories_denominations}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="col-md-8">
+                <!-- Renglón superior para calle y número -->
+                <div class="row mb-3">
+                    <div class="col-md-5">
+                        <label class="form-label">Nombre <span class="text-danger"
+                                *ngIf="providersForm.get('firstName')?.hasError('required')"> *</span></label>
+                        <input type="text" class="form-control" placeholder="Nombre" formControlName="firstName">
+                        <div *ngIf="providersForm.get('firstName')?.hasError('minlength')" class="form-text text-danger">
+
+                            Debe tener al menos 2 caracteres
+
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-5">
+                        <label class="form-label">Apellido <span class="text-danger"
+                                *ngIf="providersForm.get('lastName')?.hasError('required')"> *</span></label>
+                        <input type="text" class="form-control" placeholder="Apellido" formControlName="lastName">
+                        <div *ngIf="providersForm.get('lastName')?.hasError('minlength')"
+                            class="form-text text-danger">
+
+                            Debe tener al menos 2 caracteres
+
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Rol <span class="text-danger"
+                                *ngIf="providersForm.get('rol')?.hasError('required')"> *</span></label>
+                        <input type="text" class="form-control" placeholder="Número" formControlName="rol">
+                        <div *ngIf="providersForm.get('rol')?.hasError('minlength')"
+                            class="form-text text-danger">
+
+                            Debe tener al menos 2 caracteres
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Renglón inferior para código postal e información adicional -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Teléfono <span class="text-danger"
+                                *ngIf="providersForm.get('phoneContact')?.hasError('required')"> *</span></label>
+                        <input type="text" class="form-control" placeholder="Teléfono Contacto" formControlName="phoneContact">
+                        <div *ngIf="providersForm.get('phoneContact')?.hasError('minlength')"
+                            class="form-text text-danger">
+
+                            Debe tener al menos 5 caracteres
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Email <span class="text-danger"
+                            *ngIf="providersForm.get('emailContact')?.hasError('required')"> *</span></label>
+                        <input type="text" class="form-control" placeholder="Email del Contacto"
+                            formControlName="emailContact">
+                        <div *ngIf="providersForm.get('emailContact')?.hasError('minlength')"
+                            class="form-text text-danger">
+
+                            Debe tener al menos 5 caracteres
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+
+        <!-- ... Otros campos ... 
+
+            <div class="col-3 mb-3">
+                <label class="form-label">País</label> 
+                <select class="form-select " name="country_id" id="country_id"  #country_id="ngModel"  [(ngModel)]="provider.jurisdictions.country.name" (ngModelChange)="showJurisdictions($event)" required >
+                  <option *ngFor="let country of countriesList; index as i" [ngValue]="{id: country.countries_id, name: country.countries_name}">{{country.countries_name}}</option>
+                  </select>
+            </div>
+            <div class="col-4 mb-3">
+                <label class="form-label" for="jurisdictions">Provincia / Estado</label>
+                <input type="text" class="form-control" formControlName="jurisdictions" placeholder="Buscar Provincia">
+                <div *ngFor="let jurisdiction of jurisdictionsList" (click)="setJurisdiction(jurisdiction)">
+                    {{ rubro.sectorsfield_name }}
+                </div>
+            </div>
+
+           ---------------------------------- -->
+        <div class="row border-1">
+            <!-- ... Resto del formulario ... -->
+        </div>
+
+        <div class="row border-1 justify-content-end mt-3">
+            <div class="col-auto">
+                <button type="submit" class="btn btn-outline-success me-2" [disabled]="!providersForm.valid">Guardar</button>
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-outline-warning" (click)="resetForm()">Limpiar</button>
+            </div>
+        </div>
+
+    </form>
+
+
+</div>

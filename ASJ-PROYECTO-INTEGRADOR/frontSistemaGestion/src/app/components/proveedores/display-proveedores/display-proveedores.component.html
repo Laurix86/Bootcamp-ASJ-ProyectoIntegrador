@@ -15,9 +15,10 @@
         
         <table class="table table-hover m-5 text-center border-info">
             <thead class="border-bottom">
+                <th>Logo</th>
                 <th>Código</th>
                 <th>Razón Social</th>
-                <th>Información</th>
+                <th>País - Provincia</th>
                 <th>Contacto</th>
                 <th>Acciones</th>
             </thead>
@@ -26,16 +27,23 @@
                     <td colspan="5" >{{empty}}</td> 
                 </tr>
                 <tr *ngFor="let p of providerList | filterPipe: search" >
-                    
-                    <td>{{p.code}}</td>
-                    <td>{{p.denomination}}</td>
-                    <td><span>{{p.website}}</span> <br>
-                        {{p.email}} <br>
-                        {{p.phone}}</td>
-                    <td>{{p.contact_firstName}} <br>{{p.contact_lastName}}</td>
+                    <td> <img  [src]="p.providers_logo ? p.providers_logo : 'https://tacm.com/wp-content/uploads/2018/01/no-image-available.jpeg'" alt="Logo proveedor" width="50" height="50"> </td>
+                    <td>{{p.providers_code}}</td>
+                    <td>{{p.providers_denomination}}</td>
+                    <td> {{p.jurisdictions_id.countries.countries_name}} - {{p.jurisdictions_id.jurisdictions_name}}</td>
+                    <td>{{p.providers_contact_firstname}} <br>{{p.providers_contact_lastname}} 
+                        <ng-template #tooltipInfo><ul>
+                            <li>{{p.providers_contact_phone}}</li>
+                            <li>{{p.providers_contact_email}}</li>
+                            <li>{{p.providers_website}}</li>
+                        </ul></ng-template>
+                        <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true"[ngbTooltip]="tooltipInfo"[animation]="true" tooltipClass="infoTooltip">
+                        <i class="bi bi-info-circle-fill"></i>
+                      </span>
+                    </td>
                     <td>
-                        <button class="btn btn-sm btn-outline-secondary  m-1" routerLink="/proveedores/{{p.id}}">Editar</button>
-                        <button class="btn btn-sm btn-outline-danger m-1" (click)="desactivarProv(p.id)">Eliminar</button>
+                        <button class="btn btn-sm btn-outline-secondary  m-1" routerLink="/proveedores/{{p.providers_id}}">Editar</button>
+                        <button class="btn btn-sm btn-outline-danger m-1" (click)="desactivarProv(p.providers_id)">Eliminar</button>
                     </td>
                 </tr>
             </tbody>

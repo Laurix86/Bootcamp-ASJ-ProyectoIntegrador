@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ProveedoresService } from 'src/app/services/proveedores.service';
 import { ProvidersModel } from 'src/app/models/providersModel';
+import { Tooltip} from 'bootstrap';
 
 @Component({
   selector: 'app-display-proveedores',
@@ -9,6 +10,38 @@ import { ProvidersModel } from 'src/app/models/providersModel';
 })
 export class DisplayProveedoresComponent implements OnInit{
 
+  public provider: ProvidersModel ={
+    code: '',
+    denomination: '',
+    email: '',
+    phone: '',
+    cuit: '',
+    street: '',
+    addressNumber: 0,
+    city: '',
+    contact_firstName: '',
+    contact_lastName: '',
+    contact_phone: '',
+    contact_email: '',
+    contact_role: '',
+    is_deleted: false,
+    jurisdictions: {
+      id: 0,
+      name: '',
+      country: {
+        id: 0,
+        name: ''
+      }
+    },
+    taxCategories: {
+      id: 0,
+      taxName: ''
+    },
+    sectorsField: {
+      id: 0,
+      sectorName: ''
+    }
+  }
   providerList: ProvidersModel[] = [];
   search: string = "";
   empty = "";
@@ -16,24 +49,24 @@ export class DisplayProveedoresComponent implements OnInit{
 
   ngOnInit(): void {
     this.getProvidersToShow();
-    if(this.providerList.length ==0){
-      /* console.log("lentgh", this.providerList.length) */
-      this.empty = "No hay proveedores para mostrar"
-    }
+    
+    
       
   }
+
+  
 
   getProvidersToShow(){
     this.proveedoresService.getActiveProviders().subscribe(
       (provider) => {
-        if(provider.length == 0){
-          this.empty = "No hay proveedores para mostrar";
-        }
         this.providerList = provider;
+        if(this.providerList.length ==0){
+           
+          this.empty = "No hay proveedores para mostrar"
+        }
+        console.log("lentgh", this.providerList)
       }
     );
-    console.log("prov: ", this.providerList)
-    
   }
 
   desactivarProv(indexProv: number){

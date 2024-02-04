@@ -151,8 +151,8 @@ export class CreateProveedoresComponent implements OnInit{
 
     setRubro(selectedOption: {id: number, name: string}){
       
-      this.provider.sectorsField.id = selectedOption.id;
-      this.provider.sectorsField.sectorName = selectedOption.name;
+     this.provider.sectorsField.id = selectedOption.id;
+     this.provider.sectorsField.sectorName = selectedOption.name;
       console.log( this.provider.sectorsField.id , this.provider.sectorsField.sectorName);
     }
  
@@ -170,19 +170,26 @@ export class CreateProveedoresComponent implements OnInit{
     this.proveedoresService.getCountries().subscribe(
       (countries)=>{
         this.countriesList = countries;
+        console.log("Paises: ", this.countriesList)
       }
     )
   }
 
   showJurisdictions(selectedOption: {id: number, name: string}){
-    this.provider.jurisdictions.country.id = selectedOption.id;
-    this.provider.jurisdictions.country.name = selectedOption.name;
+    console.log("seleccionado: ", selectedOption.id, selectedOption.name)
     this.proveedoresService.getJurisdictionsByCountry(selectedOption.id).subscribe(
       (jurisdictions)=>{
         this.jurisdictionsList = jurisdictions;
       }
+      
     )
+    this.provider.jurisdictions.country.id = selectedOption.id;
+    this.provider.jurisdictions.country.name = selectedOption.name;
+    console.log(this.provider.jurisdictions.country.id , this.provider.jurisdictions.country.name);
+  }
 
-    console.log( this.provider.sectorsField.id , this.provider.sectorsField.sectorName);
+  setJurisdictions(selectedOption: {id: number, name: string}){
+    this.provider.jurisdictions.id = selectedOption.id;
+    this.provider.jurisdictions.name = selectedOption.name;
   }
 } 

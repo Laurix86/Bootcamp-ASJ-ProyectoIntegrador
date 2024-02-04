@@ -66,7 +66,7 @@ export class ProveedoresService {
   // Only Active Providers List
   public getActiveProviders(): Observable<ProvidersModel[]>{
 
-    return this.http.get<ProvidersModel[]>(this.apiProviders+`activeProviders`);
+    return this.http.get<ProvidersModel[]>(this.apiProviders+`/activeProviders`);
 
    /* return this.http.get<any>(this.apiProviders).pipe(
       map((auxActiveProviders) => {
@@ -91,11 +91,10 @@ export class ProveedoresService {
     } */
   }
 
-/*   public getOneProvider(index: number){
-    const aux = this.getAllProviders();
-     aux.filter(elem => elem.id == index)
+   public getProviderById(index: number){
+    return this.http.get<ProvidersModel>(this.apiProviders+`/${index}`);
    
-  } */
+  } 
 
   // Save new Provider
   public  saveProvider (infoProvider: ProvidersModel, indexId: number){
@@ -134,7 +133,7 @@ export class ProveedoresService {
   }
 
   public getJurisdictionsByCountry(countryId: number):Observable<JurisdictionsModel[]>{
-    return this.http.get<JurisdictionsModel[]>(this.apiJurisdictions+`/country/$countryId`);
+    return this.http.get<JurisdictionsModel[]>(this.apiJurisdictions+`/country/${countryId}`);
   }
 
  
