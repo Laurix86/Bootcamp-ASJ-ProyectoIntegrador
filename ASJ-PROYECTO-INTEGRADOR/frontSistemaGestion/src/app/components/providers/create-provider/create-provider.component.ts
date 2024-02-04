@@ -96,9 +96,12 @@ export class CreateProviderComponent implements OnInit{
       (data)=>{
         
         this.provider = data;
-        console.log("code: ",this.provider   )
+        console.log("code: ",this.provider  )
         this.providersForm.patchValue({
-          code: this.provider.code,
+          code: this.provider.providers_code,
+          denomination: this.provider.providers_denomination,
+          sectorsField: this.provider.sectorsField_id.sectorsfield_id,
+          
          
         })
         

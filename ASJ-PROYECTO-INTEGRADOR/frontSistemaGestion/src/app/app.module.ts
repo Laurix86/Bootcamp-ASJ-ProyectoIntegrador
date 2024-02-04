@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { CreateProveedoresComponent } from './components/proveedores/create-proveedores/create-proveedores.component';
+//import { CreateProveedoresComponent } from './components/proveedores/create-proveedores/create-proveedores.component';
 import { DisplayProveedoresComponent } from './components/proveedores/display-proveedores/display-proveedores.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { SidebarMenuComponent } from './components/sidebar-menu/sidebar-menu.component';
@@ -26,7 +26,7 @@ import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     AppComponent,
-    CreateProveedoresComponent,
+    //CreateProveedoresComponent,
     DisplayProveedoresComponent,
     NavMenuComponent,
     SidebarMenuComponent,

@@ -106,7 +106,7 @@ export class ProveedoresService {
       localStorage.setItem("provider", JSON.stringify(auxProveedores));*/
     } else{
 
-      this.http.put<any[]>(this.apiProviders + `/${infoProvider.id}`, infoProvider, { observe: 'response', responseType: 'text' as 'json'  });
+      this.http.put<any[]>(this.apiProviders + `/${infoProvider.providers_id}`, infoProvider, { observe: 'response', responseType: 'text' as 'json'  });
       /*this.providerModelArr = auxProveedores.map(elem => {
         if(elem.id == indexId){
           elem = infoProvider;

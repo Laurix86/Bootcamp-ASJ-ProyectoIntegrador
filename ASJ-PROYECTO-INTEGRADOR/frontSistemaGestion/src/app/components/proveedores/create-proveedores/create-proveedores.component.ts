@@ -18,36 +18,35 @@ export class CreateProveedoresComponent implements OnInit{
     private activeRoute:ActivatedRoute, private router:Router){}
     
   public provider: ProvidersModel ={
-    id:0,
-    code: '',
-    denomination: '',
-    email: '',
-    phone: '',
-    cuit: '',
-    street: '',
-    addressNumber: 0,
-    city: '',
-    contact_firstName: '',
-    contact_lastName: '',
-    contact_phone: '',
-    contact_email: '',
-    contact_role: '',
+    providers_code: '',
+    providers_denomination: '',
+    providers_email: '',
+    providers_phone: '',
+    providers_cuit: '',
+    providers_street: '',
+    providers_addressNumber: 0,
+    providers_city: '',
+    providers_contact_firstName: '',
+    providers_contact_lastName: '',
+    providers_contact_phone: '',
+    providers_contact_email: '',
+    providers_contact_role: '',
     is_deleted: false,
-    jurisdictions: {
-      id: 0,
-      name: '',
-      country: {
-        id: 0,
-        name: ''
+    jurisdictions_id: {
+      jurisdictions_id: 0,
+      jurisdictions_name: '',
+      countries: {
+        countries_id: 0,
+        countries_name: ''
       }
     },
-    taxCategories: {
-      id: 0,
-      taxName: ''
+    taxCategories_id: {
+      taxCategories_id: 0,
+      taxCategories_denomination: ''
     },
-    sectorsField: {
-      id: 0,
-      sectorName: ''
+    sectorsField_id: {
+      sectorsField_id: 0,
+      sectorsField_name: ''
     }
   };
 
@@ -123,7 +122,8 @@ export class CreateProveedoresComponent implements OnInit{
 
   fillForm(index: number){
     
-    //this.provider = this.proveedoresService.getAllProviders()[index];
+    //this.provider = 
+    
     
     //console.log("llenar",this.provider)  
     }

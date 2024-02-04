@@ -1,37 +1,37 @@
 export interface ProvidersModel {
-    id?: number;
-    code: string;
-    denomination:string;
-    website?: string | null;
-    email: string;
-    phone: string;
-    cuit: string;
-    street: string;
-    addressNumber: number;
-    addressInfo?: string | null;
-    logo?: string | null;
-    city: string;
-    contact_firstName: string;
-    contact_lastName: string;
-    contact_phone: string;
-    contact_email: string;
-    contact_role: string;
+    providers_id?: number;
+    providers_code: string;
+    providers_denomination:string;
+    providers_website?: string | null;
+    providers_email: string;
+    providers_phone: string;
+    providers_cuit: string;
+    providers_street: string;
+    providers_addressNumber: number;
+    providers_addressInfo?: string | null;
+    providers_logo?: string | null;
+    providers_city: string;
+    providers_contact_firstName: string;
+    providers_contact_lastName: string;
+    providers_contact_phone: string;
+    providers_contact_email: string;
+    providers_contact_role: string;
     is_deleted: boolean;
-    jurisdictions:{
-      id: number;
-      name: string;
-      country:{
-        id: number;
-        name: string;
+    jurisdictions_id:{
+      jurisdictions_id: number;
+      jurisdictions_name: string;
+      countries:{
+        countries_id: number;
+        countries_name: string;
       }
     };
-    taxCategories: {
-      id: number;
-      taxName: string;
+    taxCategories_id: {
+      taxCategories_id: number;
+      taxCategories_denomination: string;
     };
-    sectorsField:{
-      id: number;
-      sectorName: string;
+    sectorsField_id:{
+      sectorsfield_id: number;
+      sectorsfield_name: string;
     }
   }
 
