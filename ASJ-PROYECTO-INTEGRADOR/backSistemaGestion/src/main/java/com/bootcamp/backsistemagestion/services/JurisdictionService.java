@@ -25,10 +25,14 @@ public class JurisdictionService {
 		return jurisdictionRepository.findById(id);
 	}
 	
+	public List<JurisdictionsModel> getJurisdictionsByCountry(int id){
+		return jurisdictionRepository.getJurisdictionsByCountry(id);
+	}
 
 	//Insertar jurisdicción --- por el momento sin uso
 	public String setJurisdiction(JurisdictionsModel jurisdiction) {
 		jurisdictionRepository.save(jurisdiction);
+		System.out.println("Service provincia");
 		return "OK";
 	}
 	

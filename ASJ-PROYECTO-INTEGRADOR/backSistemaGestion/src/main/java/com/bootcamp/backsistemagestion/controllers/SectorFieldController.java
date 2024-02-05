@@ -23,7 +23,9 @@ public class SectorFieldController {
 	
 	@GetMapping()
 	public ResponseEntity<List<SectorsFieldModel>> getSectorsField() {
+		
 		return ResponseEntity.ok(sectorFieldService.getAllSectorsField());
+		//return ResponseEntity.ok(sectorFieldService.getAllSectorsField());
 	}
 	
 	@GetMapping("/{id}")

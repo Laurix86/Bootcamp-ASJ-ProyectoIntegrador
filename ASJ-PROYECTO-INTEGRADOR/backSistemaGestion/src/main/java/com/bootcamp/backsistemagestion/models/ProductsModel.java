@@ -1,12 +1,20 @@
 package com.bootcamp.backsistemagestion.models;
 
 import java.time.Instant;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 
 @Entity
@@ -25,12 +33,26 @@ public class ProductsModel {
 	private Integer products_stock;
 	private Boolean is_deleted;
 	
+	//@JsonBackReference
 	@ManyToOne
-	private ProvidersModel provider_id;
+	@JoinColumn(name="providers_id")
+	private ProvidersModel providers_id;
 	
+//	@JsonBackReference
 	@ManyToOne
-	private CategoriesModel category_id;
+	@JoinColumn(name="categories_id")
+	private CategoriesModel categories_id;
 	
+	/*
+	 * @JsonManagedReference
+	 * 
+	 * @OneToMany(mappedBy = "products_id") private List<OrdersDetailModel>
+	 * OrdersDetailList;
+	 * 
+	 * @JsonManagedReference
+	 * 
+	 * @OneToMany(mappedBy = "product_id") private List<ImagesModel> ImagesList;
+	 */
 	private Instant created_at;
 	private Instant updated_at;
 	
@@ -42,19 +64,28 @@ public class ProductsModel {
 
 
 	public ProductsModel(Integer products_id, String products_sku, String products_denomination, Double products_price,
-			Integer products_stock, ProvidersModel provider_id, CategoriesModel category_id) {
+			Integer products_stock, ProvidersModel providers_id, CategoriesModel categories_id) {
 		this.products_id = products_id;
 		this.products_sku = products_sku;
 		this.products_denomination = products_denomination;
 		this.products_price = products_price;
 		this.products_stock = products_stock;
-		this.provider_id = provider_id;
-		this.category_id = category_id;
+		this.providers_id = providers_id;
+		this.categories_id = categories_id;
 		this.is_deleted = false;
 		this.created_at = Instant.now();
 	}
 
 
+	@PrePersist
+    private void prePersist() {
+        this.created_at = Instant.now();
+    }
+	
+	@PreUpdate
+    private void preUpdate() {
+        this.updated_at = Instant.now();
+    }
 
 	public Integer getProducts_id() {
 		return products_id;
@@ -140,14 +171,14 @@ public class ProductsModel {
 
 
 
-	public ProvidersModel getProvider_id() {
-		return provider_id;
+	public ProvidersModel getProviders_id() {
+		return providers_id;
 	}
 
 
 
-	public void setProvider_id(ProvidersModel provider_id) {
-		this.provider_id = provider_id;
+	public void setProvider_id(ProvidersModel providers_id) {
+		this.providers_id = providers_id;
 	}
 
 
@@ -164,8 +195,8 @@ public class ProductsModel {
 
 
 
-	public CategoriesModel getCategory_id() {
-		return category_id;
+	public CategoriesModel getCategories_id() {
+		return categories_id;
 	}
 
 

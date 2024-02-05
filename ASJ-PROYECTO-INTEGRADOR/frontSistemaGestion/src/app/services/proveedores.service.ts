@@ -97,16 +97,17 @@ export class ProveedoresService {
   } 
 
   // Save new Provider
-  public  saveProvider (infoProvider: ProvidersModel, indexId: number){
+  public  saveProvider (infoProvider: ProvidersModel, indexId: number):Observable<any>{
     //const auxProveedores = this.getAllProviders();
     if(indexId ==-1){
-      this.http.post<any[]>(this.apiProviders, infoProvider, { observe: 'response', responseType: 'text' as 'json'  });
+     return this.http.post(this.apiProviders, infoProvider, { observe: 'response', responseType: 'text' as 'json'  });
      /* infoProvider.id = auxProveedores.length;
       auxProveedores.push(infoProvider);
       localStorage.setItem("provider", JSON.stringify(auxProveedores));*/
     } else{
-
-      this.http.put<any[]>(this.apiProviders + `/${infoProvider.providers_id}`, infoProvider, { observe: 'response', responseType: 'text' as 'json'  });
+      console.log("Servicio: ", infoProvider)
+      console.log(this.apiProviders + `/${indexId}`)
+     return this.http.put(this.apiProviders + `/${indexId}`, infoProvider, { observe: 'response', responseType: 'text' as 'json'  });
       /*this.providerModelArr = auxProveedores.map(elem => {
         if(elem.id == indexId){
           elem = infoProvider;
@@ -133,6 +134,7 @@ export class ProveedoresService {
   }
 
   public getJurisdictionsByCountry(countryId: number):Observable<JurisdictionsModel[]>{
+    console.log("url",this.apiJurisdictions+`/country/${countryId}`)
     return this.http.get<JurisdictionsModel[]>(this.apiJurisdictions+`/country/${countryId}`);
   }
 

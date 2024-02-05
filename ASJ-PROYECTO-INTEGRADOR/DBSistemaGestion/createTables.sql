@@ -69,7 +69,7 @@ CREATE TABLE "providers"
      "is_deleted"                BIT NOT NULL,
      "jurisdictions_id"             INT NOT NULL,
      "taxcategories_id"            INT NOT NULL,
-     "sectorfields_id"                    INT NOT NULL,
+     "sectorsfield_id"                    INT NOT NULL,
      "created_at"                  DATETIME NOT NULL,
      "updated_at"                  DATETIME NULL
   );

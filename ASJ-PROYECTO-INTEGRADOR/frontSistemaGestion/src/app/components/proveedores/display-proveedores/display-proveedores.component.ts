@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ProveedoresService } from 'src/app/services/proveedores.service';
 import { ProvidersModel } from 'src/app/models/providersModel';
+import Swal from 'sweetalert2';
 import { Tooltip} from 'bootstrap';
 
 @Component({
@@ -18,10 +19,11 @@ export class DisplayProveedoresComponent implements OnInit{
     providers_phone: '',
     providers_cuit: '',
     providers_street: '',
-    providers_addressNumber: 0,
+    providers_addressnumber: 0,
     providers_city: '',
-    providers_contact_firstName: '',
-    providers_contact_lastName: '',
+    providers_cp: '',
+    providers_contact_firstname: '',
+    providers_contact_lastname: '',
     providers_contact_phone: '',
     providers_contact_email: '',
     providers_contact_role: '',
@@ -34,11 +36,11 @@ export class DisplayProveedoresComponent implements OnInit{
         countries_name: ''
       }
     },
-    taxCategories_id: {
-      taxCategories_id: 0,
-      taxCategories_denomination: ''
+    taxcategories_id: {
+      taxcategories_id: 0,
+      taxcategories_denomination: ''
     },
-    sectorsField_id: {
+    sectorsfield_id: {
       sectorsfield_id: 0,
       sectorsfield_name: ''
     }
@@ -70,9 +72,32 @@ export class DisplayProveedoresComponent implements OnInit{
     );
   }
 
-  desactivarProv(indexProv: number){
-    this.proveedoresService.deleteProvider(indexProv);
-    this.getProvidersToShow();
+  desactivarProv(indexProv: number, denomination: string){
+
+    Swal.fire({
+      title: `Se dará de baja al proveedor ${denomination}`,
+      text: "",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.proveedoresService.deleteProvider(indexProv).subscribe(
+          () => this.getProvidersToShow()
+        );
+        Swal.fire(
+         // 'Productos',
+          'Proveedor eliminado correctamente.',
+          'success'
+        )
+      }
+    })
+
+   // this.proveedoresService.deleteProvider(indexProv);
+    // this.getProvidersToShow();
   }
   
 }

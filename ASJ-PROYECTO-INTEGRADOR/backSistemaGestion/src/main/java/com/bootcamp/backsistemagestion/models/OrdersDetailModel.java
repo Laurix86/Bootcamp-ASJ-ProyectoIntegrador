@@ -2,11 +2,16 @@ package com.bootcamp.backsistemagestion.models;
 
 import java.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,10 +25,14 @@ public class OrdersDetailModel {
 	private Double orders_detail_product_price;
 	private Integer orders_detail_quantity;
 	
+	//@JsonBackReference
 	@ManyToOne
+	@JoinColumn(name = "products_id")
 	private ProductsModel products_id;
 	
+	//@JsonBackReference
 	@ManyToOne
+	@JoinColumn(name = "purchases_order_id")
 	private PurchasesOrderModel purchases_order_id;
 	
 	private Instant created_at;
@@ -31,6 +40,7 @@ public class OrdersDetailModel {
 	
 	
 	public OrdersDetailModel() {
+		
 	}
 	public OrdersDetailModel(Integer orders_detail_id, Double orders_detail_product_price,
 			Integer orders_detail_quantity, ProductsModel products_id, PurchasesOrderModel purchases_order_id) {
@@ -41,6 +51,17 @@ public class OrdersDetailModel {
 		this.purchases_order_id = purchases_order_id;
 		this.created_at = Instant.now();
 	}
+	
+	@PrePersist
+    private void prePersist() {
+        this.created_at = Instant.now();
+    }
+	
+	@PreUpdate
+    private void preUpdate() {
+        this.updated_at = Instant.now();
+    }
+	
 	public Double getOrders_detail_product_price() {
 		return orders_detail_product_price;
 	}

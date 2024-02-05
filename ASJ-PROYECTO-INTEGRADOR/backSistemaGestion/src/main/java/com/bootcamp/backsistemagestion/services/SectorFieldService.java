@@ -15,18 +15,19 @@ public class SectorFieldService {
 	@Autowired
 	SectorsFieldRepository sectorFieldRepository;
 	
-	//Obtener paises
+	//Obtener rubros
 	public List<SectorsFieldModel> getAllSectorsField(){
+		
 		return sectorFieldRepository.findAll();
 	}
 	
-	//Obtener jurisdicciones por ID
+	//Obtener rubros por ID
 	public Optional<SectorsFieldModel> getSectorFieldById(int id){
 		return sectorFieldRepository.findById(id);
 	}
 	
 
-	//Insertar jurisdicción --- por el momento sin uso
+	//Insertar rubros --- por el momento sin uso
 	public String setSectorField(SectorsFieldModel sectorsField) {
 		sectorFieldRepository.save(sectorsField);
 		return "OK";

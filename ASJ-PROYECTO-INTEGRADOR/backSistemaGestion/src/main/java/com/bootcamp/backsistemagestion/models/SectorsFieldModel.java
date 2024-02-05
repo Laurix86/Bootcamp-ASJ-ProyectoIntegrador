@@ -1,13 +1,19 @@
 package com.bootcamp.backsistemagestion.models;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,18 +27,41 @@ public class SectorsFieldModel {
 	private String sectorsfield_name;
 	private Boolean is_deleted;
 	
-	@OneToMany(mappedBy = "sectorsField_id")
-	private List<ProvidersModel> providers;
+	/*
+	 * @JsonManagedReference
+	 * */
+	 @OneToMany(mappedBy = "sectorsfield_id")
+	 @JsonIgnore
+	 private List<ProvidersModel> providers = new ArrayList<ProvidersModel>();
+	 
 	
 	private Instant created_at;
 	private Instant updated_at;
 	
-	public SectorsFieldModel(int sectorsfield_id, String sectorsfield_name) {
+	
+	
+	public SectorsFieldModel() {
+	}
+
+	/*public SectorsFieldModel(int sectorsfield_id, String sectorsfield_name) {
 		this.sectorsfield_id = sectorsfield_id;
 		this.sectorsfield_name = sectorsfield_name;
 		this.is_deleted = false;
 		this.created_at = Instant.now();
-	}
+	}*/
+	
+	@PrePersist
+    private void prePersist() {
+        this.created_at = Instant.now();
+    }
+	
+	@PreUpdate
+    private void preUpdate() {
+        this.updated_at = Instant.now();
+    }
+	
+	
+	
 	public String getSectorsfield_name() {
 		return sectorsfield_name;
 	}

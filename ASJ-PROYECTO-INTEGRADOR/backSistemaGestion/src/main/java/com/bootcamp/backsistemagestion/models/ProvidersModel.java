@@ -1,13 +1,21 @@
 package com.bootcamp.backsistemagestion.models;
 
 import java.time.Instant;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 
 @Entity
@@ -26,10 +34,11 @@ public class ProvidersModel {
 	private String providers_phone;
 	private String providers_cuit;
 	private String providers_street;
-	private String providers_addressNumber;
+	private String providers_addressnumber;
 	private String providers_addressinfo;
 	private String providers_logo;
 	private String providers_city;
+	private String providers_cp;
 	private String providers_contact_firstname;
 	private String providers_contact_lastname;
 	private String providers_contact_phone;
@@ -37,17 +46,33 @@ public class ProvidersModel {
 	private String providers_contact_role;
 	private Boolean is_deleted;
 	
-	@ManyToOne
-	@JoinColumn(name="jurisdictions_id")
+	//@JsonBackReference
+	//@JoinColumn(name="jurisdictions_id")
+	@ManyToOne(fetch = FetchType.EAGER)
 	private JurisdictionsModel jurisdictions_id; 
 	
-	@ManyToOne
-	@JoinColumn(name="taxcategories_id")
+	//@JsonBackReference
+	//@JoinColumn(name="taxcategories_id")
+	@ManyToOne(fetch = FetchType.EAGER)
 	private TaxCategoriesModel taxcategories_id;
 	
-	@ManyToOne
-	@JoinColumn(name="sectorsfields_id")
-	private SectorsFieldModel sectorsfields_id;
+	//@JsonBackReference
+	//@JoinColumn(name="sectorsfields_id")
+	@ManyToOne(fetch = FetchType.EAGER)
+	private SectorsFieldModel sectorsfield_id;
+	
+	
+	/*
+	 * @JsonManagedReference
+	 * 
+	 * @OneToMany(mappedBy = "providers_id") private List<ProductsModel>
+	 * productsList;
+	 * 
+	 * @JsonManagedReference
+	 * 
+	 * @OneToMany(mappedBy = "providers_id") private List<PurchasesOrderModel>
+	 * purchasesOrderList;
+	 */
 		
 	private Instant created_at;
 	private Instant updated_at;
@@ -57,12 +82,12 @@ public class ProvidersModel {
 	public ProvidersModel() {
 	}
 
-	public ProvidersModel(Integer providers_id, String providers_code, String providers_denomination,
+	/*public ProvidersModel(Integer providers_id, String providers_code, String providers_denomination,
 			String providers_email, String providers_phone, String providers_cuit, String providers_street,
-			String providers_addressNumber, String providers_city, String providers_contact_firstname,
+			String providers_addressnumber, String providers_city, String providers_cp, String providers_contact_firstname,
 			String providers_contact_lastname, String providers_contact_phone, String providers_contact_email,
 			String providers_contact_role, JurisdictionsModel jurisdictions_id, TaxCategoriesModel taxcategories_id,
-			SectorsFieldModel sectorfields_id) {
+			SectorsFieldModel sectorsField_id) {
 		this.providers_id = providers_id;
 		this.providers_code = providers_code;
 		this.providers_denomination = providers_denomination;
@@ -70,8 +95,9 @@ public class ProvidersModel {
 		this.providers_phone = providers_phone;
 		this.providers_cuit = providers_cuit;
 		this.providers_street = providers_street;
-		this.providers_addressNumber = providers_addressNumber;
+		this.providers_addressnumber = providers_addressnumber;
 		this.providers_city = providers_city;
+		this.providers_cp = providers_cp;
 		this.providers_contact_firstname = providers_contact_firstname;
 		this.providers_contact_lastname = providers_contact_lastname;
 		this.providers_contact_phone = providers_contact_phone;
@@ -80,10 +106,20 @@ public class ProvidersModel {
 		this.is_deleted = false;
 		this.jurisdictions_id = jurisdictions_id;
 		this.taxcategories_id = taxcategories_id;
-		this.sectorsfields_id = sectorfields_id;
+		this.sectorsField_id = sectorsField_id;
 		this.created_at = Instant.now();
-	}
+	}*/
 
+	@PrePersist
+    private void prePersist() {
+        this.created_at = Instant.now();
+    }
+	
+	@PreUpdate
+    private void preUpdate() {
+        this.updated_at = Instant.now();
+    }
+	
 	public String getProviders_code() {
 		return providers_code;
 	}
@@ -140,12 +176,12 @@ public class ProvidersModel {
 		this.providers_street = providers_street;
 	}
 
-	public String getProviders_addressNumber() {
-		return providers_addressNumber;
+	public String getProviders_addressnumber() {
+		return providers_addressnumber;
 	}
 
-	public void setProviders_addressNumber(String providers_addressNumber) {
-		this.providers_addressNumber = providers_addressNumber;
+	public void setProviders_addressnumber(String providers_addressnumber) {
+		this.providers_addressnumber = providers_addressnumber;
 	}
 
 	public String getProviders_addressinfo() {
@@ -236,12 +272,12 @@ public class ProvidersModel {
 		this.taxcategories_id = taxcategories_id;
 	}
 
-	public SectorsFieldModel getSectorsfields_id() {
-		return sectorsfields_id;
+	public SectorsFieldModel getSectorsfield_id() {
+		return sectorsfield_id;
 	}
 
-	public void setSectorsfields_id(SectorsFieldModel sectorsfields_id) {
-		this.sectorsfields_id = sectorsfields_id;
+	public void setSectorsfield_id(SectorsFieldModel sectorsfield_id) {
+		this.sectorsfield_id = sectorsfield_id;
 	}
 
 	public Instant getUpdated_at() {
@@ -258,6 +294,14 @@ public class ProvidersModel {
 
 	public Instant getCreated_at() {
 		return created_at;
+	}
+
+	public String getProviders_cp() {
+		return providers_cp;
+	}
+
+	public void setProviders_cp(String providers_cp) {
+		this.providers_cp = providers_cp;
 	}
 	
 	

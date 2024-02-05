@@ -2,11 +2,15 @@ package com.bootcamp.backsistemagestion.models;
 
 import java.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,6 +24,7 @@ public class ImagesModel {
 	private String images_url;
 	private Boolean is_deleted;
 	
+	//@JsonBackReference
 	@ManyToOne
 	private ProductsModel product_id;
 	
@@ -40,6 +45,16 @@ public class ImagesModel {
 	}
 
 
+	@PrePersist
+    private void prePersist() {
+        this.created_at = Instant.now();
+    }
+	
+	@PreUpdate
+    private void preUpdate() {
+        this.updated_at = Instant.now();
+    }
+	
 	public String getImages_url() {
 		return images_url;
 	}

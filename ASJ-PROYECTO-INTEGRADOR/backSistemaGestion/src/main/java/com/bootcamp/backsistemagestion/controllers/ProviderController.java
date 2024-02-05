@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bootcamp.backsistemagestion.ErrorHandler;
+import com.bootcamp.backsistemagestion.exceptions.ErrorHandler;
 import com.bootcamp.backsistemagestion.models.ProvidersModel;
 import com.bootcamp.backsistemagestion.services.ProviderService;
 
@@ -41,6 +41,23 @@ public class ProviderController {
 	public ProvidersModel getProviderById(@PathVariable int id) {
 		return providerService.getProviderById(id);
 	}
+	
+	@GetMapping("/activeProviders")
+	public ResponseEntity<List<ProvidersModel>> getActiveProviders() throws Exception{
+		return ResponseEntity.ok(providerService.getActiveProviders());
+	}
+	
+	
+//	public ResponseEntity<Object> getActiveProviders() {
+//		
+//		try {
+//			return new ResponseEntity<>(providerService.getActiveProviders(), HttpStatus.OK);
+//		}catch (Exception e) {
+//			return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
+//		}
+//		
+//		
+//	}
 	
 	@PostMapping()
 	public ResponseEntity<Object> saveProvider(@Valid @RequestBody ProvidersModel provider, BindingResult bindingResult ) {
@@ -67,6 +84,8 @@ public class ProviderController {
 	// Edit provider
 	@PutMapping("/{id}")
 	public ResponseEntity<Object> editProvider(@PathVariable int id, @Valid @RequestBody ProvidersModel provider, BindingResult bindingResult) {
+		
+		System.out.println("Prov controller " + provider);
 		
 		if(bindingResult.hasErrors()) {
 				

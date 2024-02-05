@@ -7,12 +7,13 @@ export interface ProvidersModel {
     providers_phone: string;
     providers_cuit: string;
     providers_street: string;
-    providers_addressNumber: number;
-    providers_addressInfo?: string | null;
+    providers_addressnumber: number;
+    providers_addressinfo?: string | null;
     providers_logo?: string | null;
     providers_city: string;
-    providers_contact_firstName: string;
-    providers_contact_lastName: string;
+    providers_cp: string;
+    providers_contact_firstname: string;
+    providers_contact_lastname: string;
     providers_contact_phone: string;
     providers_contact_email: string;
     providers_contact_role: string;
@@ -25,11 +26,11 @@ export interface ProvidersModel {
         countries_name: string;
       }
     };
-    taxCategories_id: {
-      taxCategories_id: number;
-      taxCategories_denomination: string;
+    taxcategories_id: {
+      taxcategories_id: number;
+      taxcategories_denomination: string;
     };
-    sectorsField_id:{
+    sectorsfield_id:{
       sectorsfield_id: number;
       sectorsfield_name: string;
     }

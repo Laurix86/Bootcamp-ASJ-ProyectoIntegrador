@@ -1,13 +1,19 @@
 package com.bootcamp.backsistemagestion.models;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 
 @Entity
@@ -22,22 +28,41 @@ public class CountriesModel {
 	private String countries_name;
 	private Boolean is_deleted;
 	
-	@OneToMany(mappedBy = "countries_id")
-	private List<JurisdictionsModel> jurisdictions_id;
+	
+//	 @JsonManagedReference
+	 @OneToMany(mappedBy = "countries_id") 
+	 @JsonIgnore
+	 private List<JurisdictionsModel> jurisdictions = new ArrayList<JurisdictionsModel>();
+//	 
+
+
 	
 	private Instant created_at;
 	private Instant updated_at;
 
 
 	
-	public CountriesModel(Integer countries_id, String countries_name) {
-		this.countries_id = countries_id;
-		this.countries_name = countries_name;
-		is_deleted = false;
-		this.created_at = Instant.now();
+	
+	public CountriesModel() {
+		
 	}
+
+	/*public CountriesModel(String countries_name) {
+		
+		this.countries_name = countries_name;
+		this.is_deleted = false;
+		this.created_at = Instant.now();
+	}*/
 	
+	@PrePersist
+    private void prePersist() {
+        this.created_at = Instant.now();
+    }
 	
+	@PreUpdate
+    private void preUpdate() {
+        this.updated_at = Instant.now();
+    }
 
 	public String getCountries_name() {
 		return countries_name;
@@ -76,6 +101,16 @@ public class CountriesModel {
 	public void setIs_deleted(Boolean is_deleted) {
 		this.is_deleted = is_deleted;
 	}
+
+	
+//	public List<JurisdictionsModel> getJurisdictions_id() {
+//		return jurisdictions_id;
+//	}
+//
+//	public void setJurisdictions_id(List<JurisdictionsModel> jurisdictions_id) {
+//		this.jurisdictions_id = jurisdictions_id;
+//	}
+	
 	
 	
 	

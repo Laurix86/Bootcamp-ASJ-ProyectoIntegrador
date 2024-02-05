@@ -1,4 +1,4 @@
-package com.bootcamp.backsistemagestion;
+package com.bootcamp.backsistemagestion.exceptions;
 
 import java.util.HashMap;
 import java.util.Map;

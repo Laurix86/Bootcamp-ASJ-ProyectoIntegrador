@@ -1,11 +1,13 @@
 package com.bootcamp.backsistemagestion.models;
 
 import java.time.Instant;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,10 +21,21 @@ public class CategoriesModel {
 	private String categories_denominations;
 	private Boolean is_deleted;
 	
+	/*
+	 * @OneToMany(mappedBy = "categories_id") private List<ProductsModel>
+	 * productsList;
+	 */
+	
 	private Instant created_at;
 	private Instant updated_at;
 	
 	
+	
+	
+	public CategoriesModel() {
+	}
+
+
 	public CategoriesModel(int categories_id, String categories_denominations) {
 		this.categories_id = categories_id;
 		this.categories_denominations = categories_denominations;

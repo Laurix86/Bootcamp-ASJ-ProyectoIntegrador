@@ -3,12 +3,18 @@ package com.bootcamp.backsistemagestion.models;
 import java.time.Instant;
 
 import java.util.Date;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -19,79 +25,94 @@ public class PurchasesOrderModel {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer purchases_orders_id;
+	private Integer purchases_order_id;
 	
-	private String purchases_orders_code;
-	
-	@Temporal(TemporalType.DATE)
-	private Date purchases_orders_date;
+	private String purchases_order_code;
 	
 	@Temporal(TemporalType.DATE)
-	private Date purchases_orders_delivery_date;
-	private String purchases_orders_information;
-	private Double purchases_orders_final_price;
+	private Date purchases_order_date;
+	
+	@Temporal(TemporalType.DATE)
+	private Date purchases_order_delivery_date;
+	
+	private String purchases_order_information;
+	private Double purchases_order_final_price;
 	private Boolean is_pending;
 	private Boolean is_active;
 	
+	//@JsonBackReference
 	@ManyToOne
+	@JoinColumn(name = "providers_id")
 	private ProvidersModel providers_id;
+	
+	/*
+	 * @JsonManagedReference
+	 * 
+	 * @OneToMany(mappedBy = "purchases_order_id") private List<OrdersDetailModel>
+	 * OrdersDetailList;
+	 */
 	
 	private Instant created_at;
 	private Instant updated_at;
+
+
+
 	
 	
-	public PurchasesOrderModel(Integer purchases_orders_id, String purchases_orders_code,
-			Date purchases_orders_date, Date purchases_orders_delivery_date,
-			Double purchases_orders_final_price, ProvidersModel providers_id) {
-		this.purchases_orders_id = purchases_orders_id;
-		this.purchases_orders_code = purchases_orders_code;
-		this.purchases_orders_date = purchases_orders_date;
-		this.purchases_orders_delivery_date = purchases_orders_delivery_date;
-		this.purchases_orders_final_price = purchases_orders_final_price;
-		this.providers_id = providers_id;
-		this.is_pending = true;
-		this.is_active = true;
-		this.created_at = Instant.now();
+	public PurchasesOrderModel() {
 	}
 
 
-	public String getPurchases_orders_code() {
-		return purchases_orders_code;
+	public PurchasesOrderModel(String purchases_order_code, Date purchases_order_date, Date purchases_order_delivery_date,
+		Double purchases_order_final_price, ProvidersModel providers_id) {
+	this.purchases_order_code = purchases_order_code;
+	this.purchases_order_date = purchases_order_date;
+	this.purchases_order_delivery_date = purchases_order_delivery_date;
+	this.purchases_order_final_price = purchases_order_final_price;
+	this.providers_id = providers_id;
+	this.is_pending = true;
+	this.is_active = true;
+	this.created_at = Instant.now();
+}
+
+
+	public String getPurchases_order_code() {
+		return purchases_order_code;
 	}
 
 
-	public void setPurchases_orders_code(String purchases_orders_code) {
-		this.purchases_orders_code = purchases_orders_code;
+	public void setPurchases_order_code(String purchases_order_code) {
+		this.purchases_order_code = purchases_order_code;
 	}
 
 
-	public Date getPurchases_orders_delivery_date() {
-		return purchases_orders_delivery_date;
+	public Date getPurchases_order_delivery_date() {
+		return purchases_order_delivery_date;
 	}
 
 
-	public void setPurchases_orders_delivery_date(Date purchases_orders_delivery_date) {
-		this.purchases_orders_delivery_date = purchases_orders_delivery_date;
+	public void setPurchases_order_delivery_date(Date purchases_order_delivery_date) {
+		this.purchases_order_delivery_date = purchases_order_delivery_date;
 	}
 
 
-	public String getPurchases_orders_information() {
-		return purchases_orders_information;
+	public String getPurchases_order_information() {
+		return purchases_order_information;
 	}
 
 
-	public void setPurchases_orders_information(String purchases_orders_information) {
-		this.purchases_orders_information = purchases_orders_information;
+	public void setPurchases_order_information(String purchases_order_information) {
+		this.purchases_order_information = purchases_order_information;
 	}
 
 
-	public Double getPurchases_orders_final_price() {
-		return purchases_orders_final_price;
+	public Double getPurchases_order_final_price() {
+		return purchases_order_final_price;
 	}
 
 
-	public void setPurchases_orders_final_price(Double purchases_orders_final_price) {
-		this.purchases_orders_final_price = purchases_orders_final_price;
+	public void setPurchases_order_final_price(Double purchases_order_final_price) {
+		this.purchases_order_final_price = purchases_order_final_price;
 	}
 
 
@@ -135,13 +156,13 @@ public class PurchasesOrderModel {
 	}
 
 
-	public Integer getPurchases_orders_id() {
-		return purchases_orders_id;
+	public Integer getPurchases_order_id() {
+		return purchases_order_id;
 	}
 
 
-	public Date getPurchases_orders_date() {
-		return purchases_orders_date;
+	public Date getPurchases_order_date() {
+		return purchases_order_date;
 	}
 
 

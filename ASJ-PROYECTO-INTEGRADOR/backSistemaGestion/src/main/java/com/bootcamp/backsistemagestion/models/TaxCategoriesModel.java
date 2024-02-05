@@ -1,13 +1,19 @@
 package com.bootcamp.backsistemagestion.models;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,19 +27,39 @@ public class TaxCategoriesModel {
 	private String taxcategories_denominations;
 	private Boolean is_deleted;
 	
-	@OneToMany(mappedBy = "taxcategories_id")
-	private List<ProvidersModel> providers;
+	/*
+	 * @JsonManagedReference
+	 *  */
+	 @OneToMany(mappedBy = "taxcategories_id") 
+	 @JsonIgnore
+	 private List<ProvidersModel> providers = new ArrayList<ProvidersModel>();
+	
 	
 	private Instant created_at;
 	private Instant updated_at;
 	
 	
+	
+	public TaxCategoriesModel() {
+	}
+
 	public TaxCategoriesModel(int taxcategories_id, String taxcategories_denominations) {
 		this.taxcategories_id = taxcategories_id;
 		this.taxcategories_denominations = taxcategories_denominations;
 		this.is_deleted = false;
 		this.created_at = Instant.now();
 	}
+	
+	@PrePersist
+    private void prePersist() {
+        this.created_at = Instant.now();
+    }
+	
+	@PreUpdate
+    private void preUpdate() {
+        this.updated_at = Instant.now();
+    }
+	
 	public String getTaxcategories_denominations() {
 		return taxcategories_denominations;
 	}

@@ -1,9 +1,15 @@
 package com.bootcamp.backsistemagestion.models;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,24 +31,37 @@ public class JurisdictionsModel {
 	private Boolean is_deleted;
 	
 	
-	@ManyToOne
-	@JoinColumn(name="countries_id")
+	//@JsonBackReference
+	// @JoinColumn(name="countries_id")
+	@ManyToOne(fetch = FetchType.EAGER)
 	private CountriesModel countries_id;
 	
-	@OneToMany(mappedBy = "jurisdictions_id")
-	private List<ProvidersModel> providers;
+	
+	/*
+	 * @JsonManagedReference
+	 * */
+	 @OneToMany(mappedBy = "jurisdictions_id") 
+	 @JsonIgnore
+	 private List<ProvidersModel> providers = new ArrayList<ProvidersModel>();
+	 
+	 
 	
 	private Instant created_at;
 	private Instant updated_at;
 	
 	
-	public JurisdictionsModel(int jurisdictions_id, String jurisdictions_name, CountriesModel countries) {
-		this.jurisdictions_id = jurisdictions_id;
+	
+	public JurisdictionsModel() {
+	}
+
+
+	/*public JurisdictionsModel(String jurisdictions_name, CountriesModel countries) {
+		
 		this.jurisdictions_name = jurisdictions_name;
 		this.countries_id = countries;
 		this.is_deleted = false;
 		this.created_at = Instant.now();
-	}
+	}*/
 
 
 	public String getJurisdictions_name() {

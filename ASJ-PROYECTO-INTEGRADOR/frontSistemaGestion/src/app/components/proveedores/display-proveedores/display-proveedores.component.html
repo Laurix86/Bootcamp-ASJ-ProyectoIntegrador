@@ -1,5 +1,11 @@
 <div class="row">
     <div class="col-md-12">
+
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="">Inicio</a></li>
+            <li class="breadcrumb-item active">Listado de Proveedores</li>
+        </ol>
+
         <div class="row">
             <div class="col-md-5 ">
                 
@@ -43,7 +49,7 @@
                     </td>
                     <td>
                         <button class="btn btn-sm btn-outline-secondary  m-1" routerLink="/proveedores/{{p.providers_id}}">Editar</button>
-                        <button class="btn btn-sm btn-outline-danger m-1" (click)="desactivarProv(p.providers_id)">Eliminar</button>
+                        <button class="btn btn-sm btn-outline-danger m-1" (click)="desactivarProv(p.providers_id, p.providers_denomination)">Eliminar</button>
                     </td>
                 </tr>
             </tbody>

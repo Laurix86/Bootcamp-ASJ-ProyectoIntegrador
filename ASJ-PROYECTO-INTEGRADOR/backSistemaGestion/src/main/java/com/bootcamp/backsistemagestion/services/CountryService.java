@@ -28,6 +28,7 @@ public class CountryService {
 	//Insertar país --- por el momento sin uso
 	public String setCountry(CountriesModel country) {
 		countryRepository.save(country);
+		System.out.println("Llegué al service");
 		return "OK";
 	}
 	

@@ -6,6 +6,8 @@ import { SectorsFiedlModel } from 'src/app/models/sectorsFieldModel';
 import { TaxCategoriesModel } from 'src/app/models/taxCategoriesModel';
 import { ProvidersModel } from 'src/app/models/providersModel';
 import { ProveedoresService } from 'src/app/services/proveedores.service';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import Swal from 'sweetalert2'
 import { CuitFormatPipe } from '../../pipes/cuit-format.pipe';
 
 @Component({
@@ -19,26 +21,28 @@ export class CreateProviderComponent implements OnInit{
     private activeRoute:ActivatedRoute, private router:Router){
 
     this.providersForm = this.fb.group({
-      code: ['', [Validators.required, Validators.minLength(3)]],
-      denomination: ['', [Validators.required, Validators.minLength(2)]],
-      sectorsField: ['', [Validators.required]],
-      logo: ['', [Validators.minLength(3)]],
-      webSite: ['', [Validators.minLength(3)]],
-      email: ['',[Validators.required, Validators.minLength(3)]],
-      phone: ['',[Validators.required, Validators.minLength(6)]],
-      country: ['',[Validators.required]],
-      jurisdiction: ['',[Validators.required,]],
-      street:['',[Validators.required, Validators.minLength(3)]],
-      nroStreet:['',[Validators.required, Validators.minLength(1)]],
-      codPostal:['',[Validators.required, Validators.minLength(3)]],
-      extraInfo:['',[ Validators.minLength(1)]],
-      cuit:['',[Validators.required,Validators.pattern('[0-9]{10,11}')]],
-      iva:['',[Validators.required]],
-      firstName: ['',[Validators.required, Validators.minLength(2)]],
-      lastName: ['',[Validators.required, Validators.minLength(2)]],
-      rol: ['',[Validators.required, Validators.minLength(2)]],
-      phoneContact: ['',[Validators.required, Validators.minLength(5)]],
-      emailContact:['',[Validators.required, Validators.minLength(5)]],
+      providers_id:[0],
+      providers_code: ['', [Validators.required, Validators.minLength(3)]],
+      providers_denomination: ['', [Validators.required, Validators.minLength(2)]],
+      sectorsfield_id: ['', [Validators.required]],
+      providers_logo: ['', [Validators.minLength(3)]],
+      providers_website: ['', [Validators.minLength(3)]],
+      providers_email: ['',[Validators.required, Validators.minLength(3)]],
+      providers_phone: ['',[Validators.required, Validators.minLength(6)]],
+      providers_country: ['',[Validators.required]],
+      jurisdictions_id: ['',[Validators.required,]],
+      providers_street:['',[Validators.required, Validators.minLength(3)]],
+      providers_addressnumber:['',[Validators.required, Validators.minLength(1)]],
+      providers_cp:['',[Validators.required, Validators.minLength(3)]],
+      providers_city:['',[Validators.required, Validators.minLength(3)]],
+      providers_addressinfo:['',[ Validators.minLength(1)]],
+      providers_cuit:['',[Validators.required,Validators.pattern('[0-9]{10,11}')]],
+      taxcategories_id:['',[Validators.required]],
+      providers_contact_firstname: ['',[Validators.required, Validators.minLength(2)]],
+      providers_contact_lastname: ['',[Validators.required, Validators.minLength(2)]],
+      providers_contact_role: ['',[Validators.required, Validators.minLength(2)]],
+      providers_contact_phone: ['',[Validators.required, Validators.minLength(5)]],
+      providers_contact_email:['',[Validators.required, Validators.minLength(5)]],
 
     });
   }
@@ -83,8 +87,59 @@ export class CreateProviderComponent implements OnInit{
 
   submitProvider(): void{
     if(this.providersForm.invalid){
+      Swal.fire("Revisar el formulario y completar todos los campos requeridos.");
+    } else if(this.indexProv == -1){
+      this.provider = this.providersForm.value;
+      this.provider.jurisdictions_id.jurisdictions_id = this.providersForm.get('jurisdictions_id')?.value;
+      this.provider.sectorsfield_id.sectorsfield_id = this.providersForm.get('sectorsfield_id')?.value;
+      this.provider.taxcategories_id.taxcategories_id = this.providersForm.get('taxcategories_id')?.value;
+      console.log("Envio: ", this.provider)
+      this.proveedoresService.saveProvider(this.provider, -1).subscribe();
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Guardado correctamente",
+        showConfirmButton: false,
+        timer: 1500
+      });
 
-    }
+     }else if(this.indexProv >= 0){
+      this.provider = this.providersForm.value;
+      this.provider = this.providersForm.value;
+      this.provider.jurisdictions_id ={
+        jurisdictions_id: this.providersForm.get('jurisdictions_id')?.value,
+        jurisdictions_name: '',
+        countries:{
+          countries_id:  this.providersForm.get('providers_country')?.value,
+          countries_name:''
+        }
+
+
+      }
+      
+      this.provider.sectorsfield_id = {
+        sectorsfield_id: this.providersForm.get('sectorsfield_id')?.value,
+      sectorsfield_name:''}
+
+      this.provider.taxcategories_id = {
+        taxcategories_id: this.providersForm.get('taxcategories_id')?.value,
+      taxcategories_denomination:''}
+
+      console.log("Envio: ", this.provider)
+      this.proveedoresService.saveProvider(this.provider, this.indexProv).subscribe();
+      console.log("Index", this.indexProv)
+      console.log("Envio: ", this.provider)
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Guardado correctamente",
+        showConfirmButton: false,
+        timer: 1500
+      });
+       this.router.navigate(['/proveedores']);
+     }
+
+
   }
 
   resetForm(): void{
@@ -98,9 +153,28 @@ export class CreateProviderComponent implements OnInit{
         this.provider = data;
         console.log("code: ",this.provider  )
         this.providersForm.patchValue({
-          code: this.provider.providers_code,
-          denomination: this.provider.providers_denomination,
-          sectorsField: this.provider.sectorsField_id.sectorsfield_id,
+          providers_id: this.provider.providers_id,
+          providers_code: this.provider.providers_code,
+          providers_denomination: this.provider.providers_denomination,
+          sectorsfield_id: this.provider.sectorsfield_id.sectorsfield_id,
+          providers_logo: this.provider.providers_logo,
+          providers_webSite: this.provider.providers_website,
+          providers_email: this.provider.providers_email,
+          providers_phone: this.provider.providers_phone,
+          providers_country: this.provider.jurisdictions_id.countries.countries_id,
+          jurisdictions_id: this.provider.jurisdictions_id.jurisdictions_id,
+          providers_street:this.provider.providers_street,
+          providers_addressnumber:this.provider.providers_addressnumber,
+          providers_city: this.provider.providers_city,
+          providers_cp:this.provider.providers_cp,
+          providers_addressinfo:this.provider.providers_addressinfo,
+          providers_cuit:this.provider.providers_cuit,
+          taxcategories_id:this.provider.taxcategories_id.taxcategories_id,
+          providers_contact_firstname: this.provider.providers_contact_firstname,
+          providers_contact_lastname: this.provider.providers_contact_lastname,
+          providers_contact_role: this.provider.providers_contact_role,
+          providers_contact_phone: this.provider.providers_contact_phone,
+          providers_contact_email:this.provider.providers_contact_email,
           
          
         })
@@ -145,6 +219,7 @@ export class CreateProviderComponent implements OnInit{
     this.proveedoresService.getJurisdictionsByCountry(value).subscribe(
       (jurisdictions)=>{
         this.jurisdictionsList = jurisdictions;
+        console.log("res jur:",jurisdictions)
       }
       
     )
