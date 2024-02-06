@@ -1,7 +1,10 @@
 package com.bootcamp.backsistemagestion.models;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,10 +24,11 @@ public class CategoriesModel {
 	private String categories_denominations;
 	private Boolean is_deleted;
 	
-	/*
-	 * @OneToMany(mappedBy = "categories_id") private List<ProductsModel>
-	 * productsList;
-	 */
+
+	 @OneToMany(mappedBy = "categories_id") 
+	 @JsonIgnore
+	 private List<ProductsModel> productsList = new ArrayList<ProductsModel>();
+	 
 	
 	private Instant created_at;
 	private Instant updated_at;

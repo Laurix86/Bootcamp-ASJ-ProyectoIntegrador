@@ -1,9 +1,107 @@
-<div class="row ">
+<div class="container m-5">
+    <h3>{{title}}</h3>
+
+    <form [formGroup]="productsForm" (ngSubmit)="submitProduct()">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <input type="text" class="form-control"  formControlName="products_id" hidden>
+                <label class="form-label">SKU <span class="text-danger"
+                        *ngIf="productsForm.get('products_sku')?.hasError('required')"> *</span></label>
+                <input type="text" class="form-control" placeholder="Código SKU" formControlName="products_sku">
+                <div *ngIf="productsForm.get('products_sku')?.hasError('minlength')" class="form-text text-danger">
+                    Debe tener al menos 3 caracteres
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+
+                <label class="form-label" for="categories_id">Categoría<span class="text-danger"
+                        *ngIf="productsForm.get('categories_id')?.hasError('required')"> *</span></label>
+
+                <select class="form-select" formControlName="categories_id" required>
+                    <option *ngFor="let item of categoriaLista" [value]="item.categories_id">{{item.categories_denominations}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-4 mb-3">
+
+                <label class="form-label" for="providers_id">Proveedor<span class="text-danger"
+                        *ngIf="productsForm.get('providers_id')?.hasError('required')"> *</span></label>
+
+                <select class="form-select" formControlName="providers_id" required>
+                    <option *ngFor="let item of providerLista" [value]="item.providers_id">{{item.providers_denomination}}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 mb-3">
+                <label class="form-label">Nombre <span class="text-danger"
+                    *ngIf="productsForm.get('products_denomination')?.hasError('required')"> *</span></label>
+            <input type="text" class="form-control" placeholder="Nombre del Producto" formControlName="products_denomination">
+                <div *ngIf="productsForm.get('products_denomination')?.hasError('minlength')" class="form-text text-danger">
+                    Debe tener al menos 3 caracteres
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label class="form-label">Imagen <span class="text-danger"
+                    *ngIf="productsForm.get('images_id')?.hasError('required')"> *</span></label>
+            <input type="text" class="form-control" placeholder="URL imagen" formControlName="images_id">
+                <div *ngIf="productsForm.get('images_id')?.hasError('minlength')" class="form-text text-danger">
+                    Debe tener al menos 3 caracteres
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label class="form-label">Stock <span class="text-danger"
+                    *ngIf="productsForm.get('products_stock')?.hasError('required')"> *</span></label>
+            <input type="text" class="form-control" placeholder="Stock del Producto" formControlName="products_stock">
+                <div *ngIf="productsForm.get('products_stock')?.hasError('minlength')" class="form-text text-danger">
+                    Debe tener al menos 1 caracter
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Descripción <span class="text-danger"
+                    *ngIf="productsForm.get('products_description')?.hasError('required')"> *</span></label>
+            <input type="text" class="form-control" placeholder="Descripción del Producto" formControlName="products_description">
+                <div *ngIf="productsForm.get('products_description')?.hasError('minlength')" class="form-text text-danger">
+                    Debe tener al menos 3 caracteres
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Precio <span class="text-danger"
+                    *ngIf="productsForm.get('products_price')?.hasError('required')"> *</span></label>
+            <input type="text" class="form-control" placeholder="Valor del Producto" formControlName="products_price">
+                <div *ngIf="productsForm.get('products_price')?.hasError('minlength')" class="form-text text-danger">
+                    Debe tener al menos 1 caracteres
+                </div>
+            </div>
+        </div>
+
+        <div class="row border-1 justify-content-end mt-3">
+            <div class="col-auto">
+                <button type="submit" class="btn btn-outline-success me-2" [disabled]="!productsForm.valid">Guardar</button>
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-outline-warning" (click)="resetForm()">Limpiar</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+
+
+<!------ ------------- ----------------------------------------- -------------- -->
+<!-- <div class="row ">
       <div class="col-12 ">
           <h3>{{title}}</h3>
           <form #miForm="ngForm" (ngSubmit)="submitProducto(miForm)">
-              <!-- <input type="hidden" name="id" [(ngModel)]="provider.id"> -->
-              <div class="row m-2">
+             <input type="hidden" name="id" [(ngModel)]="provider.id"> -->
+              <!--  <div class="row m-2">
               <div class="col-md-6 col-lg-6">
                 <div class="mb-3">
                     <label class="form-label">Código SKU</label>
@@ -97,4 +195,4 @@
           </div>
       </div>
   </div>
-  
+   -->

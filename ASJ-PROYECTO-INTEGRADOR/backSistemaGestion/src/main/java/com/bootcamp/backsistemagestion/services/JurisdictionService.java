@@ -32,7 +32,7 @@ public class JurisdictionService {
 	//Insertar jurisdicción --- por el momento sin uso
 	public String setJurisdiction(JurisdictionsModel jurisdiction) {
 		jurisdictionRepository.save(jurisdiction);
-		System.out.println("Service provincia");
+		
 		return "OK";
 	}
 	

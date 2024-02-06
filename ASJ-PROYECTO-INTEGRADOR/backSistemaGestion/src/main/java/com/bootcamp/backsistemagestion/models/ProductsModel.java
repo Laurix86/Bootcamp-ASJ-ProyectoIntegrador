@@ -1,12 +1,15 @@
 package com.bootcamp.backsistemagestion.models;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -34,25 +37,26 @@ public class ProductsModel {
 	private Boolean is_deleted;
 	
 	//@JsonBackReference
-	@ManyToOne
-	@JoinColumn(name="providers_id")
+	@ManyToOne(fetch = FetchType.EAGER)
 	private ProvidersModel providers_id;
 	
 //	@JsonBackReference
-	@ManyToOne
-	@JoinColumn(name="categories_id")
+	@ManyToOne(fetch = FetchType.EAGER)
 	private CategoriesModel categories_id;
 	
 	/*
 	 * @JsonManagedReference
-	 * 
-	 * @OneToMany(mappedBy = "products_id") private List<OrdersDetailModel>
-	 * OrdersDetailList;
-	 * 
-	 * @JsonManagedReference
-	 * 
-	 * @OneToMany(mappedBy = "product_id") private List<ImagesModel> ImagesList;
 	 */
+	@OneToMany(mappedBy = "products_id") 
+	@JsonIgnore
+	private List<OrdersDetailModel>	OrdersDetailList = new ArrayList<OrdersDetailModel>();
+	 
+	//@JsonManagedReference
+	
+	@OneToMany(mappedBy = "product_id") 
+	@JsonIgnore
+	private List<ImagesModel> ImagesList = new ArrayList<ImagesModel>();
+	
 	private Instant created_at;
 	private Instant updated_at;
 	
@@ -177,7 +181,7 @@ public class ProductsModel {
 
 
 
-	public void setProvider_id(ProvidersModel providers_id) {
+	public void setProviders_id(ProvidersModel providers_id) {
 		this.providers_id = providers_id;
 	}
 
@@ -191,6 +195,16 @@ public class ProductsModel {
 
 	public void setUpdated_at(Instant updated_at) {
 		this.updated_at = updated_at;
+	}
+
+
+
+	
+
+
+
+	public void setCategories_id(CategoriesModel categories_id) {
+		this.categories_id = categories_id;
 	}
 
 

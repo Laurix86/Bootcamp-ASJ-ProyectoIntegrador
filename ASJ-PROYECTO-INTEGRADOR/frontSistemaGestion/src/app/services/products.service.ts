@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ProductsModel } from '../models/productsModel';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -10,11 +11,13 @@ export class ProductsService {
 
   
   private apiProducts= 'http://localhost:8080/products';
-  private apiSectorsField = 'http://localhost:8080/sectorsFields';
+  private apiCategories = 'http://localhost:8080/sectorsFields';
+  private apiProviders = 'http://localhost:8080/providers';
+  private apiImages = 'http://localhost:8080/images';
 
   constructor(private http: HttpClient) { }
 
-  productModelArr: ProductsModel[] =[];
+  /*productModelArr: ProductsModel[] =[];
   oneProduct: ProductsModel={
     id: -1,
     sku: '',
@@ -24,72 +27,45 @@ export class ProductsService {
     precio: 0,
     proveedor: '',
     activo: false
-  };
+  };*/
 
-  public getAllProducts(){
-    const auxListado = localStorage.getItem("product");
-    if(auxListado){
-      this.productModelArr = JSON.parse(auxListado);
-    }else{
-      this.productModelArr = [];
-    }
-    return this.productModelArr;
+  public getAllProducts(): Observable<ProductsModel[]>{
+    return this.http.get<ProductsModel[]>(this.apiProducts);
   }
 
-  public getActiveProducts(){
-    const auxActiveProducts = this.getAllProducts();
-    if(auxActiveProducts.length<=0){
-      return [];
-    }else{
-      this.productModelArr = auxActiveProducts.filter(elem => elem.activo);
-      return this.productModelArr;
-    }
+  public getActiveProducts(): Observable<ProductsModel[]>{
+    return this.http.get<ProductsModel[]>(this.apiProducts+`/activeProducts`);
   }
 
-  public saveProduct(infoProduct: ProductsModel, indexId:number){
-    const auxProduct = this.getAllProducts();
+  public saveProduct(infoProduct: ProductsModel, indexId:number):Observable<any>{
+    
     if(indexId == -1){
-      infoProduct.id= auxProduct.length;
-      auxProduct.push(infoProduct);
-      localStorage.setItem("product", JSON.stringify(auxProduct));
+      return this.http.post(this.apiProducts, infoProduct, { observe: 'response', responseType: 'text' as 'json'  });
     }else{
-      this.productModelArr = auxProduct.map(elem => {
-            if(elem.id == indexId){
-              elem = infoProduct;
-            }
-            return elem;
-          });
-      localStorage.setItem("product", JSON.stringify(this.productModelArr));
+      return this.http.post(this.apiProducts + `/${indexId}`, infoProduct, { observe: 'response', responseType: 'text' as 'json'  });
+    
     }
 
   }
 
   public deleteProduct(index:number){
-    const auxDeleteProd = this.getAllProducts();
+   /* const auxDeleteProd = this.getAllProducts();
     this.productModelArr = auxDeleteProd.map(elem => {
       if(elem.id == index){
         elem.activo = false;
       }
       return elem;
     })
-    localStorage.setItem("product", JSON.stringify(this.productModelArr));
+    localStorage.setItem("product", JSON.stringify(this.productModelArr));*/
   }
 
-  public getActiveProductsByCategory(cat: string){
-    let arrAux:any[] = []; 
-    
-    this.getActiveProducts().map(elem => {
-      if(elem.proveedor == cat){
-        arrAux.push(elem);
-      }
-      });
-
-    return arrAux;
+  public getActiveProductsByCategory(catId: number): Observable<ProductsModel[]>{
+    return this.http.get<ProductsModel[]>(this.apiProducts+`/activeProducts`);
   }
 
   getProductsById(i:number){
 
-   return (this.getActiveProducts().filter(elem => elem.id == i ))
+   return this.http.get(this.apiProducts+`/${i}`);
       
   }
  

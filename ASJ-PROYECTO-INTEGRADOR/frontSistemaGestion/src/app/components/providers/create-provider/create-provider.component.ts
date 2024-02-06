@@ -21,7 +21,7 @@ export class CreateProviderComponent implements OnInit{
     private activeRoute:ActivatedRoute, private router:Router){
 
     this.providersForm = this.fb.group({
-      providers_id:[0],
+      providers_id:[-1],
       providers_code: ['', [Validators.required, Validators.minLength(3)]],
       providers_denomination: ['', [Validators.required, Validators.minLength(2)]],
       sectorsfield_id: ['', [Validators.required]],
@@ -36,7 +36,7 @@ export class CreateProviderComponent implements OnInit{
       providers_cp:['',[Validators.required, Validators.minLength(3)]],
       providers_city:['',[Validators.required, Validators.minLength(3)]],
       providers_addressinfo:['',[ Validators.minLength(1)]],
-      providers_cuit:['',[Validators.required,Validators.pattern('[0-9]{10,11}')]],
+      providers_cuit:['',[Validators.required,]],
       taxcategories_id:['',[Validators.required]],
       providers_contact_firstname: ['',[Validators.required, Validators.minLength(2)]],
       providers_contact_lastname: ['',[Validators.required, Validators.minLength(2)]],
@@ -82,29 +82,13 @@ export class CreateProviderComponent implements OnInit{
   onCuitInput(event: any) {
     const inputValue = event.target.value.replace(/\D/g, ''); // Eliminar no dígitos
     const formattedValue = inputValue.replace(/^(\d{2})(\d{0,8})(\d{0,1})$/, '$1-$2-$3'); // Formato XX-XXXXXXXX-X
-    this.providersForm.get('cuit')?.setValue(formattedValue, { emitEvent: false });
+    this.providersForm.get('providers_cuit')?.setValue(formattedValue, { emitEvent: false });
   }
 
   submitProvider(): void{
     if(this.providersForm.invalid){
       Swal.fire("Revisar el formulario y completar todos los campos requeridos.");
     } else if(this.indexProv == -1){
-      this.provider = this.providersForm.value;
-      this.provider.jurisdictions_id.jurisdictions_id = this.providersForm.get('jurisdictions_id')?.value;
-      this.provider.sectorsfield_id.sectorsfield_id = this.providersForm.get('sectorsfield_id')?.value;
-      this.provider.taxcategories_id.taxcategories_id = this.providersForm.get('taxcategories_id')?.value;
-      console.log("Envio: ", this.provider)
-      this.proveedoresService.saveProvider(this.provider, -1).subscribe();
-      Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "Guardado correctamente",
-        showConfirmButton: false,
-        timer: 1500
-      });
-
-     }else if(this.indexProv >= 0){
-      this.provider = this.providersForm.value;
       this.provider = this.providersForm.value;
       this.provider.jurisdictions_id ={
         jurisdictions_id: this.providersForm.get('jurisdictions_id')?.value,
@@ -124,7 +108,37 @@ export class CreateProviderComponent implements OnInit{
       this.provider.taxcategories_id = {
         taxcategories_id: this.providersForm.get('taxcategories_id')?.value,
       taxcategories_denomination:''}
+      this.provider.is_deleted = false;
+      console.log("Envio: ", this.provider)
+      this.proveedoresService.saveProvider(this.provider, -1).subscribe();
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Guardado correctamente",
+        showConfirmButton: false,
+        timer: 1500
+      });
 
+     }else if(this.indexProv >= 0){
+      this.provider = this.providersForm.value;
+
+      this.provider.jurisdictions_id ={
+        jurisdictions_id: this.providersForm.get('jurisdictions_id')?.value,
+        jurisdictions_name: '',
+        countries:{
+          countries_id:  this.providersForm.get('providers_country')?.value,
+          countries_name:''
+        }
+      }
+      
+      this.provider.sectorsfield_id = {
+        sectorsfield_id: this.providersForm.get('sectorsfield_id')?.value,
+      sectorsfield_name:''}
+
+      this.provider.taxcategories_id = {
+        taxcategories_id: this.providersForm.get('taxcategories_id')?.value,
+      taxcategories_denomination:''}
+      this.provider.is_deleted = false;
       console.log("Envio: ", this.provider)
       this.proveedoresService.saveProvider(this.provider, this.indexProv).subscribe();
       console.log("Index", this.indexProv)
@@ -136,10 +150,10 @@ export class CreateProviderComponent implements OnInit{
         showConfirmButton: false,
         timer: 1500
       });
-       this.router.navigate(['/proveedores']);
+       
      }
 
-
+     this.router.navigate(['/proveedores']);
   }
 
   resetForm(): void{

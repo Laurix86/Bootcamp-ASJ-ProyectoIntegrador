@@ -1,14 +1,16 @@
 package com.bootcamp.backsistemagestion.models;
 
 import java.time.Instant;
-
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -41,16 +43,16 @@ public class PurchasesOrderModel {
 	private Boolean is_active;
 	
 	//@JsonBackReference
-	@ManyToOne
-	@JoinColumn(name = "providers_id")
+	@ManyToOne(fetch = FetchType.EAGER)
 	private ProvidersModel providers_id;
 	
 	/*
 	 * @JsonManagedReference
-	 * 
-	 * @OneToMany(mappedBy = "purchases_order_id") private List<OrdersDetailModel>
-	 * OrdersDetailList;
-	 */
+	 * */
+	 @OneToMany(mappedBy = "purchases_order_id") 
+	 @JsonIgnore
+	 private List<OrdersDetailModel>OrdersDetailList = new ArrayList<OrdersDetailModel>();
+	 
 	
 	private Instant created_at;
 	private Instant updated_at;

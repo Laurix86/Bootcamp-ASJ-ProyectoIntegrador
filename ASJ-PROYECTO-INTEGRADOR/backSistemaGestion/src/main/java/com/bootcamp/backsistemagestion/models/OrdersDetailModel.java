@@ -5,6 +5,7 @@ import java.time.Instant;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -26,13 +27,11 @@ public class OrdersDetailModel {
 	private Integer orders_detail_quantity;
 	
 	//@JsonBackReference
-	@ManyToOne
-	@JoinColumn(name = "products_id")
+	@ManyToOne(fetch = FetchType.EAGER)
 	private ProductsModel products_id;
 	
 	//@JsonBackReference
-	@ManyToOne
-	@JoinColumn(name = "purchases_order_id")
+	@ManyToOne(fetch = FetchType.EAGER)
 	private PurchasesOrderModel purchases_order_id;
 	
 	private Instant created_at;

@@ -18,7 +18,7 @@
             <div class="col-md-4 mb-3">
                 <label class="form-label">Razón Social <span class="text-danger"
                         *ngIf="providersForm.get('providers_denomination')?.hasError('required')"> *</span></label>
-                <input type="text" class="form-control" placeholder="Código" formControlName="providers_denomination">
+                <input type="text" class="form-control" placeholder="Razón Social" formControlName="providers_denomination">
                 <div *ngIf="providersForm.get('providers_denomination')?.hasError('minlength')" class="form-text text-danger">
 
                     Debe tener al menos 2 caracteres
@@ -186,8 +186,7 @@
                 <div class="mb-3">
                     <label class="form-label">CUIT <span class="text-danger"
                         *ngIf="providersForm.get('providers_cuit')?.hasError('required')"> *</span></label>
-               <!--  <input type="text" class="form-control" placeholder="11-11111111-1" formControlName="cuit"> -->
-                <input type="text" class="form-control" placeholder="11-11111111-1" formControlName="providers_cuit"  (input)="onCuitInput($event)">
+                <input type="text" class="form-control" placeholder="11-11111111-1" formControlName="providers_cuit" (input)="onCuitInput($event)" >
                 <div *ngIf="providersForm.get('providers_cuit')?.hasError('pattern')" class="position-absolute top-0 end-0 translate-middle p-1">
                     <span class="form-text text-danger">
                       El CUIT debe contener solo números y tener entre 10 y 11 dígitos.

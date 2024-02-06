@@ -5,6 +5,7 @@ import java.time.Instant;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,7 +26,7 @@ public class ImagesModel {
 	private Boolean is_deleted;
 	
 	//@JsonBackReference
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	private ProductsModel product_id;
 	
 	private Instant created_at;

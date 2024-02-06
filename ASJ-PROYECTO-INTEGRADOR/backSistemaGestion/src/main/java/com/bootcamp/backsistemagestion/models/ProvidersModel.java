@@ -1,9 +1,11 @@
 package com.bootcamp.backsistemagestion.models;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
@@ -64,15 +66,15 @@ public class ProvidersModel {
 	
 	/*
 	 * @JsonManagedReference
-	 * 
-	 * @OneToMany(mappedBy = "providers_id") private List<ProductsModel>
-	 * productsList;
-	 * 
-	 * @JsonManagedReference
-	 * 
-	 * @OneToMany(mappedBy = "providers_id") private List<PurchasesOrderModel>
-	 * purchasesOrderList;
-	 */
+	 * */
+	 @OneToMany(mappedBy = "providers_id") 
+	 @JsonIgnore
+	 private List<ProductsModel> productsList = new ArrayList<ProductsModel>();
+	  
+	@OneToMany(mappedBy = "providers_id") 
+	@JsonIgnore
+	private List<PurchasesOrderModel>	purchasesOrderList = new ArrayList<PurchasesOrderModel>();
+	
 		
 	private Instant created_at;
 	private Instant updated_at;
