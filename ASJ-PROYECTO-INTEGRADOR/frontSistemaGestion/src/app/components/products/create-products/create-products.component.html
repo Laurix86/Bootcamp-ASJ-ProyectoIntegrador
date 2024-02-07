@@ -18,7 +18,7 @@
                         *ngIf="productsForm.get('categories_id')?.hasError('required')"> *</span></label>
 
                 <select class="form-select" formControlName="categories_id" required>
-                    <option *ngFor="let item of categoriaLista" [value]="item.categories_id">{{item.categories_denominations}}
+                    <option *ngFor="let item of categoriesLista" [value]="item.categories_id">{{item.categories_denominations}}
                     </option>
                 </select>
             </div>
@@ -45,9 +45,9 @@
             </div>
             <div class="col-md-3 mb-3">
                 <label class="form-label">Imagen <span class="text-danger"
-                    *ngIf="productsForm.get('images_id')?.hasError('required')"> *</span></label>
-            <input type="text" class="form-control" placeholder="URL imagen" formControlName="images_id">
-                <div *ngIf="productsForm.get('images_id')?.hasError('minlength')" class="form-text text-danger">
+                    *ngIf="productsForm.get('image')?.hasError('required')"> *</span></label>
+            <input type="text" class="form-control" placeholder="URL imagen" formControlName="image">
+                <div *ngIf="productsForm.get('image')?.hasError('minlength')" class="form-text text-danger">
                     Debe tener al menos 3 caracteres
                 </div>
             </div>
@@ -64,8 +64,7 @@
 
         <div class="row">
             <div class="col-md-6 mb-3">
-                <label class="form-label">Descripción <span class="text-danger"
-                    *ngIf="productsForm.get('products_description')?.hasError('required')"> *</span></label>
+                <label class="form-label">Descripción </label>
             <input type="text" class="form-control" placeholder="Descripción del Producto" formControlName="products_description">
                 <div *ngIf="productsForm.get('products_description')?.hasError('minlength')" class="form-text text-danger">
                     Debe tener al menos 3 caracteres
@@ -94,105 +93,3 @@
 </div>
 
 
-
-<!------ ------------- ----------------------------------------- -------------- -->
-<!-- <div class="row ">
-      <div class="col-12 ">
-          <h3>{{title}}</h3>
-          <form #miForm="ngForm" (ngSubmit)="submitProducto(miForm)">
-             <input type="hidden" name="id" [(ngModel)]="provider.id"> -->
-              <!--  <div class="row m-2">
-              <div class="col-md-6 col-lg-6">
-                <div class="mb-3">
-                    <label class="form-label">Código SKU</label>
-                    <input type="text" class="form-control" [readOnly]="(indexProd >=0)" placeholder="Código SKU" name="sku" [(ngModel)]="product.sku" required minlength="3" #sku="ngModel">
-                    <div *ngIf="sku.errors?.['minlength']" class="col-auto">
-                        <span class="form-text text-danger ">
-                            Debe tener al menos 3 caracteres
-                        </span>
-                    </div>
-                    <div *ngIf="sku.errors?.['required'] " class="col-auto">
-                        <span class="form-text text-danger">
-                            El dato es obligatorio
-                        </span>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" for="categoria">Categoría</label>
-                    <select class="form-select " name="categoria" id="categoria"  [(ngModel)]="product.categoria"  (ngModelChange)="getCat($event)" required >
-                       
-                        <option *ngFor="let item of categoriesProv, index as i" value="{{item}}"  >{{item}}</option>
-                      
-                    </select>
-                    
-                  </div>   
-                  <div class="mb-3">
-                    <label class="form-label" for="proveedor">Proveedor</label>
-                    <select class="form-select " name="proveedor" id="proveedor"  [(ngModel)]="product.proveedor"  (ngModelChange)="getProv($event)" required >
-                       
-                        <option *ngFor="let item of listaProvByCategory, index as i" value="{{item}}"  >{{item}}</option>
-                      
-                    </select>
-                    
-                  </div> 
-                </div>
-                <div class="col-md-6 col-lg-6 p-2 ">
-                    <div class="mb-3">
-                        <label class="form-label">Nombre del Producto</label>
-                        <input type="text" class="form-control" placeholder="Nombre del Producto" name="nombre" [(ngModel)]="product.nombre" required minlength="4" #nombre="ngModel">
-                        <div *ngIf="nombre.errors?.['minlength']" class="col-auto">
-                            <span class="form-text text-danger ">
-                                Debe tener almenos 4 caracteres
-                            </span>
-                        </div>
-                        <div *ngIf="nombre.errors?.['required']" class="col-auto">
-                            <span class="form-text text-danger">
-                                El dato es obligatorio
-                            </span>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Descripción</label>
-                        <input type="text" class="form-control" placeholder="Descripción" name="descripcion" [(ngModel)]="product.descripcion" required minlength="4" #descripcion="ngModel">
-                        <div *ngIf="descripcion.errors?.['minlength']" class="col-auto">
-                            <span class="form-text text-danger ">
-                                Debe tener almenos 4 caracteres
-                            </span>
-                        </div>
-                        <div *ngIf="descripcion.errors?.['required']" class="col-auto">
-                            <span class="form-text text-danger">
-                                El dato es obligatorio
-                            </span>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Precio</label>
-                        <input type="number" class="form-control" placeholder="0.00" name="precio" [(ngModel)]="product.precio" required minlength="4" #precio="ngModel">
-                        <div *ngIf="precio.errors?.['minlength']" class="col-auto">
-                            <span class="form-text text-danger ">
-                                Debe tener almenos 4 caracteres
-                            </span>
-                        </div>
-                        <div *ngIf="precio.errors?.['required']" class="col-auto">
-                            <span class="form-text text-danger">
-                                El dato es obligatorio
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col float-end  ">
-                    <button type="submit" class="btn btn-outline-success me-2" [disabled]="!miForm.valid">Guardar</button>
-                    <button class="btn btn-outline-warning " (click)="resetForm(miForm)">Limpiar</button>
-                </div>
-            </div>
-         
-          </form>
-          <div *ngIf="msg" class="alert alert-success alert-dismissible fade show mt-4" role="alert">
-              {{msg}}
-              <button type="button" class="btn-close " data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
-      </div>
-  </div>
-   -->

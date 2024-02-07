@@ -27,6 +27,10 @@ public class CategoryService {
 		return categoryRepository.findById(id);
 	}
 	
+	public List<CategoriesModel> getActiveCategories(){
+		return categoryRepository.getActiveCategories();
+	}
+	
 	//Insert Categorías
 	public String setCategories(CategoriesModel category) {
 		categoryRepository.save(category);

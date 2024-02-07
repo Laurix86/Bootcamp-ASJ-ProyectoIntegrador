@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductsModel } from 'src/app/models/productsModel';
 import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
@@ -6,9 +7,27 @@ import { ProductsService } from 'src/app/services/products.service';
   templateUrl: './display-products.component.html',
   styleUrls: ['./display-products.component.css']
 })
-export class DisplayProductsComponent {
+export class DisplayProductsComponent implements OnInit {
 
-  productList: any=[];
+  public product: ProductsModel ={
+    
+    products_sku: '',
+    products_denomination: '',
+    products_description: '',
+    products_price: 0,
+    products_stock: '',
+    image: '',
+    is_deleted: false,
+    categories_id: {
+      categories_id: 0,
+      categories_denominations: ''
+    },
+    providers_id: {
+      providers_id: 0,
+      providers_denomination: ''
+    }
+  }
+  productsList: ProductsModel[]=[];
   search: string = "";
   empty = "";
 
@@ -16,13 +35,18 @@ export class DisplayProductsComponent {
 
   ngOnInit():void{
     this.getProductsToShow();
-    if(this.productList.length == 0){
-      this.empty = "No hay productos para mostrar";
-    }
+   
   }
 
   getProductsToShow(){
-    this.productList = this.productsService.getActiveProducts();
+    this.productsService.getActiveProducts().subscribe(
+      (products)=>{
+        this.productsList = products;
+        if(this.productsList.length ==0){
+          this.empty = "No hay proveedores para mostrar"
+        }
+      }
+    )
 
   }
 

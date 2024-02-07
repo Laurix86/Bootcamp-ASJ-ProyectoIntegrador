@@ -13,6 +13,9 @@ public interface ProductsRepository extends JpaRepository<ProductsModel, Integer
 	@Query(value= "SELECT p.* FROM products p WHERE p.categories_id_categories_id = :category",  nativeQuery = true)
 	List<ProductsModel> getProductsByCategory(@Param("category") Integer product);
 	
-	@Query(value= "SELECT p.* FROM products p WHERE p.id_deleted = false",  nativeQuery = true)
+	@Query(value= "SELECT p.* FROM products p WHERE p.providers_id_providers_id = :provider",  nativeQuery = true)
+	List<ProductsModel> getProductsByProvider(@Param("provider") Integer provider);
+	
+	@Query(value= "SELECT p.* FROM products p WHERE p.is_deleted = false",  nativeQuery = true)
 	List<ProductsModel> getActiveProducts();
 }

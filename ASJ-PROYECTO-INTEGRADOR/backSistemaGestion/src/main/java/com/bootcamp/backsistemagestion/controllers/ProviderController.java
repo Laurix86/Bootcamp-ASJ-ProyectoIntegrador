@@ -59,6 +59,11 @@ public class ProviderController {
 //		
 //	}
 	
+	@GetMapping("/providers-by-sectors/{id}")
+	public List<ProvidersModel> getProvidersBySectors(@PathVariable int id){
+		return providerService.getProvidersBySectors(id);
+	}
+	
 	@PostMapping()
 	public ResponseEntity<Object> saveProvider(@Valid @RequestBody ProvidersModel provider, BindingResult bindingResult ) {
 		

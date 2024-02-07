@@ -37,7 +37,7 @@ public class ProductController {
 	}
 	
 	@GetMapping("/{id}")
-	public ProductsModel getProductById(int id) {
+	public ProductsModel getProductById(@PathVariable int id) {
 		return productService.getProductById(id);
 	}
 	
@@ -46,9 +46,14 @@ public class ProductController {
 		return ResponseEntity.ok(productService.getActiveProducts());
 	}
 	
-	@GetMapping("/products-by-category")
+	@GetMapping("/products-by-category/{id}")
 	public List<ProductsModel> getProductsByCategory(int id){
 		return productService.getProductsByCategory(id);
+	}
+	
+	@GetMapping("/products-by-provider/{id}")
+	public List<ProductsModel> getProductsByProvider(@PathVariable int id){
+		return productService.getProductsByProvider(id);
 	}
 	
 	@PostMapping()
@@ -59,7 +64,7 @@ public class ProductController {
 			
 			Map<String, String> errors = new ErrorHandler().validacionInputs(bindingResult);
 			
-			System.out.println(errors);
+			System.out.println("Errores: " + errors);
 			
 			return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
 		}
@@ -75,7 +80,7 @@ public class ProductController {
 	
 	// Edit provider
 	@PutMapping("/{id}")
-	public ResponseEntity<Object> editProvider(@PathVariable int id, @Valid @RequestBody ProductsModel product,@Valid @RequestBody ImagesModel image, BindingResult bindingResult) {
+	public ResponseEntity<Object> editProvider(@PathVariable int id, @Valid @RequestBody ProductsModel product, BindingResult bindingResult) {
 		
 		System.out.println("Prod controller " + product);
 		
@@ -89,7 +94,7 @@ public class ProductController {
 		}
 		
 		try {
-			return new ResponseEntity<>(productService.editProduct(id, product, image), HttpStatus.OK);
+			return new ResponseEntity<>(productService.editProduct(id, product), HttpStatus.OK);
 		}catch (Exception e) {
 			return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
 		}

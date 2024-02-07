@@ -45,6 +45,10 @@ public class ProductService {
 		return productRepository.getProductsByCategory(categoryId);
 	}
 	
+	public List<ProductsModel> getProductsByProvider(int providerId){
+		return productRepository.getProductsByProvider(providerId);
+	}
+	
 	public List<ProductsModel> getActiveProducts() throws Exception{
 		
 		try {
@@ -57,11 +61,18 @@ public class ProductService {
 	}
 	
 	public String setProduct(ProductsModel product) {
-		productRepository.save(product);
-		return "OK";
+		
+		try {
+			productRepository.save(product);
+			return "OK";
+		} catch (Exception e) {
+			return "Se produjo un error: " + e.getMessage();
+		}
+		
+		
 	}
 	
-	public String editProduct(int id, ProductsModel product, ImagesModel image) {
+	public String editProduct(int id, ProductsModel product) {
 		try {
 			Optional<ProductsModel> prod = productRepository.findById(id);
 			Optional<ProvidersModel> p = providerRepository.findById(product.getProviders_id().getProviders_id());
@@ -90,7 +101,7 @@ public class ProductService {
 				auxProd.setIs_deleted(product.getIs_deleted());
 				
 				productRepository.save(auxProd);
-				imageRepository.save(image);
+				//imageRepository.save(image);
 				
 				
 			}else {

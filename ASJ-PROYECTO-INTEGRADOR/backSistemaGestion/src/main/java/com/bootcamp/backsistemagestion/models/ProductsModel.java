@@ -35,6 +35,7 @@ public class ProductsModel {
 	private Double products_price;
 	private Integer products_stock;
 	private Boolean is_deleted;
+	private String image;
 	
 	//@JsonBackReference
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -67,7 +68,7 @@ public class ProductsModel {
 
 
 
-	public ProductsModel(Integer products_id, String products_sku, String products_denomination, Double products_price,
+	/*public ProductsModel(Integer products_id, String products_sku, String products_denomination, Double products_price,
 			Integer products_stock, ProvidersModel providers_id, CategoriesModel categories_id) {
 		this.products_id = products_id;
 		this.products_sku = products_sku;
@@ -78,7 +79,7 @@ public class ProductsModel {
 		this.categories_id = categories_id;
 		this.is_deleted = false;
 		this.created_at = Instant.now();
-	}
+	}*/
 
 
 	@PrePersist
@@ -217,6 +218,18 @@ public class ProductsModel {
 
 	public Instant getCreated_at() {
 		return created_at;
+	}
+
+
+
+	public String getImage() {
+		return image;
+	}
+
+
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 	
 	

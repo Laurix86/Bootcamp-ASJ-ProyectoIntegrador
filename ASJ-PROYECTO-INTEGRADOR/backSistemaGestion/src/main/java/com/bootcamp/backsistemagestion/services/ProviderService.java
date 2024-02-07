@@ -49,6 +49,11 @@ public class ProviderService {
 	
 	}
 	
+	public List<ProvidersModel> getProvidersBySectors(int catId){
+		 return providerRepository.getProvidersBySectors(catId);
+				
+	}
+	
 	//Obtener proveedores activos
 	public List<ProvidersModel> getActiveProviders() throws Exception{
 		

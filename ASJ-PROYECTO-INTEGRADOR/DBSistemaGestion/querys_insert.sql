@@ -153,15 +153,15 @@ NULL);
 
 
 
-INSERT INTO productos(producto_id,producto_sku,producto_denominacion,producto_descripcion,
-producto_precio, stock,is_eliminado,id_proveedor,id_categoria,created_at,updated_at) VALUES
-(1, 'B123', 'IPHONE 13 PRO', 'Celular SmartPhone', 1500000, 13, 0, 1, 1, '2023-12-01 11:34:23.55', NULL),
-(2, 'PH12R', 'IPHONE 13 PRO', 'Celular SmartPhone', 1700000, 7, 0, 2, 1, '2023-12-29 11:34:23.55', NULL),
-(3, 'K123', 'Jugos Clight Naranja', 'Jugo en polvo', 50, 115, 0, 5, 7, '2021-12-01 11:34:23.55','2021-09-01 11:34:23.55'),
-(4, '003LU', 'Jugos La Familia', 'Jugo', 99, 78, 0, 6, 7, '2024-01-01 11:34:23.55', NULL),
-(5, '123ABC', 'Resmas Ledesma', 'A4 80grs', 1005, 3, 0, 1, 17, '2023-03-01 11:34:23.55', NULL);
+INSERT INTO products(products_id,products_sku,products_denomination,products_description,
+products_price, products_stock,is_deleted,providers_id_providers_id,categories_id_categories_id,created_at,updated_at, image) VALUES
+(1, 'B123', 'IPHONE 13 PRO', 'Celular SmartPhone', 1500000, 13, 0, 1, 1, '2023-12-01 11:34:23.55', NULL, null),
+(2, 'PH12R', 'IPHONE 13 PRO', 'Celular SmartPhone', 1700000, 7, 0, 2, 1, '2023-12-29 11:34:23.55', NULL,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHp8frOlqthSps8xLDYidyflUChyFV55-2WmSI0fV5r0f95i-R9Jyh_Nx_MmCaJ_DenJg&usqp=CAU'),
+(3, 'K123', 'Jugos Clight Naranja', 'Jugo en polvo', 50, 115, 0, 5, 7, '2021-12-01 11:34:23.55','2021-09-01 11:34:23.55','https://d2r9epyceweg5n.cloudfront.net/stores/001/108/127/products/clight1-f54d1baa0f150fc17d15906150370226-1024-1024.png'),
+(4, '003LU', 'Jugos La Familia', 'Jugo', 99, 78, 0, 6, 7, '2024-01-01 11:34:23.55', NULL, null),
+(5, '123ABC', 'Resmas Ledesma', 'A4 80grs', 1005, 3, 0, 1, 17, '2023-03-01 11:34:23.55', NULL, null);
 
-INSERT INTO imagenes(imagen_id,imagen_url,id_producto) VALUES
+INSERT INTO imagenes(imagen_id,imagen_url,id_products) VALUES
 (1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHp8frOlqthSps8xLDYidyflUChyFV55-2WmSI0fV5r0f95i-R9Jyh_Nx_MmCaJ_DenJg&usqp=CAU', 2),
 (2,'https://d2r9epyceweg5n.cloudfront.net/stores/001/108/127/products/clight1-f54d1baa0f150fc17d15906150370226-1024-1024.png', 3);
 

@@ -1,5 +1,10 @@
 <div class="row">
     <div class="col-md-12">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="">Inicio</a></li>
+            <li class="breadcrumb-item active">Listado de Productos</li>
+        </ol>
+
         <div class="row">
             <div class="col-md-5 ">
                 
@@ -11,22 +16,26 @@
         </div>
         <table class="table table-hover m-5 text-center border-info">
             <thead class="border-bottom">
-                <th>Producto</th>
+                <th>Imagen</th>
+                <th>SKU - Nombre</th>
                 <th>Categoría</th>
-                <th>Proveedor</th>
                 <th>Precio</th>
+                <th>Proveedor</th>
                 <th>Acciones</th>
             </thead>
             <tbody>
                 <tr *ngIf="empty">
                     <td colspan="5" >{{empty}}</td> 
                 </tr>
-                <tr *ngFor="let p of productList | filterPipe: search" >
-                    
-                    <td>{{p.nombre}}</td>
-                    <td>{{p.categoria}}</td>
-                    <td>{{p.proveedor}}</td>
-                    <td>{{p.precio | currency:'ARS' :'$'}}</td>
+                <tr *ngFor="let p of productsList | filterPipe: search" >
+                    <td> <img  [src]="p.image ? p.image : 'https://tacm.com/wp-content/uploads/2018/01/no-image-available.jpeg'" alt="Logo proveedor" width="50" height="50"> </td>
+                    <td>
+                        <li>{{p.products_sku}}</li>
+                        <li>{{p.products_denomination}}</li>
+                    </td>
+                    <td>{{p.categories_id.categories_denominations}}</td>
+                    <td>{{p.products_price | currency:'ARS' :'$'}}</td>
+                    <td>{{p.providers_id.providers_denomination}}</td>
                     <td>
                         <button class="btn btn-sm btn-outline-secondary  m-1" routerLink="/productos/{{p.id}}">Editar</button>
                         <button class="btn btn-sm btn-outline-danger m-1" (click)="desactivarProd(p.id)">Eliminar</button>
