@@ -1,4 +1,4 @@
-# Proyect Integrador Final
+# Proyect Integrador Final (Se encuentra alojado en la carpeta ASJ-PROYECTO-INTEGRADOR)
 
 Desarrollo de un *Sistema de Gestión* para manejar información de Proveedores, Productos y Órdenes de compra.
 
