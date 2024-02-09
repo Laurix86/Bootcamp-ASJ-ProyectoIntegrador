@@ -1,11 +1,14 @@
 <div class="row ">
     <div class="col-12 ">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="">Inicio</a></li>
+            <li class="breadcrumb-item active">{{title}}</li>
+        </ol>
         <h3>{{title}}</h3>
 
         <form [formGroup]="purchasesOrdersForm" (ngSubmit)="submitOrder()">
             <div class="row">
-                <input type="text" class="form-control" placeholder="Código Orden" formControlName="purchases_order_id"
-                    hidden>
+                
                 <div class="col-md-4 mb-3">
                     <div class="row">
                         <div class="col">
@@ -16,7 +19,7 @@
                                 formControlName="purchases_order_code">
                             <div *ngIf="purchasesOrdersForm.get('purchases_order_code')?.hasError('minlength')"
                                 class="form-text text-danger">
-                                Debe tener al menos 2 caracteres
+                                Debe tener al menos 3 caracteres
                             </div>
                         </div>
                     </div>
@@ -24,7 +27,7 @@
                         <div class="col">
                             <label class="form-label">Fecha:</label>
                             <label  class="form-control"
-                                formControlName="purchases_order_date">{{today}}</label>
+                                formControlName="purchases_order_date">{{date | date:'dd-MM-yyyy' }}</label>
 
                         </div>
                     </div>
@@ -33,7 +36,7 @@
 
                             <label for="delivery">Fecha estimada de entrega:</label>
                             <input type="date" class="form-control " formControlName="purchases_order_delivery_date"
-                            [min]="today | date:'yyyy-dd-MM'"
+                            [min]="date | date:'yyyy-MM-dd'"
                                 >
 
                         </div>
@@ -127,7 +130,15 @@
                 </div>
 
             </div>
-
+            <div class="row border-1 justify-content-end mt-3">
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-outline-success me-2">Guardar</button>
+                    <!-- [disabled]="!purchasesOrdersForm.valid"-->
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-outline-warning" (click)="resetForm()">Limpiar</button>
+                </div>
+            </div>
         </form>
 
 

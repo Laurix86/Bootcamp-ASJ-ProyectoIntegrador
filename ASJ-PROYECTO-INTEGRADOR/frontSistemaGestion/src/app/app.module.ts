@@ -15,7 +15,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { CreateProductsComponent } from './components/products/create-products/create-products.component';
 import { DisplayProductsComponent } from './components/products/display-products/display-products.component';
 import { CreateOrdersComponent } from './components/orders/create-orders/create-orders.component';
-//import { DisplayOrdersComponent } from './components/orders/display-orders/display-orders.component';
+import { DisplayOrdersComponent } from './components/orders/display-orders/display-orders.component';
 import { filterPipePipe } from './components/pipes/filterPipe.pipe';
 //import { ShowOrderComponent } from './components/orders/show-order/show-order.component';
 import { MainComponent } from './components/main/main.component';
@@ -35,7 +35,7 @@ import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
     CreateProductsComponent,
     DisplayProductsComponent,
     CreateOrdersComponent,
-  //  DisplayOrdersComponent,
+    DisplayOrdersComponent,
     filterPipePipe,
    // ShowOrderComponent,
     MainComponent,

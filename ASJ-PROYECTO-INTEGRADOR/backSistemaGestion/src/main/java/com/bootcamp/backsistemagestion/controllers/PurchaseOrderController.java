@@ -105,12 +105,13 @@ public class PurchaseOrderController {
 	}
 	
 	@PostMapping()
-	public int savePurchaseOrder(@Valid @RequestBody PurchasesOrderModel purchaseOrder, BindingResult bindingResult) {
-			try {
-				return purchaseOrderService.setPurchaseOrder(purchaseOrder);
-			} catch (Exception e) {
-				return 0;
-			}
+	public ResponseEntity<Integer> savePurchaseOrder(@Valid @RequestBody PurchasesOrderModel purchaseOrder) {
+	    try {
+	        int orderId = purchaseOrderService.setPurchaseOrder(purchaseOrder);
+	        return ResponseEntity.ok().body(orderId);
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(-1); 
+	    }
 	}
 	
 	

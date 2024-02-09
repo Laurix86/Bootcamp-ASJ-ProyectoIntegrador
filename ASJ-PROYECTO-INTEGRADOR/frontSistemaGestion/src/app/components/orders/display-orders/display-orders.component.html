@@ -2,7 +2,12 @@
     <div class="col-md-12">
         <div class="row">
             <div class="col-md-5 ">
-                
+
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="">Inicio</a></li>
+                    <li class="breadcrumb-item active">Listado de Órdenes</li>
+                </ol>
+
                 <button class="btn btn-sm btn-info  float-end " routerLink="/ordenes/nueva-orden"> + Nueva orden</button>
             </div>
             <div class="col-md-5 ">
@@ -24,11 +29,11 @@
                 </tr>
                 <tr *ngFor="let p of ordersList | filterPipe: search" >
                     
-                    <td>{{p.orderNumber}}</td>
-                    <td>{{p.orderDate}}</td>
-                    <td>{{p.proveedor}}</td>
-                    <td>{{p.total | currency:'ARS' :'$'}}</td>
-                    <td>{{p.deliveryDate}}</td>
+                    <td>{{p.purchases_order_code}}</td>
+                    <td>{{p.purchases_order_date}}</td>
+                    <td>{{p.providers_id.providers_denomination}}</td>
+                    <td>{{p.purchases_order_final_price | currency:'ARS' :'$'}}</td>
+                    <td>{{p.purchases_order_delivery_date}}</td>
                     <td>
                         <button class="btn btn-sm btn-outline-secondary  m-1" routerLink="/ordenes/{{p.id}}">Ver</button>
                         <button class="btn btn-sm btn-outline-danger m-1" (click)="desactivarOrder(p.id)">Eliminar</button>

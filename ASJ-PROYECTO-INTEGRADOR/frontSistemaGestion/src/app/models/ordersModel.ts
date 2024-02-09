@@ -1,5 +1,5 @@
 export interface PurchasesOrderModel{
-    purchases_order_id?:number,
+    purchases_order_id:number,
     purchases_order_code: string,
     purchases_order_date: Date,
     purchases_order_delivery_date: Date,

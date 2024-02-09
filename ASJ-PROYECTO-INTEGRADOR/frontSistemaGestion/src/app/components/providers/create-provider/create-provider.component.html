@@ -149,7 +149,7 @@
                     </div>
                 </div>
 
-                <!-- Renglón inferior para código postal e información adicional -->
+                <!-- ------------------------------------- -->
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label class="form-label">Ciudad <span class="text-danger"
@@ -279,23 +279,7 @@
 
 
 
-        <!-- ... Otros campos ... 
-
-            <div class="col-3 mb-3">
-                <label class="form-label">País</label> 
-                <select class="form-select " name="country_id" id="country_id"  #country_id="ngModel"  [(ngModel)]="provider.jurisdictions.country.name" (ngModelChange)="showJurisdictions($event)" required >
-                  <option *ngFor="let country of countriesList; index as i" [ngValue]="{id: country.countries_id, name: country.countries_name}">{{country.countries_name}}</option>
-                  </select>
-            </div>
-            <div class="col-4 mb-3">
-                <label class="form-label" for="jurisdictions">Provincia / Estado</label>
-                <input type="text" class="form-control" formControlName="jurisdictions" placeholder="Buscar Provincia">
-                <div *ngFor="let jurisdiction of jurisdictionsList" (click)="setJurisdiction(jurisdiction)">
-                    {{ rubro.sectorsfield_name }}
-                </div>
-            </div>
-
-           ---------------------------------- -->
+        <!-- ...            ---------------------------------- -->
         <div class="row border-1">
             <!-- ... Resto del formulario ... -->
         </div>

@@ -17,6 +17,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -65,7 +67,7 @@ public class PurchasesOrderModel {
 	}
 
 
-	public PurchasesOrderModel(String purchases_order_code, Date purchases_order_date, Date purchases_order_delivery_date,
+	/*public PurchasesOrderModel(String purchases_order_code, Date purchases_order_date, Date purchases_order_delivery_date,
 		Double purchases_order_final_price, ProvidersModel providers_id) {
 	this.purchases_order_code = purchases_order_code;
 	this.purchases_order_date = purchases_order_date;
@@ -75,9 +77,20 @@ public class PurchasesOrderModel {
 	this.is_pending = true;
 	this.is_active = true;
 	this.created_at = Instant.now();
-}
+}*/
 
 
+	
+	@PrePersist
+    private void prePersist() {
+        this.created_at = Instant.now();
+    }
+	
+	@PreUpdate
+    private void preUpdate() {
+        this.updated_at = Instant.now();
+    }
+	
 	public String getPurchases_order_code() {
 		return purchases_order_code;
 	}

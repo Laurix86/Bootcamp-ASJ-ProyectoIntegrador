@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PurchasesOrderModel, OrdersDetailModel } from '../models/ordersModel';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,7 @@ export class OrdersService {
   private apiPurchases = 'http://localhost:8080/purchase-order';
   private apiOrdersDetail = 'http://localhost:8080/order-detail';
 
+  auxPurchase: PurchasesOrderModel[]=[];
   constructor(private http: HttpClient) { }
 
 
@@ -24,20 +25,30 @@ export class OrdersService {
     return this.http.get<PurchasesOrderModel[]>(this.apiPurchases+`/active`);
   }
 
+  checkOrderCode(newCode: string): Observable<boolean> {
+    return this.getAllOrders().pipe(
+      map(data => {
+        const orders = data as PurchasesOrderModel[]; // Asegúrate de ajustar el tipo según tu modelo de datos
+        return orders.some(order => order.purchases_order_code === newCode);
+      })
+    );
+  }
+  
   public  savePurchaseOrder (infoOrder: PurchasesOrderModel, indexId: number):Observable<any>{
     
     if(indexId == -1){
-      return this.http.post(this.apiPurchases, infoOrder, { observe: 'response', responseType: 'text' as 'json'  });
+      const aux = this.http.post(this.apiPurchases, infoOrder, { observe: 'response', responseType:  'json'  });
+      return aux;
     
     }else{
-      return this.http.put(this.apiPurchases, infoOrder, { observe: 'response', responseType: 'text' as 'json'  });
+      return this.http.put(this.apiPurchases, infoOrder, { observe: 'response', responseType:  'json'  });
     
     }
 
 }
 
 public saveOrderDetail(arrOrdersDetal: OrdersDetailModel[]):Observable<any>{
-  return this.http.post(this.apiPurchases, arrOrdersDetal, { observe: 'response', responseType: 'text' as 'json'  });
+  return this.http.post(this.apiOrdersDetail, arrOrdersDetal, { observe: 'response', responseType: 'text'  });
     
 }
 

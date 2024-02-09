@@ -18,4 +18,5 @@ public interface ProductsRepository extends JpaRepository<ProductsModel, Integer
 	
 	@Query(value= "SELECT p.* FROM products p WHERE p.is_deleted = false",  nativeQuery = true)
 	List<ProductsModel> getActiveProducts();
+	
 }

@@ -161,9 +161,14 @@ products_price, products_stock,is_deleted,providers_id_providers_id,categories_i
 (4, '003LU', 'Jugos La Familia', 'Jugo', 99, 78, 0, 6, 7, '2024-01-01 11:34:23.55', NULL, null),
 (5, '123ABC', 'Resmas Ledesma', 'A4 80grs', 1005, 3, 0, 1, 17, '2023-03-01 11:34:23.55', NULL, null);
 
+/* PARA UPGRADE - POR EL MOMENTO UNA SOLA IMAGEN EN PRODUCTO ---
+
 INSERT INTO imagenes(imagen_id,imagen_url,id_products) VALUES
 (1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHp8frOlqthSps8xLDYidyflUChyFV55-2WmSI0fV5r0f95i-R9Jyh_Nx_MmCaJ_DenJg&usqp=CAU', 2),
 (2,'https://d2r9epyceweg5n.cloudfront.net/stores/001/108/127/products/clight1-f54d1baa0f150fc17d15906150370226-1024-1024.png', 3);
+*/
+
+/* FALTA UPDATES DE CAMPOS Y VALUES -----------
 
 INSERT INTO ordenes_compras(orden_id,orden_codigo,orden_fecha,orden_fecha_entrega,orden_adicional,
 orden_total, is_pendiente,is_activo,id_proveedor,created_at,updated_at) VALUES
@@ -178,4 +183,4 @@ detalle_cantidad_producto,id_producto,id_orden) VALUES
 (3, 1500000, 1, 2, 3);
 
 
-
+*/

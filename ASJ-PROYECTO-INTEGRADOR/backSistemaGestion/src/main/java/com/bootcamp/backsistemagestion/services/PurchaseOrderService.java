@@ -53,6 +53,7 @@ public class PurchaseOrderService {
 	public int setPurchaseOrder(PurchasesOrderModel purchaseOrder) {
 		try {
 			PurchasesOrderModel auxPurchaseOrder = purchasesOrderRepository.save(purchaseOrder);
+			System.out.println("new id: " + auxPurchaseOrder.getPurchases_order_id());
 			return auxPurchaseOrder.getPurchases_order_id();
 		} catch (Exception e) {
 			return 0;
