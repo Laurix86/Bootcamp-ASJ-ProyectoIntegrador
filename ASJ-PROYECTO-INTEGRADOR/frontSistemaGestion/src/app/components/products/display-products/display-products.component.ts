@@ -10,7 +10,7 @@ import { ProductsService } from 'src/app/services/products.service';
 export class DisplayProductsComponent implements OnInit {
 
   public product: ProductsModel ={
-    
+    products_id:-1,
     products_sku: '',
     products_denomination: '',
     products_description: '',

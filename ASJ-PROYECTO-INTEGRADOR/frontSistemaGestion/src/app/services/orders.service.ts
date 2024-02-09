@@ -1,66 +1,47 @@
 import { Injectable } from '@angular/core';
-import { OrdersModel } from '../models/ordersModel';
+import { HttpClient } from '@angular/common/http';
+import { PurchasesOrderModel, OrdersDetailModel } from '../models/ordersModel';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class OrdersService {
+  private apiProviders = 'http://localhost:8080/providers';
+  private apiProducts = 'http://localhost:8080/products';
+  private apiPurchases = 'http://localhost:8080/purchase-order';
+  private apiOrdersDetail = 'http://localhost:8080/order-detail';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  ordersModelArr: OrdersModel[]=[];
-  singleOrden: OrdersModel = {
-    id: -1,
-    orderNumber: 0,
-    orderDate: '',
-    deliveryDate: '',
-    infoExtra: '',
-    providerOrder: '',
-    productsOrder: {},
-    totalOrder: 0,
-    pendingOrder: true,
-    activo: true
+
+  public getAllOrders():Observable<PurchasesOrderModel[]>{
+    return this.http.get<PurchasesOrderModel[]>(this.apiPurchases);
   }
 
-  public getAllOrders(){
-    const auxListado = localStorage.getItem("order");
-    if(auxListado){
-      this.ordersModelArr = JSON.parse(auxListado);
+  public getActiveOrders():Observable<PurchasesOrderModel[]>{
+    return this.http.get<PurchasesOrderModel[]>(this.apiPurchases+`/active`);
+  }
+
+  public  savePurchaseOrder (infoOrder: PurchasesOrderModel, indexId: number):Observable<any>{
+    
+    if(indexId == -1){
+      return this.http.post(this.apiPurchases, infoOrder, { observe: 'response', responseType: 'text' as 'json'  });
+    
     }else{
-      this.ordersModelArr = [];
+      return this.http.put(this.apiPurchases, infoOrder, { observe: 'response', responseType: 'text' as 'json'  });
+    
     }
-   
-    return this.ordersModelArr; 
-  }
 
-  public getActiveOrders(){
-    const auxActiveOrders = this.getAllOrders();
-    if(auxActiveOrders.length <=0){
-      return [];
-    }else{
-      console.log("auxArr",this.getAllOrders())
-      this.ordersModelArr = auxActiveOrders.filter(elem => elem.activo);
-      return this.ordersModelArr;
-    }
-  }
+}
 
-  public  saveOrder (infoOrder: OrdersModel, indexId: number){
-    const auxOrders = this.getAllOrders();
-    if(indexId ==-1){
-      infoOrder.id = auxOrders.length;
-      auxOrders.push(infoOrder);
-      localStorage.setItem("order", JSON.stringify(auxOrders));
-    } /* else{
-      this.ordersModelArr = auxOrders.map(elem => {
-        if(elem.id == indexId){
-          elem = infoOrder;
-        }
-        return elem;
-      })
-      
-      localStorage.setItem("order", JSON.stringify(this.ordersModelArr));
+public saveOrderDetail(arrOrdersDetal: OrdersDetailModel[]):Observable<any>{
+  return this.http.post(this.apiPurchases, arrOrdersDetal, { observe: 'response', responseType: 'text' as 'json'  });
+    
+}
 
-    } */
-  }
+
+
+
 }

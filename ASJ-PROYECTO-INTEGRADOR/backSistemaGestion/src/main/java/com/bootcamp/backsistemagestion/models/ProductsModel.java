@@ -98,12 +98,6 @@ public class ProductsModel {
 
 
 
-	public void setProducts_id(Integer products_id) {
-		this.products_id = products_id;
-	}
-
-
-
 	public String getProducts_sku() {
 		return products_sku;
 	}

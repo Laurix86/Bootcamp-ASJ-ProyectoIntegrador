@@ -7,7 +7,7 @@ import { TaxCategoriesModel } from 'src/app/models/taxCategoriesModel';
 import { ProvidersModel } from 'src/app/models/providersModel';
 import { ProveedoresService } from 'src/app/services/proveedores.service';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 import { CuitFormatPipe } from '../../pipes/cuit-format.pipe';
 
 @Component({
@@ -17,8 +17,10 @@ import { CuitFormatPipe } from '../../pipes/cuit-format.pipe';
 })
 export class CreateProviderComponent implements OnInit{
  
-  constructor(private fb: FormBuilder, public proveedoresService:ProveedoresService,
-    private activeRoute:ActivatedRoute, private router:Router){
+  constructor(private fb: FormBuilder, 
+    public proveedoresService:ProveedoresService,
+    private activeRoute:ActivatedRoute, 
+    private router:Router){
 
     this.providersForm = this.fb.group({
       providers_id:[-1],

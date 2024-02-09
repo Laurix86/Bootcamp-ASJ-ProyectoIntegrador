@@ -26,6 +26,7 @@ public class OrdersDetailModel {
 	private Double orders_detail_product_price;
 	private Integer orders_detail_quantity;
 	
+	
 	//@JsonBackReference
 	@ManyToOne(fetch = FetchType.EAGER)
 	private ProductsModel products_id;
@@ -41,7 +42,7 @@ public class OrdersDetailModel {
 	public OrdersDetailModel() {
 		
 	}
-	public OrdersDetailModel(Integer orders_detail_id, Double orders_detail_product_price,
+	/*public OrdersDetailModel(Integer orders_detail_id, Double orders_detail_product_price,
 			Integer orders_detail_quantity, ProductsModel products_id, PurchasesOrderModel purchases_order_id) {
 		this.orders_detail_id = orders_detail_id;
 		this.orders_detail_product_price = orders_detail_product_price;
@@ -49,7 +50,7 @@ public class OrdersDetailModel {
 		this.products_id = products_id;
 		this.purchases_order_id = purchases_order_id;
 		this.created_at = Instant.now();
-	}
+	}*/
 	
 	@PrePersist
     private void prePersist() {
@@ -97,8 +98,6 @@ public class OrdersDetailModel {
 	public Instant getCreated_at() {
 		return created_at;
 	}
-	
-	
-	
 
+	
 }

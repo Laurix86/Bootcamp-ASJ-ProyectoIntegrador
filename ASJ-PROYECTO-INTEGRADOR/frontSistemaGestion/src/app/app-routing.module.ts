@@ -5,7 +5,7 @@ import { DisplayProveedoresComponent } from './components/proveedores/display-pr
 import { DisplayProductsComponent } from './components/products/display-products/display-products.component';
 //import { DisplayOrdersComponent } from './components/orders/display-orders/display-orders.component';
 //import { CreateProveedoresComponent } from './components/proveedores/create-proveedores/create-proveedores.component';
-//import { CreateOrdersComponent } from './components/orders/create-orders/create-orders.component';
+import { CreateOrdersComponent } from './components/orders/create-orders/create-orders.component';
 import { CreateProductsComponent } from './components/products/create-products/create-products.component';
 import { MainComponent } from './components/main/main.component';
 //import { ShowOrderComponent } from './components/orders/show-order/show-order.component';
@@ -22,7 +22,7 @@ const routes: Routes = [
   {path: 'productos/nuevo', component: CreateProductsComponent},
   {path: 'productos/:idProducto', component: CreateProductsComponent},
  // {path: 'ordenes', component: DisplayOrdersComponent},
- // {path: 'ordenes/nueva-orden', component: CreateOrdersComponent},
+  {path: 'ordenes/nueva-orden', component: CreateOrdersComponent},
  // {path: 'ordenes/:idOrden', component: ShowOrderComponent},
   //{path: 'providers', component: CreateProviderComponent},
 

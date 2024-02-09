@@ -1,87 +1,224 @@
 <div class="row ">
     <div class="col-12 ">
         <h3>{{title}}</h3>
-        <form #miForm="ngForm" (ngSubmit)="submitOrder(miForm)">
-            <!-- <input type="hidden" name="id" [(ngModel)]="provider.id"> -->
-            <div class="row m-2">
-            <div class="col-md-4 col-lg-4">
 
-                <div class="mb-3">
-                    <label class="form-label" for="providerOrder">Proveedor</label>
-                    <select class="form-select " name="providerOrder" id="providerOrder"  [(ngModel)]="order.providerOrder"  (ngModelChange)="setProducts($event)" required >
-                       
-                        <option *ngFor="let item of providersList, index as i" value="{{item}}"  >{{item}}</option>
-                      
-                    </select>
-                    
-                  </div>   
+        <form [formGroup]="purchasesOrdersForm" (ngSubmit)="submitOrder()">
+            <div class="row">
+                <input type="text" class="form-control" placeholder="Código Orden" formControlName="purchases_order_id"
+                    hidden>
+                <div class="col-md-4 mb-3">
+                    <div class="row">
+                        <div class="col">
+                            <label class="form-label">Orden Nro. <span class="text-danger"
+                                    *ngIf="purchasesOrdersForm.get('purchases_order_code')?.hasError('required')">
+                                    *</span></label>
+                            <input type="text" class="form-control" placeholder="Código Proveedor"
+                                formControlName="purchases_order_code">
+                            <div *ngIf="purchasesOrdersForm.get('purchases_order_code')?.hasError('minlength')"
+                                class="form-text text-danger">
+                                Debe tener al menos 2 caracteres
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label class="form-label">Fecha:</label>
+                            <label  class="form-control"
+                                formControlName="purchases_order_date">{{today}}</label>
 
-                  <div class="mb-3">
-                    <label class="form-label" for="productsOrder">Producto</label>
-                    <select class="form-select " name="productsOrder" id="productsOrder" [(ngModel)]="productoSeleccionado"    required >
-                       
-                        <option *ngFor="let item of prodByCategoryList, index as i" value="{{item.id}}"  >{{item.nombre}}</option>
-                      
-                    </select>
-                    
-                    <input type="number" name="cantidadProd" [(ngModel)]="cantidadProd" placeholder="1" value="1">
-                    <a class="btn btn-dark " (click)="addProducts()"> Agregar</a>
-                  </div> 
-                  
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
 
+                            <label for="delivery">Fecha estimada de entrega:</label>
+                            <input type="date" class="form-control " formControlName="purchases_order_delivery_date"
+                            [min]="today | date:'yyyy-dd-MM'"
+                                >
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label class="form-label">Información adicional: </label>
+                            <input type="text" class="form-control" placeholder="Información adicional"
+                                formControlName="purchases_order_information">
+                            <div *ngIf="purchasesOrdersForm.get('purchases_order_information')?.hasError('minlength')"
+                                class="form-text text-danger">
+                                Debe tener al menos 3 caracteres
+                            </div>
+                        </div>
+                    </div>
                 </div>
-        <div class="col-md-4 col-lg-4">
-              <div class="mb-3">
-                  <label class="form-label">Orden Nro:</label>
-                  <input type="number" class="form-control"  placeholder="Número de Orden" name="orderNumber" [(ngModel)]="order.orderNumber" required #orderNumber="ngModel">
-  
-                  <div *ngIf="orderNumber.errors?.['required'] " class="col-auto">
-                      <span class="form-text text-danger">
-                          El dato es obligatorio
-                      </span>
-                  </div>
-              </div>
-             
+
+                <div class="col-md-4 mb-3">
+                    <div class="row">
+                        <div class="col">
+                            <label class="form-label" for="providers_id">Proveedor<span class="text-danger"
+                                    *ngIf="purchasesOrdersForm.get('providers_id')?.hasError('required')">
+                                    *</span></label>
+
+                            <select class="form-select" formControlName="providers_id"
+                                (ngModelChange)="showProducts($event)" required>
+                                <option *ngFor="let item of providersList" [value]="item.providers_id">
+                                    {{item.providers_denomination}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <ng-container *ngIf="producstList">
+                                <div *ngFor="let prod of producstList">
+                                    <ul>
+                                        <li>{{prod.products_denomination}}
+                                            <ng-template #tooltipInfo>
+                                                <ul>
+                                                    <li> Descripción: {{prod.products_description}}</li>
+                                                    <li> $ {{prod.products_price}}</li>
+                                                </ul>
+                                            </ng-template>
+                                            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true"
+                                                [ngbTooltip]="tooltipInfo" [animation]="true"
+                                                tooltipClass="infoTooltip">
+                                                <i class="bi bi-info-circle-fill"></i>
+                                            </span>
+
+                                            <a
+                                                (click)="addProduct(prod.products_id,prod.products_denomination, prod.products_price)"
+                                                class="btn btn-link">
+                                                <i class="bi bi-plus"></i>
+                                        </a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </ng-container>
+
+                        </div>
+                    </div>
+                </div>
+
                 
-              
-              
-                  <div class="mb-3">
-                      <label class="form-label">Información Adicional</label>
-                      <input type="text" class="form-control" placeholder="Detalles para el proveedor" name="infoExtra" [(ngModel)]="order.infoExtra" #infoExtra="ngModel">
-                    
-                  </div>
-                  <div class="mb-3">
-                    <label for="delivery">Fecha estimada de entrega:</label>
-                    <input type="date" name="delivery" id="" min="2023-12-29" [(ngModel)]="order.deliveryDate" >
-                  </div>
-                 
-              </div>
-          
 
-          <div class="col-md-4 col-lg-4 p-2 ">
-            <h5>Detalle: </h5>
-            <p>Fecha: {{order.orderDate}}</p>
-            <ul>
-                <li *ngFor="let d of arrProdDetail">
-                    {{d.cant }} {{d.nombre}} {{d.valorProds | currency: '$'}}
-                </li>
-            </ul>
-            
-            <button type="submit" class="btn btn-outline-success me-2" [disabled]="!miForm.valid">Guardar</button>
-            <button class="btn btn-outline-warning " (click)="resetForm(miForm)">Limpiar</button>
-              
+                <div class="col-md-4 mb-3">
+                    <div class="row p-3 m2">
+                        <div class="col">
+                            <div  *ngIf="orderDetailArr">
 
-          </div>
-        </div>
-          <div class="row">
-              <div class="col float-end  ">
-                  </div>
-          </div>
-       
+                                <h5>Detalle de productos: </h5>
+                            
+                            <ul *ngFor="let detail of orderDetailArr; index as i">
+                                <li>
+                                    {{detail.products_id.products_denomination}}
+                                   <input  type="number" [value]="detail.orders_detail_quantity"  style="width: 50px;">
+                                    ${{detail.orders_detail_product_price * detail.orders_detail_quantity}}
+                                    <i class="bi bi-x-circle" (click)="deleteProduct(i)"></i>
+                                </li>
+                            </ul>
+                        </div>
+                        <ng-container  *ngIf="subTotal">
+                            <div class="border-top">
+                            <label   for="subTotal"  class="form-label">SubTotal => ${{subTotal}}</label>
+                        </div>
+                        </ng-container>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
         </form>
-        <div *ngIf="msg" class="alert alert-success alert-dismissible fade show mt-4" role="alert">
-            {{msg}}
-            <button type="button" class="btn-close " data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
+
+
+
+
+
     </div>
 </div>
+
+
+
+<!-- ------------------ ----------------- -------------------- -->
+<!--<form #miForm="ngForm" (ngSubmit)="submitOrder(miForm)">
+     <input type="hidden" name="id" [(ngModel)]="provider.id"> 
+    <div class="row m-2">
+    <div class="col-md-4 col-lg-4">
+
+        <div class="mb-3">
+            <label class="form-label" for="providerOrder">Proveedor</label>
+            <select class="form-select " name="providerOrder" id="providerOrder"  [(ngModel)]="order.providerOrder"  (ngModelChange)="setProducts($event)" required >
+               
+                <option *ngFor="let item of providersList, index as i" value="{{item}}"  >{{item}}</option>
+              
+            </select>
+            
+          </div>   
+
+          <div class="mb-3">
+            <label class="form-label" for="productsOrder">Producto</label>
+            <select class="form-select " name="productsOrder" id="productsOrder" [(ngModel)]="productoSeleccionado"    required >
+               
+                <option *ngFor="let item of prodByCategoryList, index as i" value="{{item.id}}"  >{{item.nombre}}</option>
+              
+            </select>
+            
+            <input type="number" name="cantidadProd" [(ngModel)]="cantidadProd" placeholder="1" value="1">
+            <a class="btn btn-dark " (click)="addProducts()"> Agregar</a>
+          </div> 
+          
+
+        </div>
+<div class="col-md-4 col-lg-4">
+      <div class="mb-3">
+          <label class="form-label">Orden Nro:</label>
+          <input type="number" class="form-control"  placeholder="Número de Orden" name="orderNumber" [(ngModel)]="order.orderNumber" required #orderNumber="ngModel">
+
+          <div *ngIf="orderNumber.errors?.['required'] " class="col-auto">
+              <span class="form-text text-danger">
+                  El dato es obligatorio
+              </span>
+          </div>
+      </div>
+     
+        
+      
+      
+          <div class="mb-3">
+              <label class="form-label">Información Adicional</label>
+              <input type="text" class="form-control" placeholder="Detalles para el proveedor" name="infoExtra" [(ngModel)]="order.infoExtra" #infoExtra="ngModel">
+            
+          </div>
+          <div class="mb-3">
+            <label for="delivery">Fecha estimada de entrega:</label>
+            <input type="date" name="delivery" id="" min="2023-12-29" [(ngModel)]="order.deliveryDate" >
+          </div>
+         
+      </div>
+  
+
+  <div class="col-md-4 col-lg-4 p-2 ">
+    <h5>Detalle: </h5>
+    <p>Fecha: {{order.orderDate}}</p>
+    <ul>
+        <li *ngFor="let d of arrProdDetail">
+            {{d.cant }} {{d.nombre}} {{d.valorProds | currency: '$'}}
+        </li>
+    </ul>
+    
+    <button type="submit" class="btn btn-outline-success me-2" [disabled]="!miForm.valid">Guardar</button>
+    <button class="btn btn-outline-warning " (click)="resetForm(miForm)">Limpiar</button>
+      
+
+  </div>
+</div>
+  <div class="row">
+      <div class="col float-end  ">
+          </div>
+  </div>
+
+</form>
+<div *ngIf="msg" class="alert alert-success alert-dismissible fade show mt-4" role="alert">
+    {{msg}}
+    <button type="button" class="btn-close " data-bs-dismiss="alert" aria-label="Close"></button>
+</div>-->

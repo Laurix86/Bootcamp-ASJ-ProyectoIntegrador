@@ -1,5 +1,5 @@
 export interface ProductsModel{
-    products_id?:number,
+    products_id:number,
     products_sku: string,
     products_denomination: string,
     products_description: string,
