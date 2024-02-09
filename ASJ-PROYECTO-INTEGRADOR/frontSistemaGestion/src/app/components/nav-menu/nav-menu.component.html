@@ -6,7 +6,49 @@
       </button>
     
       <div class=" collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav ms-auto ">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link mx-2 active" aria-current="page" href="#">Inicio</a>
+          </li>
+          <li ngbDropdown class="nav-item">
+            <div ngbDropdown class="d-inline-block">
+              <a class="nav-link mx-2 dropdown-toggle" id="proveedoresDropdown" ngbDropdownToggle>
+                Proveedores
+              </a>
+              <div ngbDropdownMenu aria-labelledby="proveedoresDropdown">
+                <a class="dropdown-item" routerLink="/proveedores/nuevo">Nuevo Proveedor</a>
+                <a class="dropdown-item" routerLink="/proveedores">Listado de Proveedores</a>
+              </div>
+            </div>
+          </li>
+          <li ngbDropdown class="nav-item">
+            <div ngbDropdown class="d-inline-block">
+              <a class="nav-link mx-2 dropdown-toggle" id="productosDropdown" ngbDropdownToggle>
+                Productos
+              </a>
+              <div ngbDropdownMenu aria-labelledby="productosDropdown">
+                <a class="dropdown-item" routerLink="/productos/nuevo">Nuevo Producto</a>
+                <a class="dropdown-item" routerLink="/productos">Listado de Productos</a>
+              </div>
+            </div>
+          </li>
+          <li ngbDropdown class="nav-item">
+            <div ngbDropdown class="d-inline-block">
+              <a class="nav-link mx-2 dropdown-toggle" id="ordenesDropdown" ngbDropdownToggle>
+                Ordenes
+              </a>
+              <div ngbDropdownMenu aria-labelledby="ordenesDropdown">
+                <a class="dropdown-item" routerLink="/ordenes/nueva-orden">Nueva Orden</a>
+                <a class="dropdown-item" routerLink="/ordenes">Listado de Ordenes</a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    </nav>
+
+       <!-- <ul class="navbar-nav ms-auto ">
           <li class="nav-item">
             <a class="nav-link mx-2 active" aria-current="page" href="#">Inicio</a>
           </li>
@@ -20,7 +62,15 @@
             <a class="nav-link mx-2" routerLink="/ordenes" routerLinkActive="active">Ordenes</a>
           </li>
 
-          <!-- <li class="nav-item dropdown">
+       
+
+
+        </ul>
+        
+        
+        
+        
+        <li class="nav-item dropdown">
             <a class="nav-link mx-2 dropdown-toggle"routerLink="/ordenes" 
                 routerLinkActive="active" id="navbarDropdownMenuLink"   
                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -31,9 +81,3 @@
               <li><a class="dropdown-item dropdown-menu-item" routerLink="/ordenes/nueva-orden">Nueva Orden</a></li>
             </ul> 
           </li> -->
-
-
-        </ul>
-      </div>
-    </div>
-    </nav>
