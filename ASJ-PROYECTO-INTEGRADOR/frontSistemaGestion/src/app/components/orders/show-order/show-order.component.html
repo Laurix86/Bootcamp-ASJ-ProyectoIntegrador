@@ -1,8 +1,11 @@
 <h3>Detalle de la orden</h3>
 <ul class="list-group  "  style="list-style-type: none;">
-    <li>03 - Productos ---------- $1.000</li>
-    <li>Proveedor elegido</li>
-    <li>Fecha de creación de la orden</li>
-    <li>Fecha estimada de entrega</li>
-    <li>Valor total de la orden</li>
+    <ng-container *ngFor="let item of ordersDetailArr">
+    <li>{{item.products_id.products_denomination}} => cantidad: {{item.orders_detail_quantity}} - Valor: {{item.orders_detail_product_price | currency:'ARS' :'$'}}</li>
+</ng-container>
+    <li>Proveedor: {{purchaseOrder.providers_id.providers_denomination}}</li>
+    <li>Fecha de creación de la orden : {{purchaseOrder.purchases_order_date | date:'dd-MM-yyyy'}}</li>
+    <li>Fecha estimada de entrega: {{purchaseOrder.purchases_order_delivery_date | date:'dd-MM-yyyy'}}</li>
+    <li>Valor total de la orden: {{purchaseOrder.purchases_order_final_price | currency:'ARS' :'$'}}</li>
+
 </ul>

@@ -1,20 +1,36 @@
 <div class="row">
     <div class="col-md-12">
+
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="">Inicio</a></li>
+            <li class="breadcrumb-item active">Listado de Órdenes</li>
+        </ol>
+
         <div class="row">
             <div class="col-md-5 ">
 
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a routerLink="">Inicio</a></li>
-                    <li class="breadcrumb-item active">Listado de Órdenes</li>
-                </ol>
 
-                <button class="btn btn-sm btn-info  float-end " routerLink="/ordenes/nueva-orden"> + Nueva orden</button>
+
+                <button class="btn btn-sm btn-info  float-end " routerLink="/ordenes/nueva-orden"> + Nueva
+                    orden</button>
             </div>
             <div class="col-md-5 ">
                 <input type="text" placeholder="Buscar" [(ngModel)]="search" class="input float-end ">
             </div>
         </div>
+
+        <div class="row">
+            <div class="col">
+
+                <button class="btn btn-sm btn-info" (click)="filterOrders('pendientes')">Mostrar Pendientes</button>
+                <button class="btn btn-sm btn-info" (click)="filterOrders('finalizadas')">Mostrar Finalizadas</button>
+                <button class="btn btn-sm btn-info" (click)="filterOrders('activas')">Mostrar Activas</button>
+                <button class="btn btn-sm btn-info" (click)="filterOrders('inactivas')">Mostrar Inactivas</button>
+                <button class="btn btn-sm btn-info" (click)="filterOrders('todas')">Mostrar Todas</button>
+            </div>
+        </div>
         <table class="table table-hover m-5 text-center border-info">
+
             <thead class="border-bottom">
                 <th>Cod.</th>
                 <th>Fecha</th>
@@ -24,21 +40,37 @@
                 <th>Acciones</th>
             </thead>
             <tbody>
-                <tr *ngIf="empty">
-                    <td colspan="5" >{{empty}}</td> 
-                </tr>
-                <tr *ngFor="let p of ordersList | filterPipe: search" >
-                    
+                <!-- <tr *ngIf="empty">
+                    <td colspan="5">{{empty}}</td>
+                </tr> -->
+                <tr *ngFor="let p of ordersList | filterPipe: search | ordersFilter: orderStatus">
+                  
                     <td>{{p.purchases_order_code}}</td>
                     <td>{{p.purchases_order_date}}</td>
                     <td>{{p.providers_id.providers_denomination}}</td>
                     <td>{{p.purchases_order_final_price | currency:'ARS' :'$'}}</td>
-                    <td>{{p.purchases_order_delivery_date}}</td>
+                    <td>{{p.purchases_order_delivery_date| date:'dd-MM-yyyy'}}</td>
+
                     <td>
-                        <button class="btn btn-sm btn-outline-secondary  m-1" routerLink="/ordenes/{{p.id}}">Ver</button>
-                        <button class="btn btn-sm btn-outline-danger m-1" (click)="desactivarOrder(p.id)">Eliminar</button>
+                        <button class="btn btn-sm btn-outline-secondary m-1" routerLink="/ordenes/{{p.purchases_order_id}}">
+                            <i class="bi bi-eye-fill"></i> 
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger m-1" (click)="desactivarOrder(p.purchases_order_id, p)">
+                            <i class="bi bi-trash-fill" [ngClass]="{'text-success': !p.is_active}"></i> 
+                        </button>
                     </td>
+
+
+                    <!-- <td>
+                        <button class="btn btn-sm btn-outline-secondary  m-1"
+                            routerLink="/ordenes/{{p.purchases_order_id}}">Ver</button>
+                        <button class="btn btn-sm btn-outline-danger m-1"
+                            (click)="desactivarOrder(p.purchases_order_id)">Eliminar</button>
+                    </td> -->
                 </tr>
+                <tr *ngIf="(ordersList | filterPipe: search | ordersFilter: orderStatus).length === 0">
+                    <td colspan="6">No hay órdenes para mostrar</td>
+                  </tr>
             </tbody>
 
         </table>

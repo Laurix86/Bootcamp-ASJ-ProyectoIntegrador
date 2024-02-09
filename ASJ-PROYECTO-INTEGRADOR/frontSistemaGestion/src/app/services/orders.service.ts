@@ -53,6 +53,16 @@ public saveOrderDetail(arrOrdersDetal: OrdersDetailModel[]):Observable<any>{
 }
 
 
+public inactivateOrder(orderId: number, auxOrder: PurchasesOrderModel):Observable<any>{
+  return this.http.put(this.apiPurchases+`/active/${orderId}`, auxOrder, { observe: 'response', responseType: 'text' as 'json'  });
+}
 
+getPurchaseOrderById(orderId: number):Observable<any>{
+  return this.http.get(this.apiPurchases+`/${orderId}`)
+}
+
+getOrdersDetailByPurchaseOrderId(purchasId:number):Observable<any>{
+  return this.http.get(this.apiOrdersDetail+`/orders-by-purchase/${purchasId}`)
+}
 
 }

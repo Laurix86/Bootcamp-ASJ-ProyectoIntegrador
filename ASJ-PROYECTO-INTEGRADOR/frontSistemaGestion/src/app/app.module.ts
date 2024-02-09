@@ -17,12 +17,14 @@ import { DisplayProductsComponent } from './components/products/display-products
 import { CreateOrdersComponent } from './components/orders/create-orders/create-orders.component';
 import { DisplayOrdersComponent } from './components/orders/display-orders/display-orders.component';
 import { filterPipePipe } from './components/pipes/filterPipe.pipe';
-//import { ShowOrderComponent } from './components/orders/show-order/show-order.component';
+import { ShowOrderComponent } from './components/orders/show-order/show-order.component';
 import { MainComponent } from './components/main/main.component';
 import { CreateProviderComponent } from './components/providers/create-provider/create-provider.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CuitFormatPipe } from './components/pipes/cuit-format.pipe';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
+import { OrdersFilterPipe } from './pipes/orders-filter.pipe';
+import { FilterProductsPipe } from './components/pipes/filter-products.pipe';
 
 @NgModule({
   declarations: [
@@ -37,10 +39,12 @@ import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
     CreateOrdersComponent,
     DisplayOrdersComponent,
     filterPipePipe,
-   // ShowOrderComponent,
+    ShowOrderComponent,
     MainComponent,
     CreateProviderComponent,
-    CuitFormatPipe
+    CuitFormatPipe,
+    OrdersFilterPipe,
+    FilterProductsPipe
   ],
   imports: [
     BrowserModule,

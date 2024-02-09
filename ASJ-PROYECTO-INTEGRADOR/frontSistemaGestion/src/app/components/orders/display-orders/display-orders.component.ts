@@ -12,6 +12,7 @@ import { Tooltip} from 'bootstrap';
 export class DisplayOrdersComponent {
 
   public purchaseOrder: PurchasesOrderModel={
+    purchases_order_id:-1,
     purchases_order_code: '',
     purchases_order_date: new Date(),
     purchases_order_delivery_date: new Date(),
@@ -23,7 +24,7 @@ export class DisplayOrdersComponent {
       providers_id: 0,
       providers_denomination: ''
     },
-    purchases_order_id: 0
+    
   }
 
   public orderDetail: OrdersDetailModel={
@@ -43,18 +44,20 @@ export class DisplayOrdersComponent {
   ordersList: PurchasesOrderModel[]=[];
   search: string = "";
   empty = "";
+  orderStatus: string = 'todas';
 
   ngOnInit():void{
     this.getOrdersToShow();
-    if(this.ordersList.length == 0){
-      this.empty = "No hay ordenes para mostrar"
-    }
+    
   }
 
   getOrdersToShow(){
     this.ordersService.getAllOrders().subscribe({
       next:(data) => {
         this.ordersList = data;
+        if(this.ordersList.length == 0){
+          this.empty = "No hay ordenes para mostrar"
+        }
       },
       error: (error)=>{
         Swal.fire({
@@ -72,8 +75,36 @@ export class DisplayOrdersComponent {
 
   }
 
-  desactivarOrder(id:number){
+  filterOrders(status: string): void {
+    this.orderStatus = status;
+  }
 
+  desactivarOrder(id:number, auxOrder: PurchasesOrderModel){
+
+    Swal.fire({
+      title: "Va a cambiar el estado de la orden seleccionada",
+      text: "Si está seguro, presione para continuar, sino cancelar",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Continuar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.ordersService.inactivateOrder(id, auxOrder).subscribe(
+          (data)=> this.getOrdersToShow()
+
+
+        )
+      /*  Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+        });*/
+      }
+    });
+
+    
   }
   
 }

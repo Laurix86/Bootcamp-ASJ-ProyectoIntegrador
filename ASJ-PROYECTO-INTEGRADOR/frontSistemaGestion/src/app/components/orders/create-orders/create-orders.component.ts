@@ -243,7 +243,7 @@ setPurchaseOrder(){
               timer: 1500
             });
     
-            this.router.navigate(['/orders']);
+            this.router.navigate(['/ordenes']);
           }else{
             Swal.fire({
               position: "top-end",

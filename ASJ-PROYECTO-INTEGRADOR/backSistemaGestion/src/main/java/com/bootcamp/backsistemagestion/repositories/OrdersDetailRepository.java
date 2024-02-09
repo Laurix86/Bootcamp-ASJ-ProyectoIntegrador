@@ -10,7 +10,7 @@ import com.bootcamp.backsistemagestion.models.OrdersDetailModel;
 
 public interface OrdersDetailRepository extends JpaRepository<OrdersDetailModel, Integer> {
 	
-	@Query(value= "SELECT od.* FROM orders_detail od WHERE od.purchases_order_id = :purchaseOrderId", nativeQuery = true)
-	List<OrdersDetailModel> getDetailsByPurchasesOrder(@Param("purchaseOrderId") Integer purchaseOrderId);
+	@Query(value= "SELECT od.* FROM orders_detail od WHERE od.purchases_order_id_purchases_order_id = :purchaseOrderId", nativeQuery = true)
+	List<OrdersDetailModel> getDetailsByPurchasesOrder(@Param("purchaseOrderId") int purchaseOrderId);
 	
 }

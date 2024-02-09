@@ -8,8 +8,12 @@ import { DisplayOrdersComponent } from './components/orders/display-orders/displ
 import { CreateOrdersComponent } from './components/orders/create-orders/create-orders.component';
 import { CreateProductsComponent } from './components/products/create-products/create-products.component';
 import { MainComponent } from './components/main/main.component';
-//import { ShowOrderComponent } from './components/orders/show-order/show-order.component';
+import { ShowOrderComponent } from './components/orders/show-order/show-order.component';
 import { CreateProviderComponent } from './components/providers/create-provider/create-provider.component';
+
+
+
+
 
 const routes: Routes = [
   {path: '', component: MainComponent},
@@ -21,9 +25,9 @@ const routes: Routes = [
   {path: 'productos', component: DisplayProductsComponent},
   {path: 'productos/nuevo', component: CreateProductsComponent},
   {path: 'productos/:idProducto', component: CreateProductsComponent},
-  {path: 'orders', component: DisplayOrdersComponent},
+  {path: 'ordenes', component: DisplayOrdersComponent},
   {path: 'ordenes/nueva-orden', component: CreateOrdersComponent},
- // {path: 'ordenes/:idOrden', component: ShowOrderComponent},
+  {path: 'ordenes/:idOrden', component: ShowOrderComponent},
   //{path: 'providers', component: CreateProviderComponent},
 
   
@@ -42,3 +46,37 @@ export class AppRoutingModule { }
  
 
 export const routing = RouterModule.forRoot(routes);
+
+
+/*
+REVISAR
+const routes: Routes = [
+  {path: '', component: MainComponent},
+  {path: 'inicio', component: MainComponent},
+  {
+    
+    path: 'proveedores',
+    component: DisplayProveedoresComponent,
+    children: [
+      { path: 'nuevo', component: CreateProviderComponent },
+      { path: ':idProveedor', component: CreateProviderComponent }
+    ]
+  },
+  {
+    path: 'productos',
+    component: DisplayProductsComponent,
+    children: [
+      { path: 'nuevo', component: CreateProductsComponent },
+      { path: ':idProducto', component: CreateProductsComponent }
+    ]
+  },
+  {
+    path: 'ordenes',
+    component: DisplayOrdersComponent,
+    children: [
+      { path: 'nueva-orden', component: CreateOrdersComponent },
+      { path: ':idOrden', component: ShowOrderComponent }
+    ]
+  },
+  {path: '**', pathMatch:'full', redirectTo: 'MainComponent'},
+];*/

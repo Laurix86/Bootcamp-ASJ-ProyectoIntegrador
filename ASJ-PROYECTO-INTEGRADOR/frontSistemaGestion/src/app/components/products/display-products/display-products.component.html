@@ -7,7 +7,7 @@
 
         <div class="row">
             <div class="col-md-5 ">
-                
+
                 <button class="btn btn-sm btn-info  float-end " routerLink="/productos/nuevo"> + Nuevo Producto</button>
             </div>
             <div class="col-md-5 ">
@@ -25,22 +25,31 @@
             </thead>
             <tbody>
                 <tr *ngIf="empty">
-                    <td colspan="5" >{{empty}}</td> 
+                    <td colspan="5">{{empty}}</td>
                 </tr>
-                <tr *ngFor="let p of productsList | filterPipe: search" >
-                    <td> <img  [src]="p.image ? p.image : 'https://tacm.com/wp-content/uploads/2018/01/no-image-available.jpeg'" alt="Logo proveedor" width="50" height="50"> </td>
+                <tr *ngFor="let p of productsList | filterProducts: search">
+                    <td> <img
+                            [src]="p.image ? p.image : 'https://tacm.com/wp-content/uploads/2018/01/no-image-available.jpeg'"
+                            alt="Logo proveedor" width="50" height="50"> </td>
                     <td>
                         <ul style="list-style-type: none;">
-                        <li>{{p.products_sku}}</li>
-                        <li>{{p.products_denomination}}</li>
-                    </ul>
+                            <li>{{p.products_sku}}</li>
+                            <li>{{p.products_denomination}}</li>
+                        </ul>
                     </td>
                     <td>{{p.categories_id.categories_denominations}}</td>
                     <td>{{p.products_price | currency:'ARS' :'$'}}</td>
                     <td>{{p.providers_id.providers_denomination}}</td>
                     <td>
-                        <button class="btn btn-sm btn-outline-secondary  m-1" routerLink="/productos/{{p.id}}">Editar</button>
-                        <button class="btn btn-sm btn-outline-danger m-1" (click)="desactivarProd(p.id)">Eliminar</button>
+                        <button class="btn btn-sm btn-outline-secondary m-1" routerLink="/productos/{{p.products_id}}">
+                            <i class="bi bi-eye-fill"></i> 
+                        </button>
+                        <button class="btn btn-sm btn-outline-secondary m-1" routerLink="/productos/{{p.products_id}}">
+                            <i class="bi bi-pencil-square"></i> 
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger m-1" (click)="desactivarProd(p.products_id)">
+                            <i class="bi bi-trash"></i> 
+                        </button>
                     </td>
                 </tr>
             </tbody>
