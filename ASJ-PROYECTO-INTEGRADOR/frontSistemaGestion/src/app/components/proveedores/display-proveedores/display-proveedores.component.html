@@ -48,8 +48,15 @@
                       </span>
                     </td>
                     <td>
-                        <button class="btn btn-sm btn-outline-secondary  m-1" routerLink="/proveedores/{{p.providers_id}}">Editar</button>
-                        <button class="btn btn-sm btn-outline-danger m-1" (click)="desactivarProv(p.providers_id, p.providers_denomination)">Eliminar</button>
+                        <button class="btn btn-sm btn-outline-secondary m-1" routerLink="/proveedores/{{p.providers_id}}">
+                            <i class="bi bi-eye-fill"></i> 
+                        </button>
+                        <button class="btn btn-sm btn-outline-secondary m-1" routerLink="/proveedores/{{p.providers_id}}">
+                            <i class="bi bi-pencil"></i> 
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger m-1" (click)="desactivarProv(p.providers_id, p.providers_denomination)">
+                            <i class="bi bi-trash"></i> 
+                        </button>
                     </td>
                 </tr>
             </tbody>
