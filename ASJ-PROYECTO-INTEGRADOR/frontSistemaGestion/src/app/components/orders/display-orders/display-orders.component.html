@@ -43,7 +43,7 @@
                 <!-- <tr *ngIf="empty">
                     <td colspan="5">{{empty}}</td>
                 </tr> -->
-                <tr *ngFor="let p of ordersList | filterPipe: search | ordersFilter: orderStatus">
+                <tr *ngFor="let p of ordersList | ordersFilter: orderStatus">
                   
                     <td>{{p.purchases_order_code}}</td>
                     <td>{{p.purchases_order_date}}</td>
@@ -68,7 +68,7 @@
                             (click)="desactivarOrder(p.purchases_order_id)">Eliminar</button>
                     </td> -->
                 </tr>
-                <tr *ngIf="(ordersList | filterPipe: search | ordersFilter: orderStatus).length === 0">
+                <tr *ngIf="(ordersList |  ordersFilter: orderStatus).length === 0">
                     <td colspan="6">No hay órdenes para mostrar</td>
                   </tr>
             </tbody>

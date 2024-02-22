@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from "@angular/core";
 
 @Pipe({
-    name: 'filterPipe'
+    name: 'filterProviders'
 })
 
 export class filterPipePipe implements PipeTransform{
@@ -13,7 +13,7 @@ export class filterPipePipe implements PipeTransform{
         //filtrar sólo por razón social -- para agregar
 
         return value.filter((item) =>
-            JSON.stringify(item).toLowerCase().includes(args));
+            JSON.stringify(item.providers_denomination).toLowerCase().includes(args) || JSON.stringify(item.providers_code).toLowerCase().includes(args));
     }
 
     

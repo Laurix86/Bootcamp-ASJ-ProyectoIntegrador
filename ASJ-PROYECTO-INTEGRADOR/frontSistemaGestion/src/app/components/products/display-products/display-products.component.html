@@ -30,7 +30,7 @@
                 <tr *ngFor="let p of productsList | filterProducts: search">
                     <td> <img
                             [src]="p.image ? p.image : 'https://tacm.com/wp-content/uploads/2018/01/no-image-available.jpeg'"
-                            alt="Logo proveedor" width="50" height="50"> </td>
+                            alt="Imagen producto {{p.products_denomination}}" width="50" height="50"> </td>
                     <td>
                         <ul style="list-style-type: none;">
                             <li>{{p.products_sku}}</li>

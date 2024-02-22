@@ -1,70 +1,69 @@
-<div class="row">
-    <div class="col-md-12">
-
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a routerLink="">Inicio</a></li>
-            <li class="breadcrumb-item active">Listado de Proveedores</li>
-        </ol>
-
-        <div class="row">
-            <div class="col-md-5 ">
-                
-                <button class="btn btn-sm btn-info  float-end" routerLink="/proveedores/nuevo">+ Agregar Provedor</button>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="">Inicio</a></li>
+                <li class="breadcrumb-item active">Listado de Proveedores</li>
+            </ol>
+            <div class="row align-items-center">
+                <div class="col-md-6 mb-3">
+                    <input type="text" placeholder="Buscar" [(ngModel)]="search" class="form-control">
+                </div>
+                <div class="col-md-6 mb-3 text-end">
+                    <button class="btn btn-sm btn-info" routerLink="/proveedores/nuevo">+ Agregar Proveedor</button>
+                </div>
             </div>
-            <div class="col-md-5 ">
-                <input type="text" placeholder="Buscar" [(ngModel)]="search" class="input justify-content-end m-2">
+            <div class="table-responsive">
+                <table class="table table-hover text-center border-info">
+                    <thead class="border-bottom">
+                        <tr>
+                            <th>Logo</th>
+                            <th>Código</th>
+                            <th>Razón Social</th>
+                            <th>País - Provincia</th>
+                            <th>Contacto</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngIf="empty">
+                            <td colspan="6">{{empty}}</td> 
+                        </tr>
+                        <tr *ngFor="let p of providerList | filterProviders: search">
+                            <td>
+                                <img [src]="p.providers_logo ? p.providers_logo : 'https://tacm.com/wp-content/uploads/2018/01/no-image-available.jpeg'" alt="Logo proveedor" width="50" height="50">
+                            </td>
+                            <td>{{p.providers_code}}</td>
+                            <td>{{p.providers_denomination}}</td>
+                            <td>{{p.jurisdictions_id.countries.countries_name}} - {{p.jurisdictions_id.jurisdictions_name}}</td>
+                            <td>
+                                {{p.providers_contact_firstname}} {{p.providers_contact_lastname}}
+                                <ng-template #tooltipInfo>
+                                    <ul>
+                                        <li>{{p.providers_contact_phone}}</li>
+                                        <li>{{p.providers_contact_email}}</li>
+                                        <li>{{p.providers_website}}</li>
+                                    </ul>
+                                </ng-template>
+                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true" [ngbTooltip]="tooltipInfo" [animation]="true" tooltipClass="infoTooltip">
+                                    <i class="bi bi-info-circle-fill"></i>
+                                </span>
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-secondary m-1" routerLink="/proveedores/{{p.providers_id}}">
+                                    <i class="bi bi-eye-fill"></i> 
+                                </button>
+                                <button class="btn btn-sm btn-outline-secondary m-1" routerLink="/proveedores/{{p.providers_id}}">
+                                    <i class="bi bi-pencil"></i> 
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger m-1" (click)="desactivarProv(p.providers_id, p.providers_denomination)">
+                                    <i class="bi bi-trash"></i> 
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-        <div class="col-12">
-            
-           
-        
-        <table class="table table-hover m-5 text-center border-info">
-            <thead class="border-bottom">
-                <th>Logo</th>
-                <th>Código</th>
-                <th>Razón Social</th>
-                <th>País - Provincia</th>
-                <th>Contacto</th>
-                <th>Acciones</th>
-            </thead>
-            <tbody>
-                <tr *ngIf="empty">
-                    <td colspan="5" >{{empty}}</td> 
-                </tr>
-                <tr *ngFor="let p of providerList | filterPipe: search" >
-                    <td> <img  [src]="p.providers_logo ? p.providers_logo : 'https://tacm.com/wp-content/uploads/2018/01/no-image-available.jpeg'" alt="Logo proveedor" width="50" height="50"> </td>
-                    <td>{{p.providers_code}}</td>
-                    <td>{{p.providers_denomination}}</td>
-                    <td> {{p.jurisdictions_id.countries.countries_name}} - {{p.jurisdictions_id.jurisdictions_name}}</td>
-                    <td>{{p.providers_contact_firstname}} <br>{{p.providers_contact_lastname}} 
-                        <ng-template #tooltipInfo><ul>
-                            <li>{{p.providers_contact_phone}}</li>
-                            <li>{{p.providers_contact_email}}</li>
-                            <li>{{p.providers_website}}</li>
-                        </ul></ng-template>
-                        <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true"[ngbTooltip]="tooltipInfo"[animation]="true" tooltipClass="infoTooltip">
-                        <i class="bi bi-info-circle-fill"></i>
-                      </span>
-                    </td>
-                    <td>
-                        <button class="btn btn-sm btn-outline-secondary m-1" routerLink="/proveedores/{{p.providers_id}}">
-                            <i class="bi bi-eye-fill"></i> 
-                        </button>
-                        <button class="btn btn-sm btn-outline-secondary m-1" routerLink="/proveedores/{{p.providers_id}}">
-                            <i class="bi bi-pencil"></i> 
-                        </button>
-                        <button class="btn btn-sm btn-outline-danger m-1" (click)="desactivarProv(p.providers_id, p.providers_denomination)">
-                            <i class="bi bi-trash"></i> 
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-
-        </table>
     </div>
-    </div>
-
-
 </div>
-<!-- <button routerLink="/user/{{prov.id}}"></button> -->
